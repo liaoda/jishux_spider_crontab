@@ -75,6 +75,4 @@ class CommonSpider(scrapy.Spider):
         item['keywords'] = keywords
         item['crawl_time'] = int(time.time())
         item['site_name'] = conf['cn_name']
-        item['type'] = conf['type']
-        item['module'] = conf['module']
         yield item

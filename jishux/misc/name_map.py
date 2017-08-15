@@ -13,8 +13,6 @@ common_map = {
         'posts_xpath': '//*[@class="postimg"]/li',
         'post_url_xpath': 'div/div/h3/a/@href',
         'post_title_xpath': 'div/div/h3/a/text()',
-        'module': 'brand',
-        'type': 'commerce',
     },
     'http://www.qdaily.com/categories/18.html/': {
         'url': 'http://www.qdaily.com/categories/18.html/',
@@ -23,8 +21,6 @@ common_map = {
         'posts_xpath': '//*[@class="packery-container articles"]/div',
         'post_url_xpath': 'a/@href',
         'post_title_xpath': 'a/div/div/img/@alt',
-        'module': 'brand',
-        'type': 'commerce',
     },
     'http://www.jiemian.com/lists/49.html': {
         'url': 'http://www.jiemian.com/lists/49.html',
@@ -33,8 +29,6 @@ common_map = {
         'posts_xpath': '//div[@id="load-list"]/div',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
-        'module': 'brand',
-        'type': 'commerce',
     },
     'http://www.toodaylab.com/field/308': {
         'url': 'http://www.toodaylab.com/field/308',
@@ -43,8 +37,6 @@ common_map = {
         'posts_xpath': '//*[@class="content"]/div',
         'post_url_xpath': 'div[@class="post-info"]/p/a/@href',
         'post_title_xpath': 'div[@class="post-info"]/p/a/text()',
-        'module': 'brand',
-        'type': 'commerce',
     },
     'http://www.madisonboom.com/category/works/': {
         'url': 'http://www.madisonboom.com/category/works/',
@@ -53,8 +45,6 @@ common_map = {
         'posts_xpath': '//*[@id="gallery_list_elements"]/li',
         'post_url_xpath': 'h3/a/@href',
         'post_title_xpath': 'h3/a/@title',
-        'module': 'brand',
-        'type': 'commerce',
     },
     'http://iwebad.com/': {
         'url': 'http://iwebad.com/',
@@ -63,8 +53,6 @@ common_map = {
         'posts_xpath': '//*[@class="new_search_works"]/div',
         'post_url_xpath': 'div[@class="works_info"]/h4/span/a/@href',
         'post_title_xpath': 'div[@class="works_info"]/h4/span/a/text()',
-        'module': 'brand',
-        'type': 'commerce',
     },
     'http://www.adquan.com/': {
         'url': 'http://www.adquan.com/',
@@ -73,8 +61,6 @@ common_map = {
         'posts_xpath': '//div[@class="w_l_inner"]',
         'post_url_xpath': 'h2/a/@href',
         'post_title_xpath': 'h2/a/text()',
-        'module': 'brand',
-        'type': 'commerce',
     },
     'http://www.digitaling.com/projects': {
         'url': 'http://www.digitaling.com/projects',
@@ -83,8 +69,6 @@ common_map = {
         'posts_xpath': '//div[@id="pro_list"]/div',
         'post_url_xpath': 'div[@class="works_bd"]/div/h3/a/@href',
         'post_title_xpath': 'div[@class="works_bd"]/div/h3/a/text()',
-        'module': 'brand',
-        'type': 'commerce',
     },
     'http://a.iresearch.cn/': {
         'url': 'http://a.iresearch.cn/',
@@ -93,8 +77,6 @@ common_map = {
         'posts_xpath': '//div[@id="tab-list"]/div/ul/li',
         'post_url_xpath': 'h3/a/@href',
         'post_title_xpath': 'h3/a/text()',
-        'module': 'brand',
-        'type': 'commerce',
     },
     'http://www.ebrun.com/brands/': {
         'url': 'http://www.ebrun.com/brands/',
@@ -103,8 +85,6 @@ common_map = {
         'posts_xpath': '//div[@id="create10"]/div[1]/div[@class="chanlDiv"]',
         'post_url_xpath': 'p/span/a/@href',
         'post_title_xpath': 'p/span/a/text()',
-        'module': 'brand',
-        'type': 'commerce',
     },
 
     # ********** product **********
@@ -115,8 +95,6 @@ common_map = {
         'posts_xpath': '//*[@class="mod-info-flow"]/div[@class="mod-b mod-art "]',
         'post_url_xpath': 'div[@class="mod-thumb "]/a/@href',
         'post_title_xpath': 'div[@class="mod-thumb "]/a/@title',
-        'module': 'product',
-        'type': 'commerce',
     },
     'http://api.cyzone.cn/index.php?m=content&c=index&a=init&tpl=index_page&page=1': {
         'url': 'http://api.cyzone.cn/index.php?m=content&c=index&a=init&tpl=index_page&page=1',
@@ -125,8 +103,6 @@ common_map = {
         'posts_xpath': '//div[@class="article-item clearfix"]',
         'post_url_xpath': 'div[@class="item-intro"]/a/@href',
         'post_title_xpath': 'div[@class="item-intro"]/a/text()',
-        'module': 'product',
-        'type': 'commerce',
     },
     'https://www.leiphone.com/': {
         'url': 'https://www.leiphone.com/',
@@ -135,8 +111,6 @@ common_map = {
         'posts_xpath': '//*[@class="lph-pageList index-pageList"]/div[2]/ul/li',
         'post_url_xpath': 'div/div[2]/h3/a/@href',
         'post_title_xpath': 'div/div[2]/h3/a/@title',
-        'module': 'product',
-        'type': 'commerce',
     },
     'http://www.iheima.com/': {
         'url': 'http://www.iheima.com/',
@@ -145,8 +119,6 @@ common_map = {
         'posts_xpath': '//article[@class="item-wrap cf"]',
         'post_url_xpath': 'div/div/a/@href',
         'post_title_xpath': 'div/div/a/text()',
-        'module': 'product',
-        'type': 'commerce',
     },
     'http://www.tmtpost.com/': {
         'url': 'http://www.tmtpost.com/',
@@ -155,8 +127,6 @@ common_map = {
         'posts_xpath': '//li[@class="post_part clear"]',
         'post_url_xpath': 'div/h3/a/@href',
         'post_title_xpath': 'div/h3/a/text()',
-        'module': 'product',
-        'type': 'commerce',
     },
     'http://www.iyiou.com/newpost': {
         'url': 'http://www.iyiou.com/newpost',
@@ -165,8 +135,6 @@ common_map = {
         'posts_xpath': '//ul[@class="specificpost-list"]/li[@class="clearFix"]',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
-        'module': 'product',
-        'type': 'commerce',
     },
     'http://www.im2maker.com/fresh/': {
         'url': 'http://www.im2maker.com/fresh/',
@@ -175,8 +143,6 @@ common_map = {
         'posts_xpath': '//div[@id="article-list"]/div',
         'post_url_xpath': 'div/a[2]/@href',
         'post_title_xpath': 'div/a[2]/@title',
-        'module': 'product',
-        'type': 'commerce',
     },
     'http://www.geekpark.net/': {
         'url': 'http://www.geekpark.net/',
@@ -185,8 +151,6 @@ common_map = {
         'posts_xpath': '//*[@id="collection-all"]/div/article[@class="article-item"]',
         'post_url_xpath': 'div/div/a[2]/@href',
         'post_title_xpath': 'div/div/a[2]/text()',
-        'module': 'product',
-        'type': 'commerce',
     },
     'http://www.ikanchai.com/': {
         'url': 'http://www.ikanchai.com/',
@@ -195,8 +159,6 @@ common_map = {
         'posts_xpath': '//*[@id="mainList"]/ul/li[@class="rtmj-box"]',
         'post_url_xpath': 'dl/dt/a/@href',
         'post_title_xpath': 'dl/dt/a/@title',
-        'module': 'product',
-        'type': 'commerce',
     },
     'http://www.lieyunwang.com/': {
         'url': 'http://www.lieyunwang.com/',
@@ -205,8 +167,6 @@ common_map = {
         'posts_xpath': '//*[@class="article-bar clearfix"]',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/text()',
-        'module': 'product',
-        'type': 'commerce',
     },
     'https://www.jiqizhixin.com/': {
         'url': 'https://www.jiqizhixin.com/',
@@ -215,8 +175,6 @@ common_map = {
         'posts_xpath': '//*[@class="article-inline"]',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
-        'module': 'product',
-        'type': 'commerce',
     },
     'http://www.donews.com/': {
         'url': 'http://www.donews.com/',
@@ -225,8 +183,6 @@ common_map = {
         'posts_xpath': '//dl[@class="block pb30 mb30 line_b clearfix"]',
         'post_url_xpath': 'dd/h3/a/@href',
         'post_title_xpath': 'dd/h3/a/text()',
-        'module': 'product',
-        'type': 'commerce',
     },
     'http://news.chinabyte.com/': {
         'url': 'http://news.chinabyte.com/',
@@ -235,8 +191,6 @@ common_map = {
         'posts_xpath': '//div[@class="sec_left"]/div[2]/div[not(contains(@class, "Browse_more"))]',
         'post_url_xpath': 'div[@class="hot_"]/h4/a/@href',
         'post_title_xpath': 'div[@class="hot_"]/h4/a/text()',
-        'module': 'product',
-        'type': 'commerce',
     },
     'http://www.sootoo.com/tag/1/?&day=--&page=1': {
         'url': 'http://www.sootoo.com/tag/1/?&day=--&page=1',
@@ -245,8 +199,6 @@ common_map = {
         'posts_xpath': '//li[@class="ZXGX_list clearfix"]',
         'post_url_xpath': 'h3/a/@href',
         'post_title_xpath': 'h3/a/text()',
-        'module': 'product',
-        'type': 'commerce',
     },
     'http://www.qdaily.com/categories/18.html': {
         'url': 'http://www.qdaily.com/categories/18.html',
@@ -255,8 +207,6 @@ common_map = {
         'posts_xpath': '//div[@class="packery-container articles"]/div',
         'post_url_xpath': 'a/@href',
         'post_title_xpath': 'a/div/div/img/@alt',
-        'module': 'product',
-        'type': 'commerce',
     },
     'http://www.qdaily.com/categories/4.html': {
         'url': 'http://www.qdaily.com/categories/4.html',
@@ -265,8 +215,6 @@ common_map = {
         'posts_xpath': '//div[@class="packery-container articles"]/div',
         'post_url_xpath': 'a/@href',
         'post_title_xpath': 'a/div/div/img/@alt',
-        'module': 'product',
-        'type': 'commerce',
     },
     'http://www.jiemian.com/lists/6.html': {
         'url': 'http://www.jiemian.com/lists/6.html',
@@ -275,8 +223,6 @@ common_map = {
         'posts_xpath': '//div[@id="load-list"]/div',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
-        'module': 'product',
-        'type': 'commerce',
     },
     'http://www.jiemian.com/lists/66.html': {
         'url': 'http://www.jiemian.com/lists/66.html',
@@ -285,8 +231,6 @@ common_map = {
         'posts_xpath': '//div[@id="load-list"]/div',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
-        'module': 'product',
-        'type': 'commerce',
     },
     'http://www.jiemian.com/lists/73.html': {
         'url': 'http://www.jiemian.com/lists/73.html',
@@ -295,8 +239,6 @@ common_map = {
         'posts_xpath': '//div[@id="load-list"]/div',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
-        'module': 'product',
-        'type': 'commerce',
     },
     # 'http://www.ifanr.com/category/product?page=1&pajax=1&post_id__lt=&show_type=card': {
     #     'url': 'http://www.ifanr.com/category/product?page=1&pajax=1&post_id__lt=&show_type=card',
@@ -324,8 +266,6 @@ common_map = {
         'posts_xpath': '//div[@class="td_mod_wrap td_mod9 "]',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
-        'module': 'product',
-        'type': 'commerce',
     },
     # '': {
     #     'url': '',
@@ -334,8 +274,5 @@ common_map = {
     #     'posts_xpath': '',
     #     'post_url_xpath': '',
     #     'post_title_xpath': '',
-    #     'module': '',
-    #     'type': '',
     # },
-
 }
