@@ -20,6 +20,6 @@ def get_keywords(response, content_text):
     if keywords:
         keywords = keywords.extract_first()
     else:
-        keywords = jieba.analyse.extract_tags(str, topK=3)
+        keywords = jieba.analyse.extract_tags(content_text, topK=3)
         keywords = ','.join(keywords)
     return keywords
