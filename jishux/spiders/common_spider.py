@@ -6,7 +6,7 @@ import time
 
 import scrapy
 from scrapy import Selector
-
+from ..items import JishuxItem
 from ..misc.name_map import common_map
 from ..misc.readability_tools import get_summary
 from ..misc.request_tools import get_headers
@@ -62,17 +62,23 @@ class CommonSpider(scrapy.Spider):
             yield request
 
     def parse_post(self, response):
-        item = response.meta['item']
+        item = JishuxItem()
+        item['post_url'] = response.meta['item']['post_url']
+        item['post_title'] = response.meta['item']['post_title']
+        item['_id'] = response.meta['item']['_id']
         conf = response.meta['conf']
         content_html = get_summary(response.text)
         content_text = Selector(text=content_html).xpath('string(.)').extract_first()
         content_text = content_text.strip().replace('\r', '').replace('\n', '').replace('\t', '')
         description = get_description(response, content_text)
         keywords = get_keywords(response, content_text)
-        item['content_text'] = content_text
+        # item['content_text'] = content_text
+        item['litpic'] = '' # todo 文章缩略图
         item['content_html'] = content_html
         item['description'] = description
         item['keywords'] = keywords
         item['crawl_time'] = int(time.time())
         item['site_name'] = conf['cn_name']
+        item['author'] = ''  # todo 文章作者 配置文件需要适配
+        item['type_id'] = conf['type_id']  # todo 需要和配置文件里id适配
         yield item
