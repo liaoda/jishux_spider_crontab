@@ -13,14 +13,13 @@ incremental==17.5.0
 ipaddress==1.0.18
 jieba==0.38
 lxml==3.8.0
-mysql==0.0.1
-MySQL-python==1.2.5
 parsel==1.2.0
 pyasn1==0.3.2
 pyasn1-modules==0.0.11
 pycparser==2.18
 PyDispatcher==2.0.5
 pymongo==3.4.0
+PyMySQL==0.7.11
 pyOpenSSL==17.2.0
 queuelib==1.4.2
 readability-lxml==0.6.2
