@@ -2,11 +2,6 @@
 # -*- coding: utf-8 -*-
 # Created by yaochao on 2017/8/1
 
-name_map = {
-    'eshow365': u'E展网',
-    'events_ireasearch': u'艾瑞网',
-    'kr36': u'36氪'
-}
 
 common_map = {
     # ********** brand ***********
