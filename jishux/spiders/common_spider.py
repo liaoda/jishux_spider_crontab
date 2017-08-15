@@ -53,7 +53,7 @@ class CommonSpider(scrapy.Spider):
                 latest_url = get_then_change_latest_url(conf['name'], first_url)
             # 从sqlite中取出上一次最新的数据，与本次的数据做对比，如果相同则认为文章抓到了上次已经抓过的数据，如果不同则认为文章还没有抓完
             if post_url == latest_url:
-                print u'%s - 爬到了上次爬到的地方' % conf['cn_name']
+                print(u'{} - 爬到了上次爬到的地方'.format(conf['cn_name']))
                 return
 
             request = scrapy.Request(url=post_url, callback=self.parse_post, headers=get_headers(response.url))

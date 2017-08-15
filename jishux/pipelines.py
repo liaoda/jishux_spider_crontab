@@ -5,7 +5,7 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
-import MySQLdb
+import pymysql
 
 
 class JishuxPipeline(object):
@@ -20,7 +20,7 @@ class JishuxMongoPipeline(object):
 
 class JishuxMysqlPipeline(object):
     def __init__(self):
-        self.connection = MySQLdb.connect(host='47.93.232.8', port=3306, user='root', passwd='a8JcZ79XW3Krdbtj',
+        self.connection = pymysql.connect(host='47.93.232.8', port=3306, user='root', passwd='a8JcZ79XW3Krdbtj',
                                           db='dedecmsv57utf8sp2', charset='utf8')
         self.cursor = self.connection.cursor()
 
