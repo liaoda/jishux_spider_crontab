@@ -17,9 +17,9 @@ from ..misc.text_tools import get_description, get_keywords
 class CommonSpider(scrapy.Spider):
     name = 'common_spider'
     # 爬所有的网站
-    start_urls = common_map.keys()
+    # start_urls = common_map.keys()
     # 爬单个网站
-    # start_urls = ['https://www.huxiu.com/']
+    start_urls = ['https://www.huxiu.com/']
     custom_settings = {
         'ITEM_PIPELINES': {
             'jishux.pipelines.JishuxMysqlPipeline': 300,
@@ -31,9 +31,9 @@ class CommonSpider(scrapy.Spider):
 
     def parse(self, response):
         # 本次最新的文章的url
-        first_url = ''
+        first_url = response.meta['first_url'] if 'first_url' in response.meta.keys() else ''
         # 上一次的最新的文章的url
-        latest_url = ''
+        latest_url = response.meta['latest_url'] if 'latest_url' in response.meta.keys() else ''
         conf = common_map[response.url]
         posts = response.xpath(conf['posts_xpath'])
         for post in posts:
@@ -59,7 +59,11 @@ class CommonSpider(scrapy.Spider):
             request = scrapy.Request(url=post_url, callback=self.parse_post, headers=get_headers(response.url))
             request.meta['item'] = item
             request.meta['conf'] = conf
-            yield request
+            print(post_title)
+            # yield request
+
+        # 翻页
+        next_page(callback=self.parse, )
 
     def parse_post(self, response):
         item = response.meta['item']
@@ -75,4 +79,4 @@ class CommonSpider(scrapy.Spider):
         item['keywords'] = keywords
         item['crawl_time'] = int(time.time())
         item['site_name'] = conf['cn_name']
-        yield item
+        # yield item
