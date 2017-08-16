@@ -73,7 +73,7 @@ class CommonSpider(scrapy.Spider):
         description = get_description(response, content_text)
         keywords = get_keywords(response, content_text)
         # item['content_text'] = content_text
-        item['litpic'] = '' # todo 文章缩略图
+        item['litpic'] = ''  # todo 文章缩略图
         item['content_html'] = content_html
         item['description'] = description
         item['keywords'] = keywords
@@ -81,4 +81,6 @@ class CommonSpider(scrapy.Spider):
         item['site_name'] = conf['cn_name']
         item['author'] = ''  # todo 文章作者 配置文件需要适配
         item['type_id'] = conf['type_id']  # todo 需要和配置文件里id适配
+        item['domain'] = ''  # todo 域名
+        item['image_urls'] = response.xpath('//img/@src')  # todo 获得网页内容中的图片链接,需要从内容中筛选
         yield item

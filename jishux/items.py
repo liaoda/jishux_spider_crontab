@@ -20,3 +20,5 @@ class JishuxItem(scrapy.Item):
     post_title = scrapy.Field()  # 文章名
     post_id = scrapy.Field()  # ..
     site_name = scrapy.Field()  # 站点名
+    image_urls = scrapy.Field()  # 文章中的图片链接
+    domain = scrapy.Field()  # 网站域名 图片地址为相对路径时使用

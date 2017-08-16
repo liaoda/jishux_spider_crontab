@@ -6,9 +6,17 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 from jishux.items import JishuxItem
-from scrapy.exceptions import DropItem
 import pymysql
 from jishux.settings import config
+
+try:
+
+    from cStringIO import StringIO as BytesIO
+except ImportError:
+    from io import BytesIO
+import scrapy
+from scrapy.pipelines.images import ImagesPipeline
+from qiniu import Auth, put_file, etag
 
 
 class JishuxPipeline(object):
@@ -58,6 +66,71 @@ class JishuxMongoPipeline(object):
 #
 #
 
+
+
+access_key = 'xgt-TDgBWe5e2rjotJnL6e0UbuIK253uL0IF6pvv'
+secret_key = '9okIxkQuSU8s1QU0zTrRr7vlIa3PxHPuGYKOFIFg'
+q = Auth(access_key, secret_key)
+bucket_name = 'xapp'
+
+
+class ReplaceImagePipeline(ImagesPipeline):
+    def get_media_requests(self, item, info):
+        if item['image_urls'] and len(item['image_urls']) > 0:
+            for image_url in item['image_urls']:
+                if image_url.startswith('/'):
+                    image_url = item['domain'] + image_url
+                yield scrapy.Request(image_url)
+
+    # todo 确认是否能不转换gif成静态图
+    # def convert_image(self, image, size=None):
+    #     buf = BytesIO()
+    #     image.save(buf)
+    #     return image, buf
+
+    # def image_downloaded(self, response, request, info):
+    #     checksum = None
+    #     for path, image, buf in self.get_images(response, request, info):
+    #         if checksum is None:
+    #             buf.seek(0)
+    #             checksum = md5sum(buf)
+    #         width, height = image.size
+    #         self.store.persist_file(
+    #             path, buf, info,
+    #             meta={'width': width, 'height': height},
+    #             headers={'Content-Type': 'image/jpeg'})
+    #     return checksum
+
+    def item_completed(self, results, item, info):
+        content = item['content_html']
+        image_paths = []
+        for x in results:
+            if x[0]:
+                path = self.pre_item('/Users/dengqiangxi/Downloads/images/' + x[1]['path'])
+                image_paths.append(path)
+                content = content.replace(x[1]['url'], path)
+        if not item['litpic']:
+            item['litpic'] = image_paths[0] if len(image_paths) > 0 else ''
+        item['image_paths'] = image_paths
+        item['content_html'] = content
+        return item
+
+        # 七牛文件上传
+
+    def upload_file(self, file_path, file_name):
+        print(file_path)
+        print(file_name)
+        file_name = 'jishux-' + file_name
+        token = q.upload_token(bucket_name, file_name, 3600)
+        ret, info = put_file(token, file_name, file_path)
+        assert ret['key'] == file_name
+        assert ret['hash'] == etag(file_path)
+        # os.remove(file_path)
+        return 'http://7xw8xm.com2.z0.glb.qiniucdn.com/' + file_name
+
+    # 图片下载上传到七牛,重新拼接img
+    def pre_item(self, path):
+        return self.upload_file(path, path.split('/')[-1])
 
 
 class JishuxMysqlPipeline(object):

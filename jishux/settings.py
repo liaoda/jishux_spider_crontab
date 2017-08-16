@@ -61,12 +61,18 @@ ROBOTSTXT_OBEY = False
 #EXTENSIONS = {
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 #}
+IMAGES_STORE = './images'
 
+IMAGES_MIN_HEIGHT = 110
+IMAGES_MIN_WIDTH = 110
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'jishux.pipelines.JishuxPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'jishux.pipelines.ReplaceImagePipeline': 250,
+   'jishux.pipelines.JishuxPipeline': 300,
+}
+
+
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
