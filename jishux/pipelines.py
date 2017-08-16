@@ -10,14 +10,14 @@ try:
     from cStringIO import StringIO as BytesIO
 except ImportError:
     from io import BytesIO
-import scrapy
+import scrapy, time
 import pymysql
 import jishux.settings as settings
 from jishux.settings import config
 from jishux.items import JishuxItem
 from qiniu import Auth, put_file, etag
 from scrapy.pipelines.images import ImagesPipeline
-
+import jishux.misc.qiniu_tools as qiniu_config
 
 
 class JishuxPipeline(object):
@@ -30,49 +30,8 @@ class JishuxMongoPipeline(object):
         return item
 
 
-# class JishuxMysqlPipeline(object):
-#     def __init__(self):
-#         self.connection = pymysql.connect(host='47.93.232.8', port=3306, user='root', passwd='a8JcZ79XW3Krdbtj',
-#                                           db='dedecmsv57utf8sp2', charset='utf8')
-#         self.cursor = self.connection.cursor()
-#
-#     def process_item(self, item, spider):
-#         # dedecms sql
-#         source = u'技术栈'
-#         keywords = item['keywords']
-#         description = item['description']
-#         sql = 'INSERT INTO dede_archives (typeid, sortrank, flag, ismake, channel, title, writer, source, pubdate, senddate, mid, keywords, description, dutyadmin) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")' % (
-#             2, item['crawl_time'], 'p', -1, 1, item['post_title'], 'admin', source, item['crawl_time'],
-#             item['crawl_time'], 1, keywords, description, 1
-#         )
-#         # print [sql], '********'
-#         self.cursor.execute(sql)
-#         sql2 = 'SELECT LAST_INSERT_ID()'
-#         self.cursor.execute(sql2)
-#         a = self.cursor.fetchone()
-#         aid = a[0]
-#         sql3 = 'INSERT INTO dede_addonarticle (aid, typeid, body, userip) VALUES ("%s", "%s", "%s", "%s")' % (
-#             aid, 2, item['content_html'].replace(r'"', r'\"'), '127.0.0.1')
-#         self.cursor.execute(sql3)
-#         # print [sql3], '********'
-#         sql4 = 'INSERT INTO dede_arctiny (id, typeid, channel, senddate, sortrank) VALUES ("%s", "%s", "%s", "%s", "%s")' % (
-#             aid, 2, 1, item['crawl_time'], item['crawl_time'])
-#         self.cursor.execute(sql4)
-#         # print [sql4], '********'
-#         self.connection.commit()
-#         return item
-#
-#     def close_spider(self, spider):
-#         self.connection.close()
-#
-#
-
-
-
-access_key = 'xgt-TDgBWe5e2rjotJnL6e0UbuIK253uL0IF6pvv'
-secret_key = '9okIxkQuSU8s1QU0zTrRr7vlIa3PxHPuGYKOFIFg'
-q = Auth(access_key, secret_key)
-bucket_name = 'xapp'
+# bucket_name = qiniu_config.bucket_name
+# image_domain = 'http://7xw8xm.com2.z0.glb.qiniucdn.com/'
 
 
 class ReplaceImagePipeline(ImagesPipeline):
@@ -121,13 +80,15 @@ class ReplaceImagePipeline(ImagesPipeline):
     def upload_file(self, file_path, file_name):
         print(file_path)
         print(file_name)
-        file_name = 'jishux-' + file_name
-        token = q.upload_token(bucket_name, file_name, 3600)
+        date = time.strftime('%Y/%m/%d', time.localtime(time.time()))
+        file_name = 'jishux/' + date + file_name
+        q = Auth(qiniu_config.access_key, qiniu_config.secret_key)
+        token = q.upload_token(qiniu_config.bucket_name, file_name, 3600)
         ret, info = put_file(token, file_name, file_path)
         assert ret['key'] == file_name
         assert ret['hash'] == etag(file_path)
         # os.remove(file_path)
-        return 'http://7xw8xm.com2.z0.glb.qiniucdn.com/' + file_name
+        return qiniu_config.image_domain + file_name
 
     # 图片下载上传到七牛,重新拼接img
     def pre_item(self, path):
