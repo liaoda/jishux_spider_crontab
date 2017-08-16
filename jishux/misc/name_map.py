@@ -13,6 +13,10 @@ common_map = {
         'posts_xpath': '//*[@class="postimg"]/li',
         'post_url_xpath': 'div/div/h3/a/@href',
         'post_title_xpath': 'div/div/h3/a/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//*[text()="下一页"]/@href',
+        },
     },
     'http://www.qdaily.com/categories/18.html/': {
         'url': 'http://www.qdaily.com/categories/18.html/',

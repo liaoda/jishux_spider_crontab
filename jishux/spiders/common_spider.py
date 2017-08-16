@@ -6,12 +6,13 @@ import time
 
 import scrapy
 from scrapy import Selector
+
 from ..items import JishuxItem
 from ..misc.name_map import common_map
 from ..misc.readability_tools import get_summary
-from ..misc.request_tools import get_headers
-from ..misc.sqlite_tools import get_then_change_latest_url
+from ..misc.request_tools import next_page
 from ..misc.text_tools import get_description, get_keywords
+from ..misc.sqlite_tools import get_then_change_latest_url
 
 
 class CommonSpider(scrapy.Spider):
@@ -19,7 +20,7 @@ class CommonSpider(scrapy.Spider):
     # 爬所有的网站
     # start_urls = common_map.keys()
     # 爬单个网站
-    start_urls = ['https://www.huxiu.com/']
+    start_urls = ['http://socialbeta.com/tag/%E6%A1%88%E4%BE%8B']
     custom_settings = {
         'ITEM_PIPELINES': {
             'jishux.pipelines.JishuxMysqlPipeline': 300,
@@ -31,10 +32,11 @@ class CommonSpider(scrapy.Spider):
 
     def parse(self, response):
         # 本次最新的文章的url
-        first_url = response.meta['first_url'] if 'first_url' in response.meta.keys() else ''
+        first_url = response.meta['first_url'] if 'first_url' in response.meta.keys() else None
         # 上一次的最新的文章的url
-        latest_url = response.meta['latest_url'] if 'latest_url' in response.meta.keys() else ''
-        conf = common_map[response.url]
+        latest_url = response.meta['latest_url'] if 'latest_url' in response.meta.keys() else None
+        conf = response.meta['conf'] if 'conf' in response.meta.keys() else common_map[response.url]
+
         posts = response.xpath(conf['posts_xpath'])
         for post in posts:
             post_url = post.xpath(conf['post_url_xpath']).extract_first()
@@ -56,14 +58,18 @@ class CommonSpider(scrapy.Spider):
                 print(u'{} - 爬到了上次爬到的地方'.format(conf['cn_name']))
                 return
 
-            request = scrapy.Request(url=post_url, callback=self.parse_post, headers=get_headers(response.url))
+            request = scrapy.Request(url=post_url, callback=self.parse_post,
+                                     headers=conf['headers'] if 'headers' in conf.keys() else None)
             request.meta['item'] = item
             request.meta['conf'] = conf
             print(post_title)
-            # yield request
+            yield request
 
         # 翻页
-        next_page(callback=self.parse, )
+        request = next_page(callback=self.parse, response=response, conf=conf, first_url=first_url,
+                            latest_url=latest_url)
+        if request:
+            yield request
 
     def parse_post(self, response):
         item = JishuxItem()
@@ -77,7 +83,7 @@ class CommonSpider(scrapy.Spider):
         description = get_description(response, content_text)
         keywords = get_keywords(response, content_text)
         # item['content_text'] = content_text
-        item['litpic'] = '' # todo 文章缩略图
+        item['litpic'] = ''  # todo 文章缩略图
         item['content_html'] = content_html
         item['description'] = description
         item['keywords'] = keywords
