@@ -18,6 +18,7 @@ from jishux.items import JishuxItem
 from qiniu import Auth, put_file, etag
 from scrapy.pipelines.images import ImagesPipeline
 import jishux.misc.qiniu_tools as qiniu_config
+from urllib.parse import urljoin
 
 
 class JishuxPipeline(object):
@@ -36,10 +37,9 @@ class JishuxMongoPipeline(object):
 
 class ReplaceImagePipeline(ImagesPipeline):
     def get_media_requests(self, item, info):
-        if item['image_urls'] and len(item['image_urls']) > 0:
+        if item['image_urls']:
             for image_url in item['image_urls']:
-                if image_url.startswith('/'):
-                    image_url = item['domain'] + image_url
+                image_url = urljoin(item['post_url'], image_url)
                 yield scrapy.Request(image_url)
 
     # todo 确认是否能不转换gif成静态图

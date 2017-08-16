@@ -4,7 +4,7 @@
 
 
 common_map = {
-    # ********** brand ***********
+    # ********** news list ***********
 
     'http://socialbeta.com/tag/%E6%A1%88%E4%BE%8B': {
         'url': 'http://socialbeta.com/tag/%E6%A1%88%E4%BE%8B',
@@ -90,8 +90,6 @@ common_map = {
         'post_url_xpath': 'p/span/a/@href',
         'post_title_xpath': 'p/span/a/text()',
     },
-
-    # ********** product **********
     'https://www.huxiu.com/': {
         'url': 'https://www.huxiu.com/',
         'name': 'huxiu',
@@ -244,25 +242,6 @@ common_map = {
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
     },
-    # 'http://www.ifanr.com/category/product?page=1&pajax=1&post_id__lt=&show_type=card': {
-    #     'url': 'http://www.ifanr.com/category/product?page=1&pajax=1&post_id__lt=&show_type=card',
-    #     'name': 'ifanr1',
-    #     'cn_name': '爱范儿',
-    #     'posts_xpath': '//div[@class="article-item article-item--list "]',
-    #     'post_url_xpath': 'div[@class="article-info"]/h3/a/@href',
-    #     'post_title_xpath': 'div[@class="article-info"]/h3/a/text()',
-    #     'headers': {
-    #         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
-    #     }
-    # },
-    # 'http://www.ifanr.com/category/business?page=1&pajax=1&post_id__lt=&show_type=card': {
-    #     'url': 'http://www.ifanr.com/category/business?page=1&pajax=1&post_id__lt=&show_type=card',
-    #     'name': 'ifanr2',
-    #     'cn_name': '爱范儿',
-    #     'posts_xpath': '//div[@class="article-item article-item--list "]',
-    #     'post_url_xpath': 'div[@class="article-info"]/h3/a/@href',
-    #     'post_title_xpath': 'div[@class="article-info"]/h3/a/text()',
-    # },
     'http://cn.technode.com/post/category/technode-talks/': {
         'url': 'http://cn.technode.com/post/category/technode-talks/',
         'name': 'technode',
@@ -271,6 +250,15 @@ common_map = {
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
     },
+    # '': {
+    #     'url': '',
+    #     'name': '',
+    #     'cn_name': '',
+    #     'posts_xpath': '',
+    #     'post_url_xpath': '',
+    #     'post_title_xpath': '',
+    # },
+    # ********** product **********
     # '': {
     #     'url': '',
     #     'name': '',

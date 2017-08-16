@@ -91,6 +91,5 @@ class CommonSpider(scrapy.Spider):
         item['site_name'] = conf['cn_name']
         item['author'] = ''  # todo 文章作者 配置文件需要适配
         item['type_id'] = conf['type_id']  # todo 文章类型需要和配置文件里id适配
-        item['domain'] = ''  # todo 域名
         item['image_urls'] = Selector(text=content_html).xpath('//img/@src').extract()  # todo 获得网页内容中的图片链接,需要从内容中筛选
         yield item
