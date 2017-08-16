@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="42c36cdf-6cac-4b07-af0e-786fa67b60d6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jishux/pipelines.py" afterPath="$PROJECT_DIR$/jishux/pipelines.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -46,17 +46,17 @@
       <file leaf-file-name="pipelines.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jishux/pipelines.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-110">
-              <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+            <state relative-caret-position="1650">
+              <caret line="110" column="45" lean-forward="false" selection-start-line="110" selection-start-column="45" selection-end-line="110" selection-end-column="45" />
               <folding>
                 <element signature="e#193#228#0" expanded="true" />
-                <marker date="1502866130000" expanded="true" signature="5682:5964" ph="INSERT INTO dede_archives... " />
-                <marker date="1502866130000" expanded="true" signature="6382:6552" ph="INSERT INTO dede_addonarticle... " />
-                <marker date="1502866130000" expanded="true" signature="6668:6782" ph="INSERT INTO dede_arctiny... " />
-                <marker date="1502866130000" expanded="true" signature="7016:7067" ph="SELECT * FRO... dede_tagindex" />
-                <marker date="1502866130000" expanded="true" signature="7136:7352" ph="INSERT INTO dede_tagindex... " />
-                <marker date="1502866130000" expanded="true" signature="7416:7479" ph="UPDATE dede_... " />
-                <marker date="1502866130000" expanded="true" signature="7968:8122" ph="INSERT INTO dede_taglist... " />
+                <marker date="1502866610000" expanded="true" signature="5701:5983" ph="INSERT INTO dede_archives... " />
+                <marker date="1502866610000" expanded="true" signature="6401:6571" ph="INSERT INTO dede_addonarticle... " />
+                <marker date="1502866610000" expanded="true" signature="6687:6801" ph="INSERT INTO dede_arctiny... " />
+                <marker date="1502866610000" expanded="true" signature="7035:7086" ph="SELECT * FRO... dede_tagindex" />
+                <marker date="1502866610000" expanded="true" signature="7155:7371" ph="INSERT INTO dede_tagindex... " />
+                <marker date="1502866610000" expanded="true" signature="7435:7498" ph="UPDATE dede_... " />
+                <marker date="1502866610000" expanded="true" signature="7987:8141" ph="INSERT INTO dede_taglist... " />
               </folding>
             </state>
           </provider>
@@ -65,8 +65,8 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jishux/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-139">
-              <caret line="70" column="46" lean-forward="false" selection-start-line="70" selection-start-column="46" selection-end-line="70" selection-end-column="46" />
+            <state relative-caret-position="299">
+              <caret line="63" column="12" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -101,9 +101,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/jishux/items.py" />
-        <option value="$PROJECT_DIR$/jishux/pipelines.py" />
         <option value="$PROJECT_DIR$/jishux/settings.py" />
         <option value="$PROJECT_DIR$/jishux/spiders/common_spider.py" />
+        <option value="$PROJECT_DIR$/jishux/pipelines.py" />
       </list>
     </option>
   </component>
@@ -530,13 +530,13 @@
           <caret line="106" column="18" lean-forward="false" selection-start-line="106" selection-start-column="18" selection-end-line="106" selection-end-column="18" />
           <folding>
             <element signature="e#193#228#0" expanded="true" />
-            <marker date="1502866130000" expanded="true" signature="5682:5964" ph="INSERT INTO dede_archives... " />
-            <marker date="1502866130000" expanded="true" signature="6382:6552" ph="INSERT INTO dede_addonarticle... " />
-            <marker date="1502866130000" expanded="true" signature="6668:6782" ph="INSERT INTO dede_arctiny... " />
-            <marker date="1502866130000" expanded="true" signature="7016:7067" ph="SELECT * FRO... dede_tagindex" />
-            <marker date="1502866130000" expanded="true" signature="7136:7352" ph="INSERT INTO dede_tagindex... " />
-            <marker date="1502866130000" expanded="true" signature="7416:7479" ph="UPDATE dede_... " />
-            <marker date="1502866130000" expanded="true" signature="7968:8122" ph="INSERT INTO dede_taglist... " />
+            <marker date="1502866610000" expanded="true" signature="5701:5983" ph="INSERT INTO dede_archives... " />
+            <marker date="1502866610000" expanded="true" signature="6401:6571" ph="INSERT INTO dede_addonarticle... " />
+            <marker date="1502866610000" expanded="true" signature="6687:6801" ph="INSERT INTO dede_arctiny... " />
+            <marker date="1502866610000" expanded="true" signature="7035:7086" ph="SELECT * FRO... dede_tagindex" />
+            <marker date="1502866610000" expanded="true" signature="7155:7371" ph="INSERT INTO dede_tagindex... " />
+            <marker date="1502866610000" expanded="true" signature="7435:7498" ph="UPDATE dede_... " />
+            <marker date="1502866610000" expanded="true" signature="7987:8141" ph="INSERT INTO dede_taglist... " />
           </folding>
         </state>
       </provider>
@@ -554,13 +554,13 @@
           <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
           <folding>
             <element signature="e#193#228#0" expanded="true" />
-            <marker date="1502866130000" expanded="true" signature="5682:5964" ph="INSERT INTO dede_archives... " />
-            <marker date="1502866130000" expanded="true" signature="6382:6552" ph="INSERT INTO dede_addonarticle... " />
-            <marker date="1502866130000" expanded="true" signature="6668:6782" ph="INSERT INTO dede_arctiny... " />
-            <marker date="1502866130000" expanded="true" signature="7016:7067" ph="SELECT * FRO... dede_tagindex" />
-            <marker date="1502866130000" expanded="true" signature="7136:7352" ph="INSERT INTO dede_tagindex... " />
-            <marker date="1502866130000" expanded="true" signature="7416:7479" ph="UPDATE dede_... " />
-            <marker date="1502866130000" expanded="true" signature="7968:8122" ph="INSERT INTO dede_taglist... " />
+            <marker date="1502866610000" expanded="true" signature="5701:5983" ph="INSERT INTO dede_archives... " />
+            <marker date="1502866610000" expanded="true" signature="6401:6571" ph="INSERT INTO dede_addonarticle... " />
+            <marker date="1502866610000" expanded="true" signature="6687:6801" ph="INSERT INTO dede_arctiny... " />
+            <marker date="1502866610000" expanded="true" signature="7035:7086" ph="SELECT * FRO... dede_tagindex" />
+            <marker date="1502866610000" expanded="true" signature="7155:7371" ph="INSERT INTO dede_tagindex... " />
+            <marker date="1502866610000" expanded="true" signature="7435:7498" ph="UPDATE dede_... " />
+            <marker date="1502866610000" expanded="true" signature="7987:8141" ph="INSERT INTO dede_taglist... " />
           </folding>
         </state>
       </provider>
@@ -630,13 +630,13 @@
           <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding>
             <element signature="e#193#228#0" expanded="true" />
-            <marker date="1502866130000" expanded="true" signature="5682:5964" ph="INSERT INTO dede_archives... " />
-            <marker date="1502866130000" expanded="true" signature="6382:6552" ph="INSERT INTO dede_addonarticle... " />
-            <marker date="1502866130000" expanded="true" signature="6668:6782" ph="INSERT INTO dede_arctiny... " />
-            <marker date="1502866130000" expanded="true" signature="7016:7067" ph="SELECT * FRO... dede_tagindex" />
-            <marker date="1502866130000" expanded="true" signature="7136:7352" ph="INSERT INTO dede_tagindex... " />
-            <marker date="1502866130000" expanded="true" signature="7416:7479" ph="UPDATE dede_... " />
-            <marker date="1502866130000" expanded="true" signature="7968:8122" ph="INSERT INTO dede_taglist... " />
+            <marker date="1502866610000" expanded="true" signature="5701:5983" ph="INSERT INTO dede_archives... " />
+            <marker date="1502866610000" expanded="true" signature="6401:6571" ph="INSERT INTO dede_addonarticle... " />
+            <marker date="1502866610000" expanded="true" signature="6687:6801" ph="INSERT INTO dede_arctiny... " />
+            <marker date="1502866610000" expanded="true" signature="7035:7086" ph="SELECT * FRO... dede_tagindex" />
+            <marker date="1502866610000" expanded="true" signature="7155:7371" ph="INSERT INTO dede_tagindex... " />
+            <marker date="1502866610000" expanded="true" signature="7435:7498" ph="UPDATE dede_... " />
+            <marker date="1502866610000" expanded="true" signature="7987:8141" ph="INSERT INTO dede_taglist... " />
           </folding>
         </state>
       </provider>
@@ -785,25 +785,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jishux/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-139">
-          <caret line="70" column="46" lean-forward="false" selection-start-line="70" selection-start-column="46" selection-end-line="70" selection-end-column="46" />
+        <state relative-caret-position="299">
+          <caret line="63" column="12" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/jishux/pipelines.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-110">
-          <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+        <state relative-caret-position="1650">
+          <caret line="110" column="45" lean-forward="false" selection-start-line="110" selection-start-column="45" selection-end-line="110" selection-end-column="45" />
           <folding>
             <element signature="e#193#228#0" expanded="true" />
-            <marker date="1502866130000" expanded="true" signature="5682:5964" ph="INSERT INTO dede_archives... " />
-            <marker date="1502866130000" expanded="true" signature="6382:6552" ph="INSERT INTO dede_addonarticle... " />
-            <marker date="1502866130000" expanded="true" signature="6668:6782" ph="INSERT INTO dede_arctiny... " />
-            <marker date="1502866130000" expanded="true" signature="7016:7067" ph="SELECT * FRO... dede_tagindex" />
-            <marker date="1502866130000" expanded="true" signature="7136:7352" ph="INSERT INTO dede_tagindex... " />
-            <marker date="1502866130000" expanded="true" signature="7416:7479" ph="UPDATE dede_... " />
-            <marker date="1502866130000" expanded="true" signature="7968:8122" ph="INSERT INTO dede_taglist... " />
+            <marker date="1502866610000" expanded="true" signature="5701:5983" ph="INSERT INTO dede_archives... " />
+            <marker date="1502866610000" expanded="true" signature="6401:6571" ph="INSERT INTO dede_addonarticle... " />
+            <marker date="1502866610000" expanded="true" signature="6687:6801" ph="INSERT INTO dede_arctiny... " />
+            <marker date="1502866610000" expanded="true" signature="7035:7086" ph="SELECT * FRO... dede_tagindex" />
+            <marker date="1502866610000" expanded="true" signature="7155:7371" ph="INSERT INTO dede_tagindex... " />
+            <marker date="1502866610000" expanded="true" signature="7435:7498" ph="UPDATE dede_... " />
+            <marker date="1502866610000" expanded="true" signature="7987:8141" ph="INSERT INTO dede_taglist... " />
           </folding>
         </state>
       </provider>

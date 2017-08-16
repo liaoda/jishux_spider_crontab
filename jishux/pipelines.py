@@ -5,18 +5,19 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
-from jishux.items import JishuxItem
-import pymysql
-from jishux.settings import config
-
 try:
 
     from cStringIO import StringIO as BytesIO
 except ImportError:
     from io import BytesIO
 import scrapy
-from scrapy.pipelines.images import ImagesPipeline
+import pymysql
+import jishux.settings as settings
+from jishux.settings import config
+from jishux.items import JishuxItem
 from qiniu import Auth, put_file, etag
+from scrapy.pipelines.images import ImagesPipeline
+
 
 
 class JishuxPipeline(object):
@@ -106,7 +107,7 @@ class ReplaceImagePipeline(ImagesPipeline):
         image_paths = []
         for x in results:
             if x[0]:
-                path = self.pre_item('/Users/dengqiangxi/Downloads/images/' + x[1]['path'])
+                path = self.pre_item(settings.IMAGES_STORE + x[1]['path'])
                 image_paths.append(path)
                 content = content.replace(x[1]['url'], path)
         if not item['litpic']:
