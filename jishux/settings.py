@@ -67,10 +67,10 @@ IMAGES_MIN_HEIGHT = 110
 IMAGES_MIN_WIDTH = 110
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-   'jishux.pipelines.ReplaceImagePipeline': 250,
-   'jishux.pipelines.JishuxPipeline': 300,
-}
+# ITEM_PIPELINES = {
+#    'jishux.pipelines.ReplaceImagePipeline': 250,
+#    'jishux.pipelines.JishuxPipeline': 300,
+# }
 
 
 

@@ -19,6 +19,7 @@ from qiniu import Auth, put_file, etag
 from scrapy.pipelines.images import ImagesPipeline
 import jishux.misc.qiniu_tools as qiniu_config
 from urllib.parse import urljoin
+from .misc.utils import get_post_type_id
 
 
 class JishuxPipeline(object):
@@ -113,10 +114,11 @@ class JishuxMysqlPipeline(object):
         description = item['description']
         content = item['content_html'].replace("'", "\\'") if item['content_html'] else ''
         title = item['post_title'] if item['post_title'] else ''
-        source = '技术栈'
+        source = item['cn_name']
         author = '' if not item['author'] else item['author']
         litpic = item['litpic'] if item['litpic']else ''
-        type_id = item['type_id'] if item['type_id'] else 2
+        post_type = item['post_type'] if 'post_type' in item.keys() else None
+        type_id = get_post_type_id(post_type)
         sql_insert_meta = 'INSERT INTO dede_archives (typeid, sortrank, flag, ismake, channel, title, writer, source, pubdate, senddate, mid, keywords, description, dutyadmin,voteid,litpic,source) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "'"+%s+"'", "%s", "%s","%s","%s","%s")' % (
             type_id, item['crawl_time'], 'p', -1, 1, title, 'admin', author, item['crawl_time'], item['crawl_time'],
             1, keywords, description, 1, 0, litpic, source)

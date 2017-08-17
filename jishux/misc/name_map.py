@@ -13,6 +13,7 @@ common_map = {
         'posts_xpath': '//*[@class="postimg"]/li',
         'post_url_xpath': 'div/div/h3/a/@href',
         'post_title_xpath': 'div/div/h3/a/text()',
+        'post_type': 'news',
         'next_page': {
             'type': 'CLICK_NEXT_BUTTON',
             'xpath': '//*[text()="下一页"]/@href',
@@ -25,6 +26,7 @@ common_map = {
         'posts_xpath': '//*[@class="packery-container articles"]/div',
         'post_url_xpath': 'a/@href',
         'post_title_xpath': 'a/div/div/img/@alt',
+        'post_type': 'news',
     },
     'http://www.jiemian.com/lists/49.html': {
         'url': 'http://www.jiemian.com/lists/49.html',
@@ -33,6 +35,7 @@ common_map = {
         'posts_xpath': '//div[@id="load-list"]/div',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
+        'post_type': 'news',
     },
     'http://www.toodaylab.com/field/308': {
         'url': 'http://www.toodaylab.com/field/308',
@@ -41,6 +44,7 @@ common_map = {
         'posts_xpath': '//*[@class="content"]/div',
         'post_url_xpath': 'div[@class="post-info"]/p/a/@href',
         'post_title_xpath': 'div[@class="post-info"]/p/a/text()',
+        'post_type': 'news',
     },
     'http://www.madisonboom.com/category/works/': {
         'url': 'http://www.madisonboom.com/category/works/',
@@ -49,6 +53,7 @@ common_map = {
         'posts_xpath': '//*[@id="gallery_list_elements"]/li',
         'post_url_xpath': 'h3/a/@href',
         'post_title_xpath': 'h3/a/@title',
+        'post_type': 'news',
     },
     'http://iwebad.com/': {
         'url': 'http://iwebad.com/',
@@ -57,6 +62,7 @@ common_map = {
         'posts_xpath': '//*[@class="new_search_works"]/div',
         'post_url_xpath': 'div[@class="works_info"]/h4/span/a/@href',
         'post_title_xpath': 'div[@class="works_info"]/h4/span/a/text()',
+        'post_type': 'news',
     },
     'http://www.adquan.com/': {
         'url': 'http://www.adquan.com/',
@@ -65,6 +71,7 @@ common_map = {
         'posts_xpath': '//div[@class="w_l_inner"]',
         'post_url_xpath': 'h2/a/@href',
         'post_title_xpath': 'h2/a/text()',
+        'post_type': 'news',
     },
     'http://www.digitaling.com/projects': {
         'url': 'http://www.digitaling.com/projects',
@@ -73,6 +80,7 @@ common_map = {
         'posts_xpath': '//div[@id="pro_list"]/div',
         'post_url_xpath': 'div[@class="works_bd"]/div/h3/a/@href',
         'post_title_xpath': 'div[@class="works_bd"]/div/h3/a/text()',
+        'post_type': 'news',
     },
     'http://a.iresearch.cn/': {
         'url': 'http://a.iresearch.cn/',
@@ -81,6 +89,7 @@ common_map = {
         'posts_xpath': '//div[@id="tab-list"]/div/ul/li',
         'post_url_xpath': 'h3/a/@href',
         'post_title_xpath': 'h3/a/text()',
+        'post_type': 'news',
     },
     'http://www.ebrun.com/brands/': {
         'url': 'http://www.ebrun.com/brands/',
@@ -89,6 +98,7 @@ common_map = {
         'posts_xpath': '//div[@id="create10"]/div[1]/div[@class="chanlDiv"]',
         'post_url_xpath': 'p/span/a/@href',
         'post_title_xpath': 'p/span/a/text()',
+        'post_type': 'news',
     },
     'https://www.huxiu.com/': {
         'url': 'https://www.huxiu.com/',
@@ -97,6 +107,7 @@ common_map = {
         'posts_xpath': '//*[@class="mod-info-flow"]/div[@class="mod-b mod-art "]',
         'post_url_xpath': 'div[@class="mod-thumb "]/a/@href',
         'post_title_xpath': 'div[@class="mod-thumb "]/a/@title',
+        'post_type': 'news',
     },
     'http://api.cyzone.cn/index.php?m=content&c=index&a=init&tpl=index_page&page=1': {
         'url': 'http://api.cyzone.cn/index.php?m=content&c=index&a=init&tpl=index_page&page=1',
@@ -105,6 +116,7 @@ common_map = {
         'posts_xpath': '//div[@class="article-item clearfix"]',
         'post_url_xpath': 'div[@class="item-intro"]/a/@href',
         'post_title_xpath': 'div[@class="item-intro"]/a/text()',
+        'post_type': 'news',
     },
     'https://www.leiphone.com/': {
         'url': 'https://www.leiphone.com/',
@@ -113,6 +125,7 @@ common_map = {
         'posts_xpath': '//*[@class="lph-pageList index-pageList"]/div[2]/ul/li',
         'post_url_xpath': 'div/div[2]/h3/a/@href',
         'post_title_xpath': 'div/div[2]/h3/a/@title',
+        'post_type': 'news',
     },
     'http://www.iheima.com/': {
         'url': 'http://www.iheima.com/',
@@ -121,6 +134,7 @@ common_map = {
         'posts_xpath': '//article[@class="item-wrap cf"]',
         'post_url_xpath': 'div/div/a/@href',
         'post_title_xpath': 'div/div/a/text()',
+        'post_type': 'news',
     },
     'http://www.tmtpost.com/': {
         'url': 'http://www.tmtpost.com/',
@@ -129,6 +143,7 @@ common_map = {
         'posts_xpath': '//li[@class="post_part clear"]',
         'post_url_xpath': 'div/h3/a/@href',
         'post_title_xpath': 'div/h3/a/text()',
+        'post_type': 'news',
     },
     'http://www.iyiou.com/newpost': {
         'url': 'http://www.iyiou.com/newpost',
@@ -137,6 +152,7 @@ common_map = {
         'posts_xpath': '//ul[@class="specificpost-list"]/li[@class="clearFix"]',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
+        'post_type': 'news',
     },
     'http://www.im2maker.com/fresh/': {
         'url': 'http://www.im2maker.com/fresh/',
@@ -145,6 +161,7 @@ common_map = {
         'posts_xpath': '//div[@id="article-list"]/div',
         'post_url_xpath': 'div/a[2]/@href',
         'post_title_xpath': 'div/a[2]/@title',
+        'post_type': 'news',
     },
     'http://www.geekpark.net/': {
         'url': 'http://www.geekpark.net/',
@@ -153,6 +170,7 @@ common_map = {
         'posts_xpath': '//*[@id="collection-all"]/div/article[@class="article-item"]',
         'post_url_xpath': 'div/div/a[2]/@href',
         'post_title_xpath': 'div/div/a[2]/text()',
+        'post_type': 'news',
     },
     'http://www.ikanchai.com/': {
         'url': 'http://www.ikanchai.com/',
@@ -161,6 +179,7 @@ common_map = {
         'posts_xpath': '//*[@id="mainList"]/ul/li[@class="rtmj-box"]',
         'post_url_xpath': 'dl/dt/a/@href',
         'post_title_xpath': 'dl/dt/a/@title',
+        'post_type': 'news',
     },
     'http://www.lieyunwang.com/': {
         'url': 'http://www.lieyunwang.com/',
@@ -169,6 +188,7 @@ common_map = {
         'posts_xpath': '//*[@class="article-bar clearfix"]',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/text()',
+        'post_type': 'news',
     },
     'https://www.jiqizhixin.com/': {
         'url': 'https://www.jiqizhixin.com/',
@@ -177,6 +197,7 @@ common_map = {
         'posts_xpath': '//*[@class="article-inline"]',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
+        'post_type': 'news',
     },
     'http://www.donews.com/': {
         'url': 'http://www.donews.com/',
@@ -185,6 +206,7 @@ common_map = {
         'posts_xpath': '//dl[@class="block pb30 mb30 line_b clearfix"]',
         'post_url_xpath': 'dd/h3/a/@href',
         'post_title_xpath': 'dd/h3/a/text()',
+        'post_type': 'news',
     },
     'http://news.chinabyte.com/': {
         'url': 'http://news.chinabyte.com/',
@@ -193,6 +215,7 @@ common_map = {
         'posts_xpath': '//div[@class="sec_left"]/div[2]/div[not(contains(@class, "Browse_more"))]',
         'post_url_xpath': 'div[@class="hot_"]/h4/a/@href',
         'post_title_xpath': 'div[@class="hot_"]/h4/a/text()',
+        'post_type': 'news',
     },
     'http://www.sootoo.com/tag/1/?&day=--&page=1': {
         'url': 'http://www.sootoo.com/tag/1/?&day=--&page=1',
@@ -201,6 +224,7 @@ common_map = {
         'posts_xpath': '//li[@class="ZXGX_list clearfix"]',
         'post_url_xpath': 'h3/a/@href',
         'post_title_xpath': 'h3/a/text()',
+        'post_type': 'news',
     },
     'http://www.qdaily.com/categories/18.html': {
         'url': 'http://www.qdaily.com/categories/18.html',
@@ -209,6 +233,7 @@ common_map = {
         'posts_xpath': '//div[@class="packery-container articles"]/div',
         'post_url_xpath': 'a/@href',
         'post_title_xpath': 'a/div/div/img/@alt',
+        'post_type': 'news',
     },
     'http://www.qdaily.com/categories/4.html': {
         'url': 'http://www.qdaily.com/categories/4.html',
@@ -217,6 +242,7 @@ common_map = {
         'posts_xpath': '//div[@class="packery-container articles"]/div',
         'post_url_xpath': 'a/@href',
         'post_title_xpath': 'a/div/div/img/@alt',
+        'post_type': 'news',
     },
     'http://www.jiemian.com/lists/6.html': {
         'url': 'http://www.jiemian.com/lists/6.html',
@@ -225,6 +251,7 @@ common_map = {
         'posts_xpath': '//div[@id="load-list"]/div',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
+        'post_type': 'news',
     },
     'http://www.jiemian.com/lists/66.html': {
         'url': 'http://www.jiemian.com/lists/66.html',
@@ -233,6 +260,7 @@ common_map = {
         'posts_xpath': '//div[@id="load-list"]/div',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
+        'post_type': 'news',
     },
     'http://www.jiemian.com/lists/73.html': {
         'url': 'http://www.jiemian.com/lists/73.html',
@@ -241,6 +269,7 @@ common_map = {
         'posts_xpath': '//div[@id="load-list"]/div',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
+        'post_type': 'news',
     },
     'http://cn.technode.com/post/category/technode-talks/': {
         'url': 'http://cn.technode.com/post/category/technode-talks/',
@@ -249,6 +278,7 @@ common_map = {
         'posts_xpath': '//div[@class="td_mod_wrap td_mod9 "]',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
+        'post_type': 'news',
     },
     # '': {
     #     'url': '',
@@ -257,14 +287,46 @@ common_map = {
     #     'posts_xpath': '',
     #     'post_url_xpath': '',
     #     'post_title_xpath': '',
+    #     'post_type': '',
+    #     'next_page': {
+    #         'type': '',
+    #         'xpath': '',
+    #     },
+    #     'headers': {
+    #         'key1': 'value',
+    #         'key2': 'value',
+    #         'key3': 'value',
+    #         'key4': 'value',
+    #     },
     # },
-    # ********** product **********
+
     # '': {
+    #     # [必选] url: 起始抓取地址
     #     'url': '',
+    #     # [必选] name: 英文名称，按照网址取中间的值
     #     'name': '',
+    #     # [必选] cn_name: 中文名称，用于显示转载网站
     #     'cn_name': '',
+    #     # [必选] posts_xpath: 文章列表xpath
     #     'posts_xpath': '',
+    #     # [必选] post_url_xpath: 列表单个item的超链接xpath
     #     'post_url_xpath': '',
+    #     # [必选] post_title_xpath: 列表单个item的标题xpath
     #     'post_title_xpath': '',
+    #     # [必选] post_type: 文章类型，比如news,bigdata,mobile
+    #     'post_type': '',
+    #     # [可选] next_page: 下一页具体配置
+    #     'next_page': {
+    #         'type': '',
+    #         'xpath': '',
+    #     },
+    #     # [可选] headers: 请求所需特殊headers，例如Referer
+    #     'headers': {
+    #         'key1': 'value',
+    #         'key2': 'value',
+    #         'key3': 'value',
+    #         'key4': 'value',
+    #     },
     # },
+
 }

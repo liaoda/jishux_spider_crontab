@@ -23,6 +23,7 @@ class CommonSpider(scrapy.Spider):
     start_urls = ['http://socialbeta.com/tag/%E6%A1%88%E4%BE%8B']
     custom_settings = {
         'ITEM_PIPELINES': {
+            'jishux.pipelines.ReplaceImagePipeline': 250,
             'jishux.pipelines.JishuxMysqlPipeline': 300,
         },
         'SPIDER_MIDDLEWARES': {
@@ -90,6 +91,6 @@ class CommonSpider(scrapy.Spider):
         item['crawl_time'] = int(time.time())
         item['site_name'] = conf['cn_name']
         item['author'] = ''  # todo 文章作者 配置文件需要适配
-        item['type_id'] = conf['type_id']  # todo 文章类型需要和配置文件里id适配
+        item['type_id'] = conf['post_type']  # todo 文章类型需要和配置文件里id适配
         item['image_urls'] = Selector(text=content_html).xpath('//img/@src').extract()  # todo 获得网页内容中的图片链接,需要从内容中筛选
         yield item

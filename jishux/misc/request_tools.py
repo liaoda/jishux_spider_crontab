@@ -9,12 +9,12 @@ from scrapy import Request
 def next_page(callback, response, conf, first_url, latest_url):
     if 'next_page' in conf.keys():
         next_page_type = conf['next_page']['type']
-        next_page_xpath = conf['next_page']['xpath']
     else:
         return None
 
     # function list
     def click_next_button():
+        next_page_xpath = conf['next_page']['xpath']
         next_url = response.xpath(next_page_xpath)
         if next_url == response.url:
             return None
