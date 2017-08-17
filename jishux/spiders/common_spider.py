@@ -4,7 +4,7 @@
 
 import time
 
-import scrapy
+import scrapy,re
 from scrapy import Selector
 
 from ..items import JishuxItem
@@ -88,9 +88,11 @@ class CommonSpider(scrapy.Spider):
         item['content_html'] = content_html
         item['description'] = description
         item['keywords'] = keywords
+        post_time = re.search('\d{4}([-/|年月\s]{1,3}\d{1,2}){2}日?(\s\d{2}:\d{2}:\d{2})?',content_html)
+        print(post_time)
         item['crawl_time'] = int(time.time())
         item['cn_name'] = conf['cn_name']
         item['author'] = ''  # todo 文章作者 配置文件需要适配
         item['post_type'] = conf['post_type']  # todo 文章类型需要和配置文件里id适配
         item['image_urls'] = Selector(text=content_html).xpath('//img/@src').extract()  # todo 获得网页内容中的图片链接,需要从内容中筛选
-        yield item
+        # yield item
