@@ -10,7 +10,7 @@ try:
     from cStringIO import StringIO as BytesIO
 except ImportError:
     from io import BytesIO
-import scrapy, time
+import scrapy, time,random
 import pymysql
 import jishux.settings as settings
 from jishux.settings import config
@@ -120,9 +120,9 @@ class JishuxMysqlPipeline(object):
         litpic = item['litpic'] if item['litpic']else ''
         type_id = get_post_type_id(item['post_type'])
         crawl_time = str(item['crawl_time'])
-        sql_insert_meta = 'INSERT INTO dede_archives (typeid, sortrank, flag, ismake, channel, title, writer, source, pubdate, senddate, mid, keywords, description, dutyadmin,voteid,litpic) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "'"+%s+"'", "%s", "%s","%s","%s")' % (
+        sql_insert_meta = 'INSERT INTO dede_archives (typeid, sortrank, flag, ismake, channel, title, writer, source, pubdate, senddate, mid, keywords, description, dutyadmin,voteid,litpic,click) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "'"+%s+"'", "%s", "%s","%s","%s","%s")' % (
             type_id, crawl_time, 'p', -1, 1, title, 'admin', author, crawl_time, crawl_time,
-            1, keywords, description, 1, 0, litpic)
+            1, keywords, description, 1, 0, litpic,int(random.uniform(5000, 10000)))
         self.cursor.execute(sql_insert_meta)
         sql_last_id = 'SELECT LAST_INSERT_ID()'
         self.cursor.execute(sql_last_id)
