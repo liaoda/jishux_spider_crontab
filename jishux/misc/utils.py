@@ -18,4 +18,4 @@ def get_post_type_id(post_type):
         'frontend': 19,
         'backend': 20,
     }
-    return type_map[post_type]
+    return type_map[post_type] if post_type in type_map.keys() else 2
