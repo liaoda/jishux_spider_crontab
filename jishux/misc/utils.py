@@ -4,7 +4,7 @@
 
 def get_post_type_id(post_type):
     if not post_type:
-        return None
+        return 2
 
     type_map = {
         'news': 2,
