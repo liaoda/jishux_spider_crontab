@@ -2,269 +2,230 @@
 # -*- coding: utf-8 -*-
 # Created by yaochao on 2017/8/1
 
+from urllib.parse import urlsplit
 
 common_map = {
     # ********** news list ***********
 
     'http://socialbeta.com/tag/%E6%A1%88%E4%BE%8B': {
-        'url': 'http://socialbeta.com/tag/%E6%A1%88%E4%BE%8B',
-        'name': 'socialbeta',
+        'url': {
+            'http://socialbeta.com/tag/%E6%A1%88%E4%BE%8B': 'news'
+        },
         'cn_name': 'socialbeta',
         'posts_xpath': '//*[@class="postimg"]/li',
         'post_url_xpath': 'div/div/h3/a/@href',
         'post_title_xpath': 'div/div/h3/a/text()',
-        'post_type': 'news',
         'next_page': {
             'type': 'CLICK_NEXT_BUTTON',
             'xpath': '//*[text()="下一页"]/@href',
         },
     },
-    'http://www.qdaily.com/categories/18.html/': {
-        'url': 'http://www.qdaily.com/categories/18.html/',
-        'name': 'qdaily1',
+    'http://www.qdaily.com/': {
+        'url': {
+            'http://www.qdaily.com/categories/18.html/': 'news',
+            'http://www.qdaily.com/categories/4.html/': 'news',
+        },
         'cn_name': '好奇心日报',
         'posts_xpath': '//*[@class="packery-container articles"]/div',
         'post_url_xpath': 'a/@href',
         'post_title_xpath': 'a/div/div/img/@alt',
-        'post_type': 'news',
-    },
-    'http://www.jiemian.com/lists/49.html': {
-        'url': 'http://www.jiemian.com/lists/49.html',
-        'name': 'jiemian1',
-        'cn_name': '界面',
-        'posts_xpath': '//div[@id="load-list"]/div',
-        'post_url_xpath': 'div/a/@href',
-        'post_title_xpath': 'div/a/@title',
-        'post_type': 'news',
     },
     'http://www.toodaylab.com/field/308': {
-        'url': 'http://www.toodaylab.com/field/308',
-        'name': 'toodaylab',
+        'url': {
+            'http://www.toodaylab.com/field/308': 'news'
+        },
         'cn_name': '理想生活实验室',
         'posts_xpath': '//*[@class="content"]/div',
         'post_url_xpath': 'div[@class="post-info"]/p/a/@href',
         'post_title_xpath': 'div[@class="post-info"]/p/a/text()',
-        'post_type': 'news',
     },
     'http://www.madisonboom.com/category/works/': {
-        'url': 'http://www.madisonboom.com/category/works/',
-        'name': 'madisonboom',
+        'url': {
+            'http://www.madisonboom.com/category/works/': 'news'
+        },
         'cn_name': '麦迪逊邦',
         'posts_xpath': '//*[@id="gallery_list_elements"]/li',
         'post_url_xpath': 'h3/a/@href',
         'post_title_xpath': 'h3/a/@title',
-        'post_type': 'news',
     },
     'http://iwebad.com/': {
-        'url': 'http://iwebad.com/',
-        'name': 'iwebad',
+        'url': {
+            'http://iwebad.com/': 'news'
+        },
         'cn_name': '网络广告人社区',
         'posts_xpath': '//*[@class="new_search_works"]/div',
         'post_url_xpath': 'div[@class="works_info"]/h4/span/a/@href',
         'post_title_xpath': 'div[@class="works_info"]/h4/span/a/text()',
-        'post_type': 'news',
     },
     'http://www.adquan.com/': {
-        'url': 'http://www.adquan.com/',
-        'name': 'adquan',
+        'url': {
+            'http://www.adquan.com/': 'news'
+        },
         'cn_name': '广告门',
         'posts_xpath': '//div[@class="w_l_inner"]',
         'post_url_xpath': 'h2/a/@href',
         'post_title_xpath': 'h2/a/text()',
-        'post_type': 'news',
     },
     'http://www.digitaling.com/projects': {
-        'url': 'http://www.digitaling.com/projects',
-        'name': 'digitaling',
+        'url': {
+            'http://www.digitaling.com/projects': 'news'
+        },
         'cn_name': '数英网',
         'posts_xpath': '//div[@id="pro_list"]/div',
         'post_url_xpath': 'div[@class="works_bd"]/div/h3/a/@href',
         'post_title_xpath': 'div[@class="works_bd"]/div/h3/a/text()',
-        'post_type': 'news',
     },
     'http://a.iresearch.cn/': {
-        'url': 'http://a.iresearch.cn/',
-        'name': 'iresearch',
+        'url': {
+            'http://a.iresearch.cn/': 'news'
+        },
         'cn_name': '艾瑞咨询',
         'posts_xpath': '//div[@id="tab-list"]/div/ul/li',
         'post_url_xpath': 'h3/a/@href',
         'post_title_xpath': 'h3/a/text()',
-        'post_type': 'news',
     },
     'http://www.ebrun.com/brands/': {
-        'url': 'http://www.ebrun.com/brands/',
-        'name': 'ebrun',
+        'url': {
+            'http://www.ebrun.com/brands/': 'news'
+        },
         'cn_name': '亿邦动力网',
         'posts_xpath': '//div[@id="create10"]/div[1]/div[@class="chanlDiv"]',
         'post_url_xpath': 'p/span/a/@href',
         'post_title_xpath': 'p/span/a/text()',
-        'post_type': 'news',
     },
     'https://www.huxiu.com/': {
-        'url': 'https://www.huxiu.com/',
-        'name': 'huxiu',
+        'url': {
+            'https://www.huxiu.com/': 'news'
+        },
         'cn_name': '虎嗅',
         'posts_xpath': '//*[@class="mod-info-flow"]/div[@class="mod-b mod-art "]',
         'post_url_xpath': 'div[@class="mod-thumb "]/a/@href',
         'post_title_xpath': 'div[@class="mod-thumb "]/a/@title',
-        'post_type': 'news',
     },
     'http://api.cyzone.cn/index.php?m=content&c=index&a=init&tpl=index_page&page=1': {
-        'url': 'http://api.cyzone.cn/index.php?m=content&c=index&a=init&tpl=index_page&page=1',
-        'name': 'cyzone',
+        'url': {
+            'http://api.cyzone.cn/index.php?m=content&c=index&a=init&tpl=index_page&page=1': 'news'
+        },
         'cn_name': '创业邦',
         'posts_xpath': '//div[@class="article-item clearfix"]',
         'post_url_xpath': 'div[@class="item-intro"]/a/@href',
         'post_title_xpath': 'div[@class="item-intro"]/a/text()',
-        'post_type': 'news',
     },
     'https://www.leiphone.com/': {
-        'url': 'https://www.leiphone.com/',
-        'name': 'leiphone',
+        'url': {
+            'https://www.leiphone.com/': 'news'
+        },
         'cn_name': '雷锋网',
         'posts_xpath': '//*[@class="lph-pageList index-pageList"]/div[2]/ul/li',
         'post_url_xpath': 'div/div[2]/h3/a/@href',
         'post_title_xpath': 'div/div[2]/h3/a/@title',
-        'post_type': 'news',
     },
     'http://www.iheima.com/': {
-        'url': 'http://www.iheima.com/',
-        'name': 'iheima',
+        'url': {
+            'http://www.iheima.com/': 'news'
+        },
         'cn_name': 'i黑马',
         'posts_xpath': '//article[@class="item-wrap cf"]',
         'post_url_xpath': 'div/div/a/@href',
         'post_title_xpath': 'div/div/a/text()',
-        'post_type': 'news',
     },
     'http://www.tmtpost.com/': {
-        'url': 'http://www.tmtpost.com/',
-        'name': 'tmtpost',
+        'url': {
+            'http://www.tmtpost.com/': 'news'
+        },
         'cn_name': '钛媒体',
         'posts_xpath': '//li[@class="post_part clear"]',
         'post_url_xpath': 'div/h3/a/@href',
         'post_title_xpath': 'div/h3/a/text()',
-        'post_type': 'news',
     },
     'http://www.iyiou.com/newpost': {
-        'url': 'http://www.iyiou.com/newpost',
-        'name': 'iyiou',
+        'url': {
+            'http://www.iyiou.com/newpost': 'news'
+        },
         'cn_name': '亿欧网',
         'posts_xpath': '//ul[@class="specificpost-list"]/li[@class="clearFix"]',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
-        'post_type': 'news',
     },
     'http://www.im2maker.com/fresh/': {
-        'url': 'http://www.im2maker.com/fresh/',
-        'name': 'im2maker',
+        'url': {
+            'http://www.im2maker.com/fresh/': 'news'
+        },
         'cn_name': '镁客网',
         'posts_xpath': '//div[@id="article-list"]/div',
         'post_url_xpath': 'div/a[2]/@href',
         'post_title_xpath': 'div/a[2]/@title',
-        'post_type': 'news',
     },
     'http://www.geekpark.net/': {
-        'url': 'http://www.geekpark.net/',
-        'name': 'geekpark',
+        'url': {
+            'http://www.geekpark.net/': 'news'
+        },
         'cn_name': '极客公园',
         'posts_xpath': '//*[@id="collection-all"]/div/article[@class="article-item"]',
         'post_url_xpath': 'div/div/a[2]/@href',
         'post_title_xpath': 'div/div/a[2]/text()',
-        'post_type': 'news',
     },
     'http://www.ikanchai.com/': {
-        'url': 'http://www.ikanchai.com/',
-        'name': 'ikanchai',
+        'url': {
+            'http://www.ikanchai.com/': 'news'
+        },
         'cn_name': '砍柴网',
         'posts_xpath': '//*[@id="mainList"]/ul/li[@class="rtmj-box"]',
         'post_url_xpath': 'dl/dt/a/@href',
         'post_title_xpath': 'dl/dt/a/@title',
-        'post_type': 'news',
     },
     'http://www.lieyunwang.com/': {
-        'url': 'http://www.lieyunwang.com/',
-        'name': 'lieyunwang',
+        'url': {
+            'http://www.lieyunwang.com/': 'news'
+        },
         'cn_name': '猎云网',
         'posts_xpath': '//*[@class="article-bar clearfix"]',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/text()',
-        'post_type': 'news',
     },
     'https://www.jiqizhixin.com/': {
-        'url': 'https://www.jiqizhixin.com/',
-        'name': 'jiqizhixin',
+        'url': {
+            'https://www.jiqizhixin.com/': 'news'
+        },
         'cn_name': '机器之心',
         'posts_xpath': '//*[@class="article-inline"]',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
-        'post_type': 'news',
     },
     'http://www.donews.com/': {
-        'url': 'http://www.donews.com/',
-        'name': 'donews',
+        'url': {
+            'http://www.donews.com/': 'news'
+        },
         'cn_name': 'donews',
         'posts_xpath': '//dl[@class="block pb30 mb30 line_b clearfix"]',
         'post_url_xpath': 'dd/h3/a/@href',
         'post_title_xpath': 'dd/h3/a/text()',
-        'post_type': 'news',
     },
     'http://news.chinabyte.com/': {
-        'url': 'http://news.chinabyte.com/',
-        'name': 'chinabyte',
+        'url': {
+            'http://news.chinabyte.com/': 'news'
+        },
         'cn_name': '比特网',
         'posts_xpath': '//div[@class="sec_left"]/div[2]/div[not(contains(@class, "Browse_more"))]',
         'post_url_xpath': 'div[@class="hot_"]/h4/a/@href',
         'post_title_xpath': 'div[@class="hot_"]/h4/a/text()',
-        'post_type': 'news',
     },
     'http://www.sootoo.com/tag/1/?&day=--&page=1': {
-        'url': 'http://www.sootoo.com/tag/1/?&day=--&page=1',
-        'name': 'sootoo',
+        'url': {
+            'http://www.sootoo.com/tag/1/?&day=--&page=1': 'news'
+        },
         'cn_name': '速途网',
         'posts_xpath': '//li[@class="ZXGX_list clearfix"]',
         'post_url_xpath': 'h3/a/@href',
         'post_title_xpath': 'h3/a/text()',
-        'post_type': 'news',
     },
-    'http://www.qdaily.com/categories/18.html': {
-        'url': 'http://www.qdaily.com/categories/18.html',
-        'name': 'qdaily2',
-        'cn_name': '好奇心日报',
-        'posts_xpath': '//div[@class="packery-container articles"]/div',
-        'post_url_xpath': 'a/@href',
-        'post_title_xpath': 'a/div/div/img/@alt',
-        'post_type': 'news',
-    },
-    'http://www.qdaily.com/categories/4.html': {
-        'url': 'http://www.qdaily.com/categories/4.html',
-        'name': 'qdaily3',
-        'cn_name': '好奇心日报',
-        'posts_xpath': '//div[@class="packery-container articles"]/div',
-        'post_url_xpath': 'a/@href',
-        'post_title_xpath': 'a/div/div/img/@alt',
-        'post_type': 'news',
-    },
-    'http://www.jiemian.com/lists/6.html': {
-        'url': 'http://www.jiemian.com/lists/6.html',
-        'name': 'jiemian2',
-        'cn_name': '界面',
-        'posts_xpath': '//div[@id="load-list"]/div',
-        'post_url_xpath': 'div/a/@href',
-        'post_title_xpath': 'div/a/@title',
-        'post_type': 'news',
-    },
-    'http://www.jiemian.com/lists/66.html': {
-        'url': 'http://www.jiemian.com/lists/66.html',
-        'name': 'jiemian3',
-        'cn_name': '界面',
-        'posts_xpath': '//div[@id="load-list"]/div',
-        'post_url_xpath': 'div/a/@href',
-        'post_title_xpath': 'div/a/@title',
-        'post_type': 'news',
-    },
-    'http://www.jiemian.com/lists/73.html': {
-        'url': 'http://www.jiemian.com/lists/73.html',
-        'name': 'jiemian4',
+    'http://www.jiemian.com/': {
+        'url': {
+            'http://www.jiemian.com/lists/49.html': 'news',
+            'http://www.jiemian.com/lists/6.html': 'news',
+            'http://www.jiemian.com/lists/66.html': 'news',
+            'http://www.jiemian.com/lists/73.html': 'news',
+        },
         'cn_name': '界面',
         'posts_xpath': '//div[@id="load-list"]/div',
         'post_url_xpath': 'div/a/@href',
@@ -272,17 +233,16 @@ common_map = {
         'post_type': 'news',
     },
     'http://cn.technode.com/post/category/technode-talks/': {
-        'url': 'http://cn.technode.com/post/category/technode-talks/',
-        'name': 'technode',
+        'url': {
+            'http://cn.technode.com/post/category/technode-talks/': 'news',
+        },
         'cn_name': '动点科技',
         'posts_xpath': '//div[@class="td_mod_wrap td_mod9 "]',
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
-        'post_type': 'news',
     },
     # '': {
     #     'url': '',
-    #     'name': '',
     #     'cn_name': '',
     #     'posts_xpath': '',
     #     'post_url_xpath': '',
@@ -303,8 +263,6 @@ common_map = {
     # '': {
     #     # [必选] url: 起始抓取地址
     #     'url': '',
-    #     # [必选] name: 英文名称，按照网址取中间的值
-    #     'name': '',
     #     # [必选] cn_name: 中文名称，用于显示转载网站
     #     'cn_name': '',
     #     # [必选] posts_xpath: 文章列表xpath
@@ -330,3 +288,21 @@ common_map = {
     # },
 
 }
+
+
+def get_start_urls():
+    start_urls = []
+    for k in common_map.keys():
+        start_urls += common_map[k]['url'].keys()
+    return start_urls
+
+def get_conf(url):
+    base_url = "{0.scheme}://{0.netloc}/".format(urlsplit(url))
+    conf = None
+    if url in common_map.keys():
+        conf = common_map[url]
+    elif base_url in common_map.keys():
+        conf = common_map[base_url]
+    elif base_url[0:-1] in common_map.keys():
+        conf = common_map[base_url]
+    return conf

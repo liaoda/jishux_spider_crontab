@@ -6,7 +6,7 @@ from scrapy import Request
 
 
 # 翻页
-def next_page(callback, response, conf, first_url, latest_url):
+def next_page(callback, response, conf, first_url, latest_url, post_type):
     if 'next_page' in conf.keys():
         next_page_type = conf['next_page']['type']
     else:
@@ -25,6 +25,7 @@ def next_page(callback, response, conf, first_url, latest_url):
             request.meta['first_url'] = first_url
             request.meta['latest_url'] = latest_url
             request.meta['conf'] = conf
+            request.meta['post_type'] = post_type
             return request
 
     # fuction map
