@@ -80,7 +80,7 @@ class CommonSpider(scrapy.Spider):
         item['post_title'] = response.meta['item']['post_title']
         item['_id'] = response.meta['item']['_id']
         conf = response.meta['conf']
-        post_time = re.search('(\d{4}([\.\-/|年月\s]{1,3}\d{1,2}){2}日?(\s\d{2}:\d{2}(:\d{2})?)?)|(\d{1,2}(?=\s?(分钟|小时|天)前))', response.text)
+        post_time = re.search('(\d{4}([\.\-/|年月\s]{1,3}\d{1,2}){2}日?(\s\d{2}:\d{2}(:\d{2})?)?)|(\d{1,2}\s?(分钟|小时|天)前)', response.text)
         if post_time:
             crawl_time = generate_timestamp(post_time.group())
             # print(crawl_time)
