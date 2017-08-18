@@ -40,16 +40,21 @@ def generate_timestamp(post_time):
             return int(time.mktime(time.strptime(post_time, re_map[i])))
 
 
-# regu = re.compile('(\d{4}([\.\-/|年月\s]{1,3}\d{1,2}){2}日?(\s\d{2}:\d{2}(:\d{2})?)?)|(\d{1,2}(?=\s?(分钟|小时|天)前))')
-#
-# print(regu.match('2015 年 5 月 4 日'))
-# print(regu.match('2015年5月4日'))
-# print(regu.match('2015-5-4 12:03:21'))
-# print(regu.match('2015/5/4/ 12:03:21'))
-# print(regu.match('2015/5/4/ 12:03'))
-# print(regu.match('2015.5.4 12:03:21'))
-# print(regu.match('2015.5.4 12:03:21'))
-# print(regu.match('2015.5.4 12:03'))
+regu = re.compile('(\d{4}([\.\-/|年月\s]{1,3}\d{1,2}){2}日?(\s\d{2}:\d{2}(:\d{2})?)?)|(\d{1,2}(?=\s?(分钟|小时|天)前))')
+
+print(regu.match('2015 年 5 月 4 日'))
+print(regu.match('2015年5月4日'))
+print(regu.match('2015-5-4 12:03:21'))
+print(regu.match('2015-5-4 12:03'))
+print(regu.match('2015/5/4 12:03:21'))
+print(regu.match('2015/5/4 12:03'))
+print(regu.match('2015|5|4 12:03'))
+print(regu.match('2015.5.4 12:03:21'))
+print(regu.match('2015.5.4 12:03:21'))
+print(regu.match('2小时前'))
+print(regu.match('2分钟前'))
+print(regu.match('2 分钟前'))
+print(regu.match('2天前'))
 
 
 
