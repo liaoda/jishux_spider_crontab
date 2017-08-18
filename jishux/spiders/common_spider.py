@@ -4,7 +4,7 @@
 
 import time
 
-import scrapy
+import scrapy, re
 from scrapy import Selector
 
 from ..items import JishuxItem
@@ -13,6 +13,7 @@ from ..misc.readability_tools import get_summary
 from ..misc.request_tools import next_page
 from ..misc.text_tools import get_description, get_keywords
 from ..misc.sqlite_tools import get_then_change_latest_url
+from ..misc.time_formater import generate_timestamp
 
 
 class CommonSpider(scrapy.Spider):
@@ -73,11 +74,16 @@ class CommonSpider(scrapy.Spider):
             yield request
 
     def parse_post(self, response):
+        crawl_time = None
         item = JishuxItem()
         item['post_url'] = response.meta['item']['post_url']
         item['post_title'] = response.meta['item']['post_title']
         item['_id'] = response.meta['item']['_id']
         conf = response.meta['conf']
+        post_time = re.search('\d{4}([-/|年月\s]{1,3}\d{1,2}){2}日?(\s\d{2}:\d{2}(:\d{2})?)?', response.text)
+        if post_time:
+            crawl_time = generate_timestamp(post_time.group())
+            print(crawl_time)
         content_html = get_summary(response.text)
         content_text = Selector(text=content_html).xpath('string(.)').extract_first()
         content_text = content_text.strip().replace('\r', '').replace('\n', '').replace('\t', '')
@@ -88,9 +94,9 @@ class CommonSpider(scrapy.Spider):
         item['content_html'] = content_html
         item['description'] = description
         item['keywords'] = keywords
-        item['crawl_time'] = int(time.time())
-        item['site_name'] = conf['cn_name']
+        item['crawl_time'] = crawl_time if crawl_time else int(time.time())
+        item['cn_name'] = conf['cn_name']
         item['author'] = ''  # todo 文章作者 配置文件需要适配
-        item['type_id'] = conf['post_type']  # todo 文章类型需要和配置文件里id适配
+        item['post_type'] = conf['post_type']  # todo 文章类型需要和配置文件里id适配
         item['image_urls'] = Selector(text=content_html).xpath('//img/@src').extract()  # todo 获得网页内容中的图片链接,需要从内容中筛选
         yield item

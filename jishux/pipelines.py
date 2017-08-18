@@ -10,7 +10,7 @@ try:
     from cStringIO import StringIO as BytesIO
 except ImportError:
     from io import BytesIO
-import scrapy, time
+import scrapy, time,random
 import pymysql
 import jishux.settings as settings
 from jishux.settings import config
@@ -72,7 +72,7 @@ class ReplaceImagePipeline(ImagesPipeline):
                 content = content.replace(x[1]['url'], path)
         if not item['litpic']:
             item['litpic'] = image_paths[0] if len(image_paths) > 0 else ''
-        item['image_paths'] = image_paths
+        # item['image_paths'] = image_paths
         item['content_html'] = content
         return item
 
@@ -110,17 +110,17 @@ class JishuxMysqlPipeline(object):
 
     def insert_item(self, item):
         keywords = item['keywords']
-        print(keywords)
         description = item['description']
         content = item['content_html'].replace("'", "\\'") if item['content_html'] else ''
         title = item['post_title'] if item['post_title'] else ''
         source = item['cn_name']
-        author = '' if not item['author'] else item['author']
+        author = '技术栈' if not item['author'] else item['author']
         litpic = item['litpic'] if item['litpic']else ''
         type_id = get_post_type_id(item['post_type'])
-        sql_insert_meta = 'INSERT INTO dede_archives (typeid, sortrank, flag, ismake, channel, title, writer, source, pubdate, senddate, mid, keywords, description, dutyadmin,voteid,litpic,source) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "'"+%s+"'", "%s", "%s","%s","%s","%s")' % (
-            type_id, item['crawl_time'], 'p', -1, 1, title, 'admin', author, item['crawl_time'], item['crawl_time'],
-            1, keywords, description, 1, 0, litpic, source)
+        crawl_time = str(item['crawl_time'])
+        sql_insert_meta = 'INSERT INTO dede_archives (typeid, sortrank, flag, ismake, channel, title, writer, source, pubdate, senddate, mid, keywords, description, dutyadmin,voteid,litpic,click) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "'"+%s+"'", "%s", "%s","%s","%s","%s")' % (
+            type_id, crawl_time, 'p', -1, 1, title, author, source, crawl_time, crawl_time,
+            1, keywords, description, 1, 0, litpic,random.randint(5000, 10000))
         self.cursor.execute(sql_insert_meta)
         sql_last_id = 'SELECT LAST_INSERT_ID()'
         self.cursor.execute(sql_last_id)
@@ -132,14 +132,14 @@ class JishuxMysqlPipeline(object):
         # print(sql_insert_content)
         self.cursor.execute(sql_insert_content)
         sql_insert_arctiny = 'INSERT INTO dede_arctiny (id, typeid, channel, senddate, sortrank,mid) VALUES ("%s", "%s", "%s", "%s", "%s", "%s")' % (
-            aid, type_id, 1, item['crawl_time'], item['crawl_time'], 1)
+            aid, type_id, 1, crawl_time, crawl_time, 1)
         self.cursor.execute(sql_insert_arctiny)
         for key in keywords.split(','):
             # 判断tag是否在tagindex中存在
             sql_find_tag_exist = "SELECT * FROM dede_tagindex WHERE tag='" + key + "'"
-            # 如果不存在插入tag_index
-            sql_insert_tag_index = "INSERT INTO dede_tagindex (tag, typeid, total, weekup, monthup, addtime) VALUES ('" + key + "'," + str(
-                type_id) + ",1," + item['crawl_time'] + "," + item['crawl_time'] + "," + item['crawl_time'] + ")"
+            # 如果不存在插入tag_index '" + key + "'," + type_id + ",1," + crawl_time + "," + crawl_time + "," + crawl_time + "
+            sql_insert_tag_index = 'INSERT INTO dede_tagindex (tag, typeid, total, weekup, monthup, addtime) VALUES ("%s","%s","%s","%s","%s","%s")'%(key,type_id,crawl_time,crawl_time,crawl_time,crawl_time)
+            print(sql_insert_tag_index)
             # 如果存在则计数+1
             sql_update_count_add_1 = "UPDATE dede_tagindex SET total=total+1  WHERE tag='" + key + "'"
             self.cursor.execute(sql_find_tag_exist)
