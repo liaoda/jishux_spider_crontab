@@ -83,7 +83,7 @@ class CommonSpider(scrapy.Spider):
         item['_id'] = response.meta['item']['_id']
         item['post_type'] = response.meta['item']['post_type']
         conf = response.meta['conf']
-        post_time = re.search('(\d{4}([\.\-/|年月\s]{1,3}\d{1,2}){2}日?(\s\d{2}:\d{2}(:\d{2})?)?)|(\d{1,2}\s?(分钟|小时|天)前)',
+        post_time = re.search('(20\d{2}([\.\-/|年月\s]{1,3}\d{1,2}){2}日?(\s\d{2}:\d{2}(:\d{2})?)?)|(\d{1,2}\s?(分钟|小时|天)前)',
                               response.text)
         print(post_time)
         if post_time:
@@ -94,8 +94,6 @@ class CommonSpider(scrapy.Spider):
         content_text = content_text.strip().replace('\r', '').replace('\n', '').replace('\t', '')
         description = get_description(response, content_text)
         keywords = get_keywords(response, content_text)
-        # item['content_text'] = content_text
-        item['litpic'] = ''  # todo 文章缩略图
         item['content_html'] = content_html
         item['description'] = description
         item['keywords'] = keywords
