@@ -137,8 +137,8 @@ class JishuxMysqlPipeline(object):
             # 判断tag是否在tagindex中存在
             sql_find_tag_exist = "SELECT * FROM dede_tagindex WHERE tag='" + key + "'"
             # 如果不存在插入tag_index '" + key + "'," + type_id + ",1," + crawl_time + "," + crawl_time + "," + crawl_time + "
-            sql_insert_tag_index = 'INSERT INTO dede_tagindex (tag, typeid, total, weekup, monthup, addtime) VALUES ("%s","%s","%s","%s","%s","%s")' % (
-                key, type_id, crawl_time, crawl_time, crawl_time, crawl_time)
+            sql_insert_tag_index = 'INSERT INTO dede_tagindex (tag, typeid, total, weekup, monthup, addtime) VALUES ("%s",%s,%s,%s,%s,%s)' % (
+                key, type_id, 1, crawl_time, crawl_time, crawl_time)
             # print(sql_insert_tag_index)
             # 如果存在则计数+1
             sql_update_count_add_1 = "UPDATE dede_tagindex SET total=total+1  WHERE tag='" + key + "'"
