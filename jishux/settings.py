@@ -63,8 +63,8 @@ ROBOTSTXT_OBEY = False
 #}
 IMAGES_STORE = './images/'
 
-IMAGES_MIN_HEIGHT = 110
-IMAGES_MIN_WIDTH = 110
+# IMAGES_MIN_HEIGHT = 60
+# IMAGES_MIN_WIDTH = 60
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 # ITEM_PIPELINES = {

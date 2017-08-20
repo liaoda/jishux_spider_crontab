@@ -26,6 +26,7 @@ time_re = re.compile('[年月日\s]')
 
 
 def generate_timestamp(post_time):
+
     min = re.search('(\d{1,2}(?=\s?分钟前))', post_time)
     if min:
         return int((datetime.datetime.now() - datetime.timedelta(minutes=int(min.group()))).timestamp())
@@ -40,8 +41,10 @@ def generate_timestamp(post_time):
     # for i in re_map.keys():
     #     if re.search(i, post_time):
     #         return int(time.mktime(time.strptime(post_time, re_map[i])))
-    return int(parser.parse(time_re.sub(' ', post_time)).timestamp())
-
+    try:
+        return int(parser.parse(time_re.sub(' ', post_time)).timestamp())
+    except:
+        return None
 
 #
 # regu = re.compile('(\d{4}([\.\-/|年月\s]{1,3}\d{1,2}){2}日?(\s\d{2}:\d{2}(:\d{2})?)?)|(\d{1,2}(?=\s?(分钟|小时|天)前))')
