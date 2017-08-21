@@ -10,7 +10,7 @@ try:
     from cStringIO import StringIO as BytesIO
 except ImportError:
     from io import BytesIO
-import scrapy, time,random
+import scrapy, time, random
 import pymysql
 import jishux.settings as settings
 from jishux.settings import config
@@ -79,8 +79,8 @@ class ReplaceImagePipeline(ImagesPipeline):
         # 七牛文件上传
 
     def upload_file(self, file_path, file_name):
-        print(file_path)
-        print(file_name)
+        # print(file_path)
+        # print(file_name)
         date = time.strftime('%Y/%m/%d', time.localtime(time.time()))
         file_name = 'jishux/' + date + file_name
         q = Auth(qiniu_config.access_key, qiniu_config.secret_key)
@@ -120,16 +120,15 @@ class JishuxMysqlPipeline(object):
         crawl_time = str(item['crawl_time'])
         sql_insert_meta = 'INSERT INTO dede_archives (typeid, sortrank, flag, ismake, channel, title, writer, source, pubdate, senddate, mid, keywords, description, dutyadmin,voteid,litpic,click) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "'"+%s+"'", "%s", "%s","%s","%s","%s")' % (
             type_id, crawl_time, 'p', -1, 1, title, author, source, crawl_time, crawl_time,
-            1, keywords, description, 1, 0, litpic,random.randint(5000, 10000))
+            1, keywords, description, 1, 0, litpic, random.randint(5000, 10000))
         self.cursor.execute(sql_insert_meta)
         sql_last_id = 'SELECT LAST_INSERT_ID()'
         self.cursor.execute(sql_last_id)
         a = self.cursor.fetchone()
         aid = a['LAST_INSERT_ID()']
-        sql_insert_content = "INSERT INTO dede_addonarticle (aid, typeid, body, userip) VALUES (" + str(
-            aid) + "," + str(
-            type_id) + "," + "'" + content + "'" + ",'127.0.0.1')"
-        # print(sql_insert_content)
+        sql_insert_content = 'INSERT INTO dede_addonarticle (aid, typeid, body, userip) VALUES(%s,%s,%s,%s)' % (
+            aid, type_id,"'"+ content+"'", "'"+"127.0.0.1"+"'")
+        print(sql_insert_content)
         self.cursor.execute(sql_insert_content)
         sql_insert_arctiny = 'INSERT INTO dede_arctiny (id, typeid, channel, senddate, sortrank,mid) VALUES ("%s", "%s", "%s", "%s", "%s", "%s")' % (
             aid, type_id, 1, crawl_time, crawl_time, 1)
@@ -138,8 +137,9 @@ class JishuxMysqlPipeline(object):
             # 判断tag是否在tagindex中存在
             sql_find_tag_exist = "SELECT * FROM dede_tagindex WHERE tag='" + key + "'"
             # 如果不存在插入tag_index '" + key + "'," + type_id + ",1," + crawl_time + "," + crawl_time + "," + crawl_time + "
-            sql_insert_tag_index = 'INSERT INTO dede_tagindex (tag, typeid, total, weekup, monthup, addtime) VALUES ("%s","%s","%s","%s","%s","%s")'%(key,type_id,crawl_time,crawl_time,crawl_time,crawl_time)
-            print(sql_insert_tag_index)
+            sql_insert_tag_index = 'INSERT INTO dede_tagindex (tag, typeid, total, weekup, monthup, addtime) VALUES ("%s",%s,%s,%s,%s,%s)' % (
+                key, type_id, 1, crawl_time, crawl_time, crawl_time)
+            # print(sql_insert_tag_index)
             # 如果存在则计数+1
             sql_update_count_add_1 = "UPDATE dede_tagindex SET total=total+1  WHERE tag='" + key + "'"
             self.cursor.execute(sql_find_tag_exist)

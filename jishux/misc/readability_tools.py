@@ -7,4 +7,5 @@ from readability import Document
 def get_summary(content):
     doc = Document(content)
     summary = doc.summary(html_partial=True)
+
     return summary
