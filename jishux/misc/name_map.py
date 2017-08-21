@@ -280,6 +280,15 @@ common_map = {
         'post_title_xpath': 'div/a/@title',
         'post_type': 'news',
     },
+    'http://www.2cto.com/article/web/': {
+        'url': 'http://www.2cto.com/article/web/',
+        'name': '2cto',
+        'cn_name': '红黑联盟',
+        'posts_xpath': '//*[@id="fontzoom"]',
+        'post_url_xpath': '//*[@id="fontzoom"]/div/div[1]/a/@href',
+        'post_title_xpath': 'div/a/@title',
+        'post_type': 'news',
+    },
     # '': {
     #     'url': '',
     #     'name': '',
