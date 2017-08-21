@@ -13,7 +13,7 @@ except ImportError:
 import random
 import time
 from urllib.parse import urljoin
-
+import re
 import pymysql
 import scrapy
 from qiniu import Auth, put_file, etag
@@ -49,12 +49,12 @@ class JishuxDataCleaningPipeline(object):
         '''
         加工标签
         '''
-        # 去掉开头结尾多余空白符
-        content_html = content_html.strip()
         # nofollow
         content_html = content_html.replace('<a', '<a rel="nofollow"')
         # 空白符的处理
-        content_html = content_html.replace('\r', '').replace('\n', '').replace('\t', '').replace('<p>&nbsp;</p>', '')
+        content_html = content_html.strip().replace('\r', '').replace('\n', '').replace('\t', '')
+        p1 = re.compile('<p>(\s*|<br>|<br/>|&nbsp;)</p>')
+        content_html = re.sub(p1, '', content_html)
         # TODO: 代码标签统一处理
 
         return content_html
