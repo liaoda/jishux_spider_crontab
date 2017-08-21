@@ -15,13 +15,13 @@ def get_then_change_latest_url(site_name, first_url):
     :param first_url: 本次抓取的第一条数据的url
     :return: 
     '''
-    cursor.execute('CREATE TABLE IF NOT EXISTS {} (latest_url TEXT)'.format(site_name) )
+    cursor.execute('CREATE TABLE IF NOT EXISTS "{}" (latest_url TEXT)'.format(site_name) )
 
-    cursor.execute('SELECT latest_url FROM {}'.format(site_name))
+    cursor.execute('SELECT latest_url FROM "{}"'.format(site_name))
     latest_url = cursor.fetchone()
     if latest_url:
         latest_url = latest_url[0]
-    cursor.execute('DELETE FROM {}'.format(site_name))
-    cursor.execute('INSERT INTO {} (latest_url) VALUES ("{}")'.format(site_name, first_url))
+    cursor.execute('DELETE FROM "{}"'.format(site_name))
+    cursor.execute('INSERT INTO "{}" (latest_url) VALUES ("{}")'.format(site_name, first_url))
     connection.commit()
     return latest_url
