@@ -4,11 +4,8 @@
 
 import jieba.analyse
 
-def get_description(response, content_text):
-    description = response.xpath('//meta[@name="description"]/@content')
-    if description:
-        description = description.extract_first()
-    elif len(description) >= 100:
+def get_description(content_text):
+    if len(content_text) >= 100:
         description = content_text[0:100]
     else:
         description = content_text
@@ -19,7 +16,12 @@ def get_keywords(response, content_text):
     keywords = response.xpath('//meta[@name="keywords"]/@content')
     if keywords:
         keywords = keywords.extract_first()
+        # keywords = keywords.split(',')
+        # if len(keywords) > 6:
+        #     keywords = ','.join(keywords[0:6])
+        # else:
+        #     keywords = ','.join(keywords)
     else:
-        keywords = jieba.analyse.extract_tags(content_text, topK=3)
+        keywords = jieba.analyse.extract_tags(content_text, topK=6)
         keywords = ','.join(keywords)
     return keywords
