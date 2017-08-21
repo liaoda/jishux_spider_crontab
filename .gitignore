@@ -57,6 +57,7 @@ target/
 
 # python virtualenv
 venv/
+jishux_venv/
 
 # sqlite files
 data.sqlite
