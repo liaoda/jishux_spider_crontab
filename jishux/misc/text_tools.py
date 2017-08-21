@@ -16,11 +16,18 @@ def get_keywords(response, content_text):
     keywords = response.xpath('//meta[@name="keywords"]/@content')
     if keywords:
         keywords = keywords.extract_first()
-        keywords = keywords.split(',')
-        if len(keywords) > 6:
-            keywords = ','.join(keywords[0:6])
-        else:
-            keywords = ','.join(keywords)
+        if ',' in keywords:
+            keywords = keywords.split(',')
+            if len(keywords) > 6:
+                keywords = ','.join(keywords[0:6])
+            else:
+                keywords = ','.join(keywords)
+        elif '，' in keywords:
+            keywords = keywords.split('，')
+            if len(keywords) > 6:
+                keywords = ','.join(keywords[0:6])
+            else:
+                keywords = ','.join(keywords)
     else:
         keywords = jieba.analyse.extract_tags(content_text, topK=6)
         keywords = ','.join(keywords)
