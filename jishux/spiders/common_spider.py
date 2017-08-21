@@ -21,13 +21,14 @@ from ..misc.utils import md5
 class CommonSpider(scrapy.Spider):
     name = 'common_spider'
     # 爬所有的网站
-    start_urls = get_start_urls()
+    # start_urls = get_start_urls()
     # 爬单个网站
-    # start_urls = ['http://socialbeta.com/tag/%E6%A1%88%E4%BE%8B']
+    start_urls = ['https://www.huxiu.com/']
     custom_settings = {
         'ITEM_PIPELINES': {
-            'jishux.pipelines.ReplaceImagePipeline': 250,
-            'jishux.pipelines.JishuxMysqlPipeline': 300,
+            'jishux.pipelines.JishuxDataCleaningPipeline': 300,
+            'jishux.pipelines.JishuxReplaceImagePipeline': 400,
+            'jishux.pipelines.JishuxMysqlPipeline': 500,
         },
         'SPIDER_MIDDLEWARES': {
             'jishux.middlewares.JishuxSpiderMiddleware': 543,
@@ -42,7 +43,7 @@ class CommonSpider(scrapy.Spider):
         conf = response.meta['conf'] if 'conf' in response.meta.keys() else get_conf(url=response.url)
         post_type = response.meta['post_type'] if 'post_type' in response.meta.keys() else conf['url'][response.url]
         posts = response.xpath(conf['posts_xpath'])
-        for post in posts:
+        for post in posts[0:1]:
             post_url = post.xpath(conf['post_url_xpath']).extract_first()
             post_url = response.urljoin(post_url)
             post_title = post.xpath(conf['post_title_xpath']).extract_first()
@@ -60,7 +61,7 @@ class CommonSpider(scrapy.Spider):
                 latest_url = get_then_change_latest_url(md5(response.url), first_url)
             # 从sqlite中取出上一次最新的数据，与本次的数据做对比，如果相同则认为文章抓到了上次已经抓过的数据，如果不同则认为文章还没有抓完
             if post_url == latest_url:
-                print(u'{} - 爬到了上次爬到的地方'.format(conf['cn_name']))
+                print('{} - 爬到了上次爬到的地方'.format(conf['cn_name']))
                 return
 
             request = scrapy.Request(url=post_url, callback=self.parse_post,

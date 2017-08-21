@@ -41,12 +41,28 @@ class JishuxDataCleaningPipeline(object):
     数据清洗pipeline
     '''
     def process_item(self, item, spider):
+        item['content_html'] = self.clean_tags(item['content_html'])
+        print(item['content_html'])
         return item
+
+    def clean_tags(self, content_html):
+        '''
+        加工标签
+        '''
+        # 去掉开头结尾多余空白符
+        content_html = content_html.strip()
+        # nofollow
+        content_html = content_html.replace('<a', '<a rel="nofollow"')
+        # 空白符的处理
+        content_html = content_html.replace('\r', '').replace('\n', '').replace('\t', '').replace('<p>&nbsp;</p>', '')
+        # TODO: 代码标签统一处理
+
+        return content_html
 
     def clean_ads(self, item):
-        return item
-
-    def clean_tags(self, item):
+        '''
+        清洗广告
+        '''
         return item
 
 
@@ -54,7 +70,7 @@ class JishuxDataCleaningPipeline(object):
 # image_domain = 'http://7xw8xm.com2.z0.glb.qiniucdn.com/'
 
 
-class ReplaceImagePipeline(ImagesPipeline):
+class JishuxReplaceImagePipeline(ImagesPipeline):
     def get_media_requests(self, item, info):
         if item['image_urls']:
             for image_url in item['image_urls']:
@@ -88,8 +104,7 @@ class ReplaceImagePipeline(ImagesPipeline):
                 path = self.pre_item(settings.IMAGES_STORE + x[1]['path'])
                 image_paths.append(path)
                 content = content.replace(x[1]['url'], path)
-        if not item['litpic']:
-            item['litpic'] = image_paths[0] if len(image_paths) > 0 else ''
+        item['litpic'] = image_paths[0] if len(image_paths) > 0 else ''
         # item['image_paths'] = image_paths
         item['content_html'] = content
         return item
