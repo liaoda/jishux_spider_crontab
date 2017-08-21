@@ -43,7 +43,7 @@ class CommonSpider(scrapy.Spider):
         conf = response.meta['conf'] if 'conf' in response.meta.keys() else get_conf(url=response.url)
         post_type = response.meta['post_type'] if 'post_type' in response.meta.keys() else conf['url'][response.url]
         posts = response.xpath(conf['posts_xpath'])
-        for post in posts[0:1]:
+        for post in posts:
             post_url = post.xpath(conf['post_url_xpath']).extract_first()
             post_url = response.urljoin(post_url)
             post_title = post.xpath(conf['post_title_xpath']).extract_first()
