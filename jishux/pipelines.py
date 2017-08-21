@@ -10,15 +10,19 @@ try:
     from cStringIO import StringIO as BytesIO
 except ImportError:
     from io import BytesIO
-import scrapy, time, random
+import random
+import time
+from urllib.parse import urljoin
+
 import pymysql
-import jishux.settings as settings
-from jishux.settings import config
-from jishux.items import JishuxItem
+import scrapy
 from qiniu import Auth, put_file, etag
 from scrapy.pipelines.images import ImagesPipeline
+
 import jishux.misc.qiniu_tools as qiniu_config
-from urllib.parse import urljoin
+import jishux.settings as settings
+from jishux.items import JishuxItem
+from jishux.settings import config
 from .misc.utils import get_post_type_id
 
 
@@ -29,6 +33,20 @@ class JishuxPipeline(object):
 
 class JishuxMongoPipeline(object):
     def process_item(self, item, spider):
+        return item
+
+
+class JishuxDataCleaningPipeline(object):
+    '''
+    数据清洗pipeline
+    '''
+    def process_item(self, item, spider):
+        return item
+
+    def clean_ads(self, item):
+        return item
+
+    def clean_tags(self, item):
         return item
 
 
@@ -127,7 +145,7 @@ class JishuxMysqlPipeline(object):
         a = self.cursor.fetchone()
         aid = a['LAST_INSERT_ID()']
         sql_insert_content = 'INSERT INTO dede_addonarticle (aid, typeid, body, userip) VALUES(%s,%s,%s,%s)' % (
-            aid, type_id,"'"+ content+"'", "'"+"127.0.0.1"+"'")
+            aid, type_id, "'" + content + "'", "'" + "127.0.0.1" + "'")
         print(sql_insert_content)
         self.cursor.execute(sql_insert_content)
         sql_insert_arctiny = 'INSERT INTO dede_arctiny (id, typeid, channel, senddate, sortrank,mid) VALUES ("%s", "%s", "%s", "%s", "%s", "%s")' % (
