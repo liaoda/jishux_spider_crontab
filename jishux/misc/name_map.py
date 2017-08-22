@@ -15,7 +15,7 @@ common_map = {
         'post_url_xpath': 'div[@class="rinfo"]/a/@href',
         'post_title_xpath': 'div[@class="rinfo"]/a/text()',
     },
-    'http://socialbeta.com/tag/%E6%A1%88%E4%BE%8B': {
+    'http://socialbeta.com/': {
         'url': {
             'http://socialbeta.com/tag/%E6%A1%88%E4%BE%8B': 'news'
         },
@@ -38,7 +38,7 @@ common_map = {
         'post_url_xpath': 'a/@href',
         'post_title_xpath': 'a/div/div/img/@alt',
     },
-    'http://www.toodaylab.com/field/308': {
+    'http://www.toodaylab.com/': {
         'url': {
             'http://www.toodaylab.com/field/308': 'news'
         },
@@ -47,7 +47,7 @@ common_map = {
         'post_url_xpath': 'div[@class="post-info"]/p/a/@href',
         'post_title_xpath': 'div[@class="post-info"]/p/a/text()',
     },
-    'http://www.madisonboom.com/category/works/': {
+    'http://www.madisonboom.com/': {
         'url': {
             'http://www.madisonboom.com/category/works/': 'news'
         },
@@ -74,7 +74,7 @@ common_map = {
         'post_url_xpath': 'h2/a/@href',
         'post_title_xpath': 'h2/a/text()',
     },
-    'http://www.digitaling.com/projects': {
+    'http://www.digitaling.com/': {
         'url': {
             'http://www.digitaling.com/projects': 'news'
         },
@@ -92,7 +92,7 @@ common_map = {
         'post_url_xpath': 'h3/a/@href',
         'post_title_xpath': 'h3/a/text()',
     },
-    'http://www.ebrun.com/brands/': {
+    'http://www.ebrun.com/': {
         'url': {
             'http://www.ebrun.com/brands/': 'news'
         },
@@ -110,7 +110,7 @@ common_map = {
         'post_url_xpath': 'div[@class="mod-thumb "]/a/@href',
         'post_title_xpath': 'div[@class="mod-thumb "]/a/@title',
     },
-    'http://api.cyzone.cn/index.php?m=content&c=index&a=init&tpl=index_page&page=1': {
+    'http://api.cyzone.cn/': {
         'url': {
             'http://api.cyzone.cn/index.php?m=content&c=index&a=init&tpl=index_page&page=1': 'news'
         },
@@ -146,7 +146,7 @@ common_map = {
         'post_url_xpath': 'div/h3/a/@href',
         'post_title_xpath': 'div/h3/a/text()',
     },
-    'http://www.iyiou.com/newpost': {
+    'http://www.iyiou.com/': {
         'url': {
             'http://www.iyiou.com/newpost': 'news'
         },
@@ -155,7 +155,7 @@ common_map = {
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
     },
-    'http://www.im2maker.com/fresh/': {
+    'http://www.im2maker.com/': {
         'url': {
             'http://www.im2maker.com/fresh/': 'news'
         },
@@ -218,7 +218,7 @@ common_map = {
         'post_url_xpath': 'div[@class="hot_"]/h4/a/@href',
         'post_title_xpath': 'div[@class="hot_"]/h4/a/text()',
     },
-    'http://www.sootoo.com/tag/1/?&day=--&page=1': {
+    'http://www.sootoo.com/': {
         'url': {
             'http://www.sootoo.com/tag/1/?&day=--&page=1': 'news'
         },
@@ -240,7 +240,7 @@ common_map = {
         'post_title_xpath': 'div/a/@title',
         'post_type': 'news',
     },
-    'http://cn.technode.com/post/category/technode-talks/': {
+    'http://cn.technode.com/': {
         'url': {
             'http://cn.technode.com/post/category/technode-talks/': 'news',
         },
@@ -249,7 +249,7 @@ common_map = {
         'post_url_xpath': 'div/a/@href',
         'post_title_xpath': 'div/a/@title',
     },
-    'http://www.2cto.com/article/web/': {
+    'http://www.2cto.com/': {
         'url': {
             'http://www.2cto.com/article/web/': 'frontend',
             'http://www.2cto.com/kf/yidong/Android/news/': 'mobile',
