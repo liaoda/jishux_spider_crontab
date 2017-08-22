@@ -21,9 +21,9 @@ from ..misc.utils import md5
 class CommonSpider(scrapy.Spider):
     name = 'common_spider'
     # 爬所有的网站
-    # start_urls = get_start_urls()
+    start_urls = get_start_urls()
     # 爬单个网站
-    start_urls = ['https://www.huxiu.com/']
+    # start_urls = ['https://www.huxiu.com/']
     custom_settings = {
         'ITEM_PIPELINES': {
             'jishux.pipelines.JishuxDataCleaningPipeline': 300,

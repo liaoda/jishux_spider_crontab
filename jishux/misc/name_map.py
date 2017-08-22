@@ -6,7 +6,15 @@ from urllib.parse import urlsplit
 
 common_map = {
     # ********** news list ***********
-
+    'http://mobile.51cto.com/': {
+        'url': {
+            'http://mobile.51cto.com': 'mobile',
+        },
+        'cn_name': '51CTO',
+        'posts_xpath': '//div[@class="home-left-list"]//li',
+        'post_url_xpath': 'div[@class="rinfo"]/a/@href',
+        'post_title_xpath': 'div[@class="rinfo"]/a/text()',
+    },
     'http://socialbeta.com/tag/%E6%A1%88%E4%BE%8B': {
         'url': {
             'http://socialbeta.com/tag/%E6%A1%88%E4%BE%8B': 'news'
@@ -242,14 +250,19 @@ common_map = {
         'post_title_xpath': 'div/a/@title',
     },
     'http://www.2cto.com/article/web/': {
-        'url': 'http://www.2cto.com/article/web/',
-        'name': '2cto',
+        'url': {
+            'http://www.2cto.com/article/web/': 'frontend',
+            'http://www.2cto.com/kf/yidong/Android/news/': 'mobile',
+            'http://www.2cto.com/ebook/jiaoben/Python/': 'backend',
+            'http://www.2cto.com/ebook/safe/': 'network',
+        },
         'cn_name': '红黑联盟',
-        'posts_xpath': '//*[@id="fontzoom"]',
-        'post_url_xpath': '//*[@id="fontzoom"]/div/div[1]/a/@href',
-        'post_title_xpath': 'div/a/@title',
-        'post_type': 'news',
+        'posts_xpath': '//*[@id="fontzoom"]/ul/li',
+        'post_url_xpath': 'a/@href',
+        'post_title_xpath': 'a/text()',
     },
+
+
     # '': {
     #     'url': '',
     #     'cn_name': '',
@@ -304,6 +317,7 @@ def get_start_urls():
     for k in common_map.keys():
         start_urls += common_map[k]['url'].keys()
     return start_urls
+
 
 def get_conf(url):
     base_url = "{0.scheme}://{0.netloc}/".format(urlsplit(url))
