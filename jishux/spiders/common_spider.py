@@ -25,7 +25,7 @@ class CommonSpider(scrapy.Spider):
     # 爬单个网站的所有子站
     start_urls = get_one_site_start_urls('http://www.xitongcheng.com/')
     # 爬单个网站的单个子站
-    start_urls = ['http://www.xitongcheng.com/jiaocheng/win7/']
+    # start_urls = ['http://www.xitongcheng.com/jiaocheng/win7/']
     custom_settings = {
         'ITEM_PIPELINES': {
             'jishux.pipelines.JishuxDataCleaningPipeline': 300,
