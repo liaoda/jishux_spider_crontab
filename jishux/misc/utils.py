@@ -17,7 +17,7 @@ def get_post_type_id(post_type):
         'database': 11,
         'other': 12,
         'network': 13,
-        'system': 14,
+        'os': 14,
         'frontend': 19,
         'backend': 20,
     }

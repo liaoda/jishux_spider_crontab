@@ -9,7 +9,7 @@ import scrapy
 from scrapy import Selector
 
 from ..items import JishuxItem
-from ..misc.name_map import get_conf, get_start_urls
+from ..misc.name_map import get_conf, get_all_site_start_urls, get_one_site_start_urls
 from ..misc.readability_tools import get_summary
 from ..misc.request_tools import next_page
 from ..misc.sqlite_tools import get_then_change_latest_url
@@ -21,9 +21,11 @@ from ..misc.utils import md5
 class CommonSpider(scrapy.Spider):
     name = 'common_spider'
     # 爬所有的网站
-    start_urls = get_start_urls()
-    # 爬单个网站
-    # start_urls = ['http://www.ebrun.com/brands/']
+    # start_urls = get_all_site_start_urls()
+    # 爬单个网站的所有子站
+    start_urls = get_one_site_start_urls('http://www.xitongcheng.com/')
+    # 爬单个网站的单个子站
+    # start_urls = ['http://www.xitongcheng.com/jiaocheng/win7/']
     custom_settings = {
         'ITEM_PIPELINES': {
             'jishux.pipelines.JishuxDataCleaningPipeline': 300,
@@ -71,10 +73,10 @@ class CommonSpider(scrapy.Spider):
             yield request
 
         # 翻页
-        request = next_page(callback=self.parse, response=response, conf=conf, first_url=first_url,
-                            latest_url=latest_url, post_type=post_type)
-        if request:
-            yield request
+        # request = next_page(callback=self.parse, response=response, conf=conf, first_url=first_url,
+        #                     latest_url=latest_url, post_type=post_type)
+        # if request:
+        #     yield request
 
     def parse_post(self, response):
         crawl_time = None

@@ -122,7 +122,7 @@ class JishuxReplaceImagePipeline(ImagesPipeline):
         assert ret['key'] == file_name
         assert ret['hash'] == etag(file_path)
         # os.remove(file_path)
-        return qiniu_config.image_domain + file_name
+        return qiniu_config.image_domain + file_name +qiniu_config.suffix
 
     # 图片下载上传到七牛,重新拼接img
     def pre_item(self, path):
