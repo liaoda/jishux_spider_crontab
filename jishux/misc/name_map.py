@@ -266,13 +266,34 @@ common_map = {
         'post_title_xpath': 'a/text()',
     },
 
+    'http://www.xitongcheng.com/': {
+        'url': {
+            'http://www.xitongcheng.com/jiaocheng/xtazjc/': 'os',
+            'http://www.xitongcheng.com/jiaocheng/xp/': 'os',
+            'http://www.xitongcheng.com/jiaocheng/win7/': 'os',
+            'http://www.xitongcheng.com/jiaocheng/win8/': 'os',
+            'http://www.xitongcheng.com/jiaocheng/win10/': 'os',
+            'http://www.xitongcheng.com/jiaocheng/dnrj/': 'os',
+        },
+        'cn_name': '系统城',
+        'posts_xpath': '//div[@class="left"]/ul/li',
+        'post_url_xpath': 'a/@href',
+        'post_title_xpath': 'a/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//*[text()="下一页"]/@href',
+        },
+    },
+
+    #
     # '': {
-    #     'url': '',
+    #     'url': {
+    #         '': '',
+    #     },
     #     'cn_name': '',
     #     'posts_xpath': '',
     #     'post_url_xpath': '',
     #     'post_title_xpath': '',
-    #     'post_type': '',
     #     'next_page': {
     #         'type': '',
     #         'xpath': '',
@@ -315,11 +336,14 @@ common_map = {
 }
 
 
-def get_start_urls():
+def get_all_site_start_urls():
     start_urls = []
     for k in common_map.keys():
         start_urls += common_map[k]['url'].keys()
     return start_urls
+
+def get_one_site_start_urls(host=''):
+    return common_map[host]['url'].keys()
 
 
 def get_conf(url):
