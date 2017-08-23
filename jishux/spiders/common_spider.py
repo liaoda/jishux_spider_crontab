@@ -23,15 +23,15 @@ class CommonSpider(scrapy.Spider):
     # 爬所有的网站
     # start_urls = get_start_urls()
     # 爬单个网站
-    start_urls = ['https://www.huxiu.com/']
+    # start_urls = ['http://www.ebrun.com/brands/']
     custom_settings = {
         'ITEM_PIPELINES': {
             'jishux.pipelines.JishuxDataCleaningPipeline': 300,
             'jishux.pipelines.JishuxReplaceImagePipeline': 400,
             'jishux.pipelines.JishuxMysqlPipeline': 500,
         },
-        'SPIDER_MIDDLEWARES': {
-            'jishux.middlewares.JishuxSpiderMiddleware': 543,
+        'DOWNLOADER_MIDDLEWARES': {
+            'jishux.middlewares.JishuxDownloaderMiddleware': 543,
         }
     }
 

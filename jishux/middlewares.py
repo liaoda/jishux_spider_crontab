@@ -6,8 +6,10 @@
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 import random
-from .misc.user_agents import user_agent_list
+
 from scrapy import signals
+
+from .misc.user_agents import user_agent_list
 
 
 class JishuxSpiderMiddleware(object):
@@ -52,9 +54,17 @@ class JishuxSpiderMiddleware(object):
 
         # Must return only requests (not items).
         for r in start_requests:
-            r.headers[
-                'User-Agent'] = random.choice(user_agent_list)
             yield r
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+class JishuxDownloaderMiddleware(object):
+    '''
+    下载器中间件
+    '''
+
+    def process_request(self, request, spider):
+        request.headers['User-Agent'] = random.choice(user_agent_list)
+        # print(request.headers)
