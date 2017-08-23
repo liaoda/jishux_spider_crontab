@@ -21,7 +21,7 @@ from ..misc.utils import md5
 class CommonSpider(scrapy.Spider):
     name = 'common_spider'
     # 爬所有的网站
-    # start_urls = get_start_urls()
+    start_urls = get_start_urls()
     # 爬单个网站
     # start_urls = ['http://www.ebrun.com/brands/']
     custom_settings = {
@@ -71,10 +71,10 @@ class CommonSpider(scrapy.Spider):
             yield request
 
         # 翻页
-        request = next_page(callback=self.parse, response=response, conf=conf, first_url=first_url,
-                            latest_url=latest_url, post_type=post_type)
-        if request:
-            yield request
+        # request = next_page(callback=self.parse, response=response, conf=conf, first_url=first_url,
+        #                     latest_url=latest_url, post_type=post_type)
+        # if request:
+        #     yield request
 
     def parse_post(self, response):
         crawl_time = None

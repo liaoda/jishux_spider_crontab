@@ -105,7 +105,7 @@ config = {
     'password': 'a8JcZ79XW3Krdbtj',
     # 'db': 'dedecms',
     # 'db': 'dedecmsv57gbksp2',
-    'db': 'dedecmsv57utf8sp2',
+    'db': 'dedecmsv57utf8sp3',
     # 'charset': 'gbk',
     'charset': 'utf8',
     'cursorclass': pymysql.cursors.DictCursor,

@@ -256,12 +256,15 @@ common_map = {
             'http://www.2cto.com/ebook/jiaoben/Python/': 'backend',
             'http://www.2cto.com/ebook/safe/': 'network',
         },
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//*[text()="下一页"]/@href',
+        },
         'cn_name': '红黑联盟',
         'posts_xpath': '//*[@id="fontzoom"]/ul/li',
         'post_url_xpath': 'a/@href',
         'post_title_xpath': 'a/text()',
     },
-
 
     # '': {
     #     'url': '',
