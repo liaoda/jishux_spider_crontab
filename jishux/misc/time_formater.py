@@ -14,3 +14,4 @@ def generate_timestamp(post_time):
     if time_stamp > now:
         time_stamp = now - random.randint(0, 600)
     return time_stamp
+

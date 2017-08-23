@@ -71,10 +71,10 @@ class CommonSpider(scrapy.Spider):
             yield request
 
         # 翻页
-        request = next_page(callback=self.parse, response=response, conf=conf, first_url=first_url,
-                            latest_url=latest_url, post_type=post_type)
-        if request:
-            yield request
+        # request = next_page(callback=self.parse, response=response, conf=conf, first_url=first_url,
+        #                     latest_url=latest_url, post_type=post_type)
+        # if request:
+        #     yield request
 
     def parse_post(self, response):
         crawl_time = None
