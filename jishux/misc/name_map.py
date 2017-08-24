@@ -306,7 +306,24 @@ common_map = {
         },
     },
 
-    # '': {
+    'https://linux.cn/': {
+        'url': {
+            'https://linux.cn/news/': 'news',
+            'https://linux.cn/tech/': 'os',
+            'https://linux.cn/talk/': 'os',
+            'https://linux.cn/share/': 'os',
+        },
+        'cn_name': 'Linux中国',
+        'posts_xpath': '//ul[@class="article-list leftpic"]',
+        'post_url_xpath': 'li/h2/span[@class="title"]/a/@href',
+        'post_title_xpath': 'li/h2/span[@class="title"]/a/@title',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[text()="下一页"]',
+        },
+    },
+
+# '': {
     #     'url': {
     #         '': '',
     #     },
