@@ -38,7 +38,7 @@ class JishuxDataCleaningPipeline(object):
     '''
     def process_item(self, item, spider):
         item['content_html'] = self.clean_tags(item['content_html'])
-        print(item['content_html'])
+        # print(item['content_html'])
         return item
 
     def clean_tags(self, content_html):
@@ -101,10 +101,14 @@ class JishuxReplaceImagePipeline(ImagesPipeline):
                 path = self.pre_item(settings.IMAGES_STORE + x[1]['path'])
                 image_paths.append(path)
                 content = content.replace(x[1]['url'], path)
+
                 relative_path = urlparse(x[1]['url']).path   # todo 这里只解决了用相对地址的图片，诸如bigdata 用..+相对地址的不起作用
+                content = content.replace('..'+relative_path, path) # todo 非bigdata 注释掉
                 content = content.replace(relative_path, path)
+                content = content.replace('../../pic/pm.jpg', 'http://wercoder.com/dedemao/images/logo.png') # todo 非bigdata 注释掉
         item['litpic'] = image_paths[0] if len(image_paths) > 0 else ''
         # item['image_paths'] = image_paths
+        # print(content)
         item['content_html'] = content
         return item
 
