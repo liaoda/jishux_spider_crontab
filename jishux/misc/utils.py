@@ -14,7 +14,7 @@ def get_post_type_id(post_type):
         'bigdata': 5,
         'mobile': 24,
         'ai': 10,
-        'database': 11,
+        'db': 11,
         'other': 12,
         'network': 13,
         'os': 14,

@@ -285,7 +285,27 @@ common_map = {
         },
     },
 
-    #
+    'http://www.linuxidc.com/': {
+        'url': {
+            'http://www.linuxidc.com/it/': 'news',
+            'http://www.linuxidc.com/Linuxit/': 'os',
+            'http://www.linuxidc.com/linuxsoft/': 'os',
+            'http://www.linuxidc.com/MySql/': 'db',
+            'http://www.linuxidc.com/RedLinux/': 'other',
+            'http://www.linuxidc.com/download/': 'other',
+            'http://www.linuxidc.com/Apache/': 'network',
+            'http://www.linuxidc.com/Unix/': 'network',
+        },
+        'cn_name': 'linux公社',
+        'posts_xpath': '//div[@class="summary"]',
+        'post_url_xpath': 'div[@class="cont"]/div[@class="title"]/a/@href',
+        'post_title_xpath': 'div[@class="cont"]/div[@class="title"]/a/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//*[text()="»"]/@href',
+        },
+    },
+
     # '': {
     #     'url': {
     #         '': '',

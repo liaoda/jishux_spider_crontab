@@ -23,7 +23,7 @@ class CommonSpider(scrapy.Spider):
     # 爬所有的网站
     # start_urls = get_all_site_start_urls()
     # 爬单个网站的所有子站
-    start_urls = get_one_site_start_urls('http://www.xitongcheng.com/')
+    start_urls = get_one_site_start_urls('http://www.linuxidc.com/')
     # 爬单个网站的单个子站
     # start_urls = ['http://www.xitongcheng.com/jiaocheng/win7/']
     custom_settings = {
