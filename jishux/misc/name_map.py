@@ -356,6 +356,31 @@ common_map = {
         },
     },
 
+    'http://www.jianshu.com/': {
+        'url': {
+            'http://www.jianshu.com/c/V2CqjW': 'bigdata',
+            'http://www.jianshu.com/c/c261fa3879d6': 'frontend',
+            'http://www.jianshu.com/c/0bab91ded569': 'other',
+            'http://www.jianshu.com/c/51425dc50685': 'os',
+            'http://www.jianshu.com/c/5aac963ca52d': 'mobile',
+            'http://www.jianshu.com/c/b641f7c33fd2': 'bigdata',
+            'http://www.jianshu.com/c/257bcc1383e2': 'ai',
+            'http://www.jianshu.com/c/1395428608b4': 'ai',
+            'http://www.jianshu.com/c/1022d2287ccc': 'ai',
+            'http://www.jianshu.com/c/f971e98846c6': 'network',
+        },
+        'cn_name': '简书',
+        'posts_xpath': '//*[contains(@id,"note")]',
+        'post_url_xpath': 'div/a[@class="title"]/@href',
+        'post_title_xpath': 'div/a[@class="title"]/text()',
+        'headers': {
+            "Accept-Encoding": "gzip, identity",
+            "Accept-Language": "zh-CN,zh;q=0.8",
+            "Cookie": "remember_user_token=W1syMjEwMDk4XSwiJDJhJDEwJDZQU3ZteVdlMjkvdjdVVURDNjB0OWUiLCIxNTAzNDgyNjMwLjkyNDIxMTciXQ==--32ae8134ca911d1d332f8f8c42998581b18eb5ea; Hm_lvt_0c0e9d9b1e7d617b3e6842e85b9fb068=1502267438,1502849321,1503026189,1503482168; Hm_lpvt_0c0e9d9b1e7d617b3e6842e85b9fb068=1503483324; _ga=GA1.2.938018437.1493976814; _gid=GA1.2.392185505.1503482168; _session_id=dGVjRndIQkNNYUx3UVN5YnFIMnlHd0pRSG9aR05XVS9pYnNTbU5kVExWSzVJelBxT2RSeUFqOEJjeFMzSDNTVU40aHpMbjQzWmpNQkFLRFdIWHZBcmxPZEc5aFdGaWYwdXVpSkVFL0tpbmlJdU1udzVUbU1uZnhMR0crYnR6RktEMmdIQkpyOXM1N3RyS1MwcEt4YnJybUg1bktYTHo1SStlN0U3Yk1vektTUzdhOXVtOVRJakxTa2xLTHRtcmVkdFBNQUZiay9QRWVzQlRKblk1Q0ZjL2VrckZQNHJ2QmxFOXMvaEw3T1BZUUcwYURsQjF2anBaN1JlSldBeXhtbCtjc2grYVpqOCtFOEpjRlAySlpxNHBQc0NhZjhicjVGcFBKOWRLdEdYZndabUtOTXNvdktsT3l1V1g1aC9GNms2VzhkZVJ3QXdNRS82cjhiSU52ZWdkSkFKNUd0dnpRUFJvYzAzVXl1alBNalArVGM3bWVkd0lQYXhYS1A5N1ZiYXF5eWZkLzhoR2prekxoOHRUUmE1dlNDK2lwMkFnb0dtMHBEc242Wm1pQT0tLWsxc2UvUDlhWnR5Qk1aQkJ3TWxsTmc9PQ==--0bfa89637e8adbc729937a3a07b21cf7c76723aa",
+            "If-None-Match": "W/\"baebc4bb3d3c66947d8cbdedf66a8726\"",
+        }
+    },
+
     # '': {
     #     'url': {
     #         '': '',
@@ -427,3 +452,16 @@ def get_conf(url):
     elif base_url[0:-1] in common_map.keys():
         conf = common_map[base_url]
     return conf
+
+
+def get_cookies(str_cookie):
+    if str_cookie is None:
+        return None
+    cookie = {}
+    arr = str_cookie.split(';')
+    for i in arr:
+        arrs = i.split('=', 1)
+        cookie[arrs[0]] = arrs[1]
+
+    return cookie
+

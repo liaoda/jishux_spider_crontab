@@ -9,7 +9,7 @@ import scrapy
 from scrapy import Selector
 
 from ..items import JishuxItem
-from ..misc.name_map import get_conf, get_all_site_start_urls, get_one_site_start_urls
+from ..misc.name_map import get_conf, get_all_site_start_urls, get_one_site_start_urls, get_cookies
 from ..misc.readability_tools import get_summary
 from ..misc.request_tools import next_page
 from ..misc.sqlite_tools import get_then_change_latest_url
@@ -23,7 +23,7 @@ class CommonSpider(scrapy.Spider):
     # 爬所有的网站
     # start_urls = get_all_site_start_urls()
     # 爬单个网站的所有子站
-    start_urls = get_one_site_start_urls('http://www.linuxidc.com/')
+    start_urls = get_one_site_start_urls('http://www.jianshu.com/')
     # 爬单个网站的单个子站
     # start_urls = ['http://www.xitongcheng.com/jiaocheng/win7/']
     custom_settings = {
@@ -65,9 +65,14 @@ class CommonSpider(scrapy.Spider):
             if post_url == latest_url:
                 print('{} - 爬到了上次爬到的地方'.format(conf['cn_name']))
                 return
-
+            print(get_cookies(
+                conf['headers']['Cookie'] if 'headers' in conf.keys() and 'Cookie' in conf[
+                    'headers'].keys() else None))
             request = scrapy.Request(url=post_url, callback=self.parse_post,
-                                     headers=conf['headers'] if 'headers' in conf.keys() else None)
+                                     headers=conf['headers'] if 'headers' in conf.keys() else None,
+                                     cookies=get_cookies(
+                                         conf['headers']['Cookie'] if 'headers' in conf.keys() and 'Cookie' in conf[
+                                             'headers'].keys() else None))
             request.meta['item'] = item
             request.meta['conf'] = conf
             yield request
@@ -86,8 +91,9 @@ class CommonSpider(scrapy.Spider):
         item['_id'] = response.meta['item']['_id']
         item['post_type'] = response.meta['item']['post_type']
         conf = response.meta['conf']
-        post_time = re.search('(20\d{2}([\.\-/|年月\s]{1,3}\d{1,2}){2}日?(\s\d{2}:\d{2}(:\d{2})?)?)|(\d{1,2}\s?(分钟|小时|天)前)',
-                              response.text)
+        post_time = re.search(
+            '(20\d{2}([\.\-/|年月\s]{1,3}\d{1,2}){2}日?(\s\d{2}:\d{2}(:\d{2})?)?)|(\d{1,2}\s?(分钟|小时|天)前)',
+            response.text)
         print(post_time)
         if post_time:
             crawl_time = generate_timestamp(post_time.group())
