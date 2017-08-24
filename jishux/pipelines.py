@@ -4,12 +4,6 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
-
-try:
-
-    from cStringIO import StringIO as BytesIO
-except ImportError:
-    from io import BytesIO
 import random
 import time
 from urllib.parse import urljoin
@@ -25,6 +19,8 @@ from jishux.items import JishuxItem
 from jishux.settings import config
 from .misc.utils import get_post_type_id
 
+
+from urllib.parse import urlparse
 
 class JishuxPipeline(object):
     def process_item(self, item, spider):
@@ -99,11 +95,14 @@ class JishuxReplaceImagePipeline(ImagesPipeline):
     def item_completed(self, results, item, info):
         content = item['content_html']
         image_paths = []
+        print(results)
         for x in results:
             if x[0]:
                 path = self.pre_item(settings.IMAGES_STORE + x[1]['path'])
                 image_paths.append(path)
                 content = content.replace(x[1]['url'], path)
+                relative_path = urlparse(x[1]['url']).path   # todo 这里只解决了用相对地址的图片，诸如bigdata 用..+相对地址的不起作用
+                content = content.replace(relative_path, path)
         item['litpic'] = image_paths[0] if len(image_paths) > 0 else ''
         # item['image_paths'] = image_paths
         item['content_html'] = content
@@ -138,6 +137,7 @@ class JishuxMysqlPipeline(object):
     def process_item(self, item, spider):
 
         if isinstance(item, JishuxItem):
+            # pass
             # print(item)
             self.insert_item(item)
 
@@ -147,12 +147,13 @@ class JishuxMysqlPipeline(object):
         content = item['content_html'].replace("'", "\\'") if item['content_html'] else ''
         title = item['post_title'] if item['post_title'] else ''
         source = item['cn_name']
+        article_type ='p' if len(item['image_urls']) >0 else ''
         author = '技术栈' if not item['author'] else item['author']
         litpic = item['litpic'] if item['litpic']else ''
         type_id = get_post_type_id(item['post_type'])
         crawl_time = str(item['crawl_time'])
         sql_insert_meta = 'INSERT INTO dede_archives (typeid, sortrank, flag, ismake, channel, title, writer, source, pubdate, senddate, mid, keywords, description, dutyadmin,voteid,litpic,click) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "'"+%s+"'", "%s", "%s","%s","%s","%s")' % (
-            type_id, crawl_time, 'p', -1, 1, title, author, source, crawl_time, crawl_time,
+            type_id, crawl_time, article_type, -1, 1, title, author, source, crawl_time, crawl_time,
             1, keywords, description, 1, 0, litpic, random.randint(5000, 10000))
         self.cursor.execute(sql_insert_meta)
         sql_last_id = 'SELECT LAST_INSERT_ID()'
