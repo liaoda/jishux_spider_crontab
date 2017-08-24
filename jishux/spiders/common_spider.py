@@ -105,4 +105,4 @@ class CommonSpider(scrapy.Spider):
         item['author'] = ''  # todo 文章作者 配置文件需要适配
         item['image_urls'] = Selector(text=content_html).xpath('//img/@src').extract()
         # print(item)
-        # yield item
+        yield item
