@@ -464,4 +464,3 @@ def get_cookies(str_cookie):
         cookie[arrs[0]] = arrs[1]
 
     return cookie
-
