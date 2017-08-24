@@ -323,7 +323,40 @@ common_map = {
         },
     },
 
-# '': {
+    'http://www.thebigdata.cn/': {
+        'url': {
+            'http://www.thebigdata.cn/YeJieDongTai/': 'news',
+            'http://www.thebigdata.cn/KaiYuanJiShu/': 'bigdata',
+            'http://www.thebigdata.cn/YingYongAnLi/': 'bigdata',
+            'http://www.thebigdata.cn/JieJueFangAn/': 'bigdata',
+            'http://www.thebigdata.cn/ShangYePingTai/': 'bigdata',
+            'http://www.thebigdata.cn/ShuJuFenXi/': 'bigdata',
+        },
+        'cn_name': '中国大数据',
+        'posts_xpath': '//div[@class="summary"]',
+        'post_url_xpath': 'div[@class="cont"]/div[@class="title"]/a/@href',
+        'post_title_xpath': 'div[@class="cont"]/div[@class="title"]/a/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//*[text()="»"]/@href',
+        },
+    },
+
+    'http://it.dataguru.cn/': {
+        'url': {
+            'http://it.dataguru.cn/': 'bigdata',
+        },
+        'cn_name': '炼数成金',
+        'posts_xpath': '//dl[@class="bbda cl"]',
+        'post_url_xpath': 'dt/a/@href',
+        'post_title_xpath': 'dt/a/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[text()="下一页"]',
+        },
+    },
+
+    # '': {
     #     'url': {
     #         '': '',
     #     },
@@ -378,6 +411,7 @@ def get_all_site_start_urls():
     for k in common_map.keys():
         start_urls += common_map[k]['url'].keys()
     return start_urls
+
 
 def get_one_site_start_urls(host=''):
     return common_map[host]['url'].keys()
