@@ -352,7 +352,7 @@ common_map = {
         'post_title_xpath': 'dt/a/text()',
         'next_page': {
             'type': 'CLICK_NEXT_BUTTON',
-            'xpath': '//a[text()="下一页"]',
+            'xpath': '//a[text()="下一页"]/@href',
         },
     },
 
