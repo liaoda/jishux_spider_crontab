@@ -18,6 +18,7 @@ access_key_id = aliyun_oss_config['access_key_id']
 access_key_secret = aliyun_oss_config['access_key_secret']
 bucket_name = aliyun_oss_config['bucket_name']
 endpoint = aliyun_oss_config['endpoint']
+endpoint_internal = aliyun_oss_config['endpoint_internal']
 schema = 'http://'
 
 # 确认上面的参数都填写正确了
@@ -25,7 +26,7 @@ for param in (access_key_id, access_key_secret, bucket_name, endpoint):
     assert '<' not in param, '请设置参数：' + param
 
 # 创建Bucket对象，所有Object相关的接口都可以通过Bucket对象来进行
-bucket = oss2.Bucket(oss2.Auth(access_key_id, access_key_secret), endpoint, bucket_name)
+bucket = oss2.Bucket(oss2.Auth(access_key_id, access_key_secret), endpoint_internal, bucket_name)
 
 
 def upload_file(local_file_name, yun_file_name):
