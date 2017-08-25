@@ -33,17 +33,16 @@ bucket = oss2.Bucket(oss2.Auth(access_key_id, access_key_secret), endpoint, buck
 
 def upload_file(local_file_name, yun_file_name):
     # 上面两行代码，也可以用下面的一行代码来实现
-    date = time.strftime('%Y/%m/%d', time.localtime(time.time()))
+    date = time.strftime('%Y/%m/%d/', time.localtime(time.time()))
     yun_file_name = date + yun_file_name
     upload = bucket.put_object_from_file(yun_file_name, local_file_name)
     if upload.status is 200:
-        os.remove(local_file_name)
+        # os.remove(local_file_name)
         return schema+bucket_name+'.'+endpoint+'/' + yun_file_name
 
     else:
         return None
 
-print(upload_file('a.txt', '/aaaa.txt'))
 
 # # 删除名为motto.txt的Object
 # bucket.delete_object('motto.txt')

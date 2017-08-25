@@ -99,14 +99,15 @@ class JishuxReplaceImagePipeline(ImagesPipeline):
         for x in results:
             if x[0]:
                 path = self.pre_item(settings.IMAGES_STORE + x[1]['path'])
-                print(path)
-                image_paths.append(path)
-                content = content.replace(x[1]['url'], path)
-
-                relative_path = urlparse(x[1]['url']).path   # todo 这里只解决了用相对地址的图片，诸如bigdata 用..+相对地址的不起作用
-                content = content.replace('..'+relative_path, path) # todo 非bigdata 注释掉
-                content = content.replace(relative_path, path)
-                content = content.replace('../../pic/pm.jpg', 'http://wercoder.com/dedemao/images/logo.png') # todo 非bigdata 注释掉
+                if path is None:
+                    print('上传失败')
+                else:
+                    image_paths.append(path)
+                    content = content.replace(x[1]['url'], path)
+                    relative_path = urlparse(x[1]['url']).path
+                    content = content.replace('..'+relative_path, path) # todo 非bigdata 注释掉
+                    content = content.replace(relative_path, path)
+                    content = content.replace('../../pic/pm.jpg', 'http://wercoder.com/dedemao/images/logo.png') # todo 非bigdata 注释掉
         item['litpic'] = image_paths[0] if len(image_paths) > 0 else ''
         # item['image_paths'] = image_paths
         # print(content)
@@ -129,8 +130,8 @@ class JishuxMysqlPipeline(object):
     def process_item(self, item, spider):
 
         if isinstance(item, JishuxItem):
-            pass
-            # print(item)
+            print(item)
+            # pass
             # self.insert_item(item)
 
     def insert_item(self, item):
