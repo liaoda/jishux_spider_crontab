@@ -95,18 +95,3 @@ AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-import pymysql
-config = {
-    # 'host': '127.0.0.1',
-    'host': '47.93.232.8',
-    'port': 3306,
-    'user': 'root',
-    # 'password': 'toor',
-    'password': 'a8JcZ79XW3Krdbtj',
-    # 'db': 'dedecms',
-    # 'db': 'dedecmsv57gbksp2',
-    'db': 'dedecmsv57utf8sp3',
-    # 'charset': 'gbk',
-    'charset': 'utf8',
-    'cursorclass': pymysql.cursors.DictCursor,
-}

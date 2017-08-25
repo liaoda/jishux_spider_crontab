@@ -16,7 +16,7 @@ from jishux.misc.qiniu_tools import upload_file as qiniu_upload
 from jishux.misc.aliyunoss_tools import upload_file as ali_upload
 import jishux.settings as settings
 from jishux.items import JishuxItem
-from jishux.settings import config
+from jishux.misc.all_secret_set import mysql_config
 from .misc.utils import get_post_type_id
 
 
@@ -124,7 +124,7 @@ class JishuxReplaceImagePipeline(ImagesPipeline):
 class JishuxMysqlPipeline(object):
     def __init__(self):
         # 创建连接git l
-        self.connection = pymysql.connect(**config)
+        self.connection = pymysql.connect(**mysql_config)
         self.cursor = self.connection.cursor()
 
     def process_item(self, item, spider):

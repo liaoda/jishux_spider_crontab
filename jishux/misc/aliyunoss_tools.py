@@ -2,12 +2,10 @@
 # -*- coding: utf-8 -*-
 # Created by dengqiangxi on 2017-08-25
 
-import os
+# import os
 import oss2
 import time
-
-# 以下代码展示了基本的文件上传、下载、罗列、删除用法。
-
+from jishux.misc.all_secret_set import aliyun_oss_config
 
 # 首先初始化AccessKeyId、AccessKeySecret、Endpoint等信息。
 # 通过环境变量获取，或者把诸如“<你的AccessKeyId>”替换成真实的AccessKeyId等。
@@ -16,12 +14,11 @@ import time
 #   http://oss-cn-hangzhou.aliyuncs.com
 #   https://oss-cn-hangzhou.aliyuncs.com
 # 分别以HTTP、HTTPS协议访问。
-access_key_id = 'LTAIf4PlbD1T4e64'
-access_key_secret = '5COUeRcI6hjSv8lnqxjK8qjyGHJLLu'
-bucket_name = 'jishux'
-endpoint = 'oss-cn-beijing.aliyuncs.com'
-schema=  'http://'
-# oss-cn-beijing-internal.aliyuncs.com 内网域名
+access_key_id = aliyun_oss_config['access_key_id']
+access_key_secret = aliyun_oss_config['access_key_secret']
+bucket_name = aliyun_oss_config['bucket_name']
+endpoint = aliyun_oss_config['endpoint']
+schema = 'http://'
 
 # 确认上面的参数都填写正确了
 for param in (access_key_id, access_key_secret, bucket_name, endpoint):
@@ -38,12 +35,13 @@ def upload_file(local_file_name, yun_file_name):
     upload = bucket.put_object_from_file(yun_file_name, local_file_name)
     if upload.status is 200:
         # os.remove(local_file_name)
-        return schema+bucket_name+'.'+endpoint+'/' + yun_file_name
+        return schema + bucket_name + '.' + endpoint + '/' + yun_file_name
 
     else:
         return None
 
 
+# print(upload_file('a.txt','aaaaaa.txt'))
 # # 删除名为motto.txt的Object
 # bucket.delete_object('motto.txt')
 #
