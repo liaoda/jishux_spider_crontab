@@ -10,7 +10,7 @@ image_domain = qiniu_config['image_domain']
 suffix = qiniu_config['suffix']
 
 
-def upload_file(self, file_path, file_name):
+def upload_file(file_path, file_name):
     # print(file_path)
     # print(file_name)
     date = time.strftime('%Y/%m/%d', time.localtime(time.time()))
