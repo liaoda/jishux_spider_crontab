@@ -3,6 +3,7 @@
 # Created by yaochao on 2017/8/1
 
 from urllib.parse import urlsplit
+from .name_map_params import csdn_urls
 
 common_map = {
     # ********** news list ***********
@@ -416,6 +417,17 @@ common_map = {
         },
     },
 
+    'http://blog.csdn.net/': {
+        'url': csdn_urls,
+        'cn_name': 'csdn',
+        'posts_xpath': '//div[class="list_item article_item"]/div',
+        'post_url_xpath': 'div[@class="article_title"]/h1/span/a/@href',
+        'post_title_xpath': 'div[@class="article_title"]/h1/span/a/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[text()="下一页"]/@href',
+        },
+    },
 
     # '': {
     #     'url': {
