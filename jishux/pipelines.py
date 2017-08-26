@@ -142,8 +142,8 @@ class JishuxMysqlPipeline(object):
 
         if isinstance(item, JishuxItem):
             # pass
-            # print(item)
-            self.insert_item(item)
+            print(item)
+            # self.insert_item(item)
 
     def insert_item(self, item):
         keywords = item['keywords']
