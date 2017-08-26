@@ -10,13 +10,13 @@ from urllib.parse import urljoin
 import re
 import pymysql
 import scrapy
-from qiniu import Auth, put_file, etag
 from scrapy.pipelines.images import ImagesPipeline
 
-import jishux.misc.qiniu_tools as qiniu_config
+from jishux.misc.qiniu_tools import upload_file as qiniu_upload
+from jishux.misc.aliyunoss_tools import upload_file as ali_upload
 import jishux.settings as settings
 from jishux.items import JishuxItem
-from jishux.settings import config
+from jishux.misc.all_secret_set import mysql_config
 from .misc.utils import get_post_type_id
 
 
@@ -99,51 +99,46 @@ class JishuxReplaceImagePipeline(ImagesPipeline):
         for x in results:
             if x[0]:
                 path = self.pre_item(settings.IMAGES_STORE + x[1]['path'])
-                image_paths.append(path)
-                content = content.replace(x[1]['url'], path)
-
-                relative_path = urlparse(x[1]['url']).path   # todo 这里只解决了用相对地址的图片，诸如bigdata 用..+相对地址的不起作用
-                content = content.replace('..'+relative_path, path) # todo 非bigdata 注释掉
-                content = content.replace(relative_path, path)
-                content = content.replace('../../pic/pm.jpg', 'http://wercoder.com/dedemao/images/logo.png') # todo 非bigdata 注释掉
+                if path is None:
+                    print('上传失败')
+                else:
+                    image_paths.append(path)
+                    content = content.replace(x[1]['url'], path)
+                    relative_path = urlparse(x[1]['url']).path
+                    content = content.replace('..'+relative_path, path) # todo 非bigdata 注释掉
+                    content = content.replace(relative_path, path)
+                    content = content.replace('../../pic/pm.jpg', 'http://wercoder.com/dedemao/images/logo.png') # todo 非bigdata 注释掉
         item['litpic'] = image_paths[0] if len(image_paths) > 0 else ''
         # item['image_paths'] = image_paths
         # print(content)
         item['content_html'] = content
         return item
 
-        # 七牛文件上传
 
-    def upload_file(self, file_path, file_name):
-        # print(file_path)
-        # print(file_name)
-        date = time.strftime('%Y/%m/%d', time.localtime(time.time()))
-        file_name = 'jishux/' + date + file_name
-        q = Auth(qiniu_config.access_key, qiniu_config.secret_key)
-        token = q.upload_token(qiniu_config.bucket_name, file_name, 3600)
-        ret, info = put_file(token, file_name, file_path)
-        assert ret['key'] == file_name
-        assert ret['hash'] == etag(file_path)
-        # os.remove(file_path)
-        return qiniu_config.image_domain + file_name +qiniu_config.suffix
 
     # 图片下载上传到七牛,重新拼接img
     def pre_item(self, path):
-        return self.upload_file(path, path.split('/')[-1])
+        return  ali_upload(path, path.split('/')[-1])
 
 
 class JishuxMysqlPipeline(object):
     def __init__(self):
         # 创建连接git l
-        self.connection = pymysql.connect(**config)
+        self.connection = pymysql.connect(**mysql_config)
         self.cursor = self.connection.cursor()
 
     def process_item(self, item, spider):
 
         if isinstance(item, JishuxItem):
+<<<<<<< HEAD
             # pass
             print(item)
             # self.insert_item(item)
+=======
+            # print(item)
+            # pass
+            self.insert_item(item)
+>>>>>>> 505d1564d18658794fdd17c7695a1d2c460b4f3c
 
     def insert_item(self, item):
         keywords = item['keywords']

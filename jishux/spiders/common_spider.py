@@ -23,7 +23,11 @@ class CommonSpider(scrapy.Spider):
     # 爬所有的网站
     # start_urls = get_all_site_start_urls()
     # 爬单个网站的所有子站
+<<<<<<< HEAD
     start_urls = get_one_site_start_urls('http://lib.csdn.net/')
+=======
+    start_urls = get_one_site_start_urls('http://www.ailab.cn/')
+>>>>>>> 505d1564d18658794fdd17c7695a1d2c460b4f3c
     # 爬单个网站的单个子站
     # start_urls = ['http://www.xitongcheng.com/jiaocheng/win7/']
     custom_settings = {
