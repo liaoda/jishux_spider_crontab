@@ -6,11 +6,11 @@ from scrapy.utils.project import get_project_settings
 
 process = CrawlerProcess(get_project_settings())
 
-# # 执行指定的spider
-# process.crawl('common_spider')
-
 # 执行所有的spider
-for spider in process.spider_loader.list():
-    process.crawl(spider)
+# for spider in process.spider_loader.list():
+#     process.crawl(spider)
+
+# # 执行指定的spider
+process.crawl('common_spider')
 
 process.start()
