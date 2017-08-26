@@ -13,7 +13,7 @@ import scrapy
 from scrapy.pipelines.images import ImagesPipeline
 
 from jishux.misc.qiniu_tools import upload_file as qiniu_upload
-from jishux.misc.aliyunoss_tools import upload_file as ali_upload
+# from jishux.misc.aliyunoss_tools import upload_file as ali_upload
 import jishux.settings as settings
 from jishux.items import JishuxItem
 from jishux.misc.all_secret_set import mysql_config
@@ -117,7 +117,7 @@ class JishuxReplaceImagePipeline(ImagesPipeline):
 
     # 图片下载上传到七牛,重新拼接img
     def pre_item(self, path):
-        return  ali_upload(path, path.split('/')[-1])
+        return  qiniu_upload(path, path.split('/')[-1])
 
 
 class JishuxMysqlPipeline(object):
