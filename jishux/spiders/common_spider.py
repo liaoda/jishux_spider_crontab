@@ -65,9 +65,6 @@ class CommonSpider(scrapy.Spider):
             if post_url == latest_url:
                 print('{} - 爬到了上次爬到的地方'.format(conf['cn_name']))
                 return
-            print(get_cookies(
-                conf['headers']['Cookie'] if 'headers' in conf.keys() and 'Cookie' in conf[
-                    'headers'].keys() else None))
             request = scrapy.Request(url=post_url, callback=self.parse_post,
                                      headers=conf['headers'] if 'headers' in conf.keys() else None,
                                      cookies=get_cookies(
@@ -94,10 +91,8 @@ class CommonSpider(scrapy.Spider):
         post_time = re.search(
             '(20\d{2}([\.\-/|年月\s]{1,3}\d{1,2}){2}日?(\s\d{2}:\d{2}(:\d{2})?)?)|(\d{1,2}\s?(分钟|小时|天)前)',
             response.text)
-        print(post_time)
         if post_time:
             crawl_time = generate_timestamp(post_time.group())
-            # print(crawl_time)
         content_html = get_summary(response.text)
         content_text = Selector(text=content_html).xpath('string(.)').extract_first()
         content_text = content_text.strip().replace('\r', '').replace('\n', '').replace('\t', '')
@@ -110,5 +105,4 @@ class CommonSpider(scrapy.Spider):
         item['cn_name'] = conf['cn_name']
         item['author'] = ''  # todo 文章作者 配置文件需要适配
         item['image_urls'] = Selector(text=content_html).xpath('//img/@src').extract()
-        # print(item)
-        # yield item
+        yield item

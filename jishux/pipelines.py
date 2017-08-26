@@ -95,7 +95,6 @@ class JishuxReplaceImagePipeline(ImagesPipeline):
     def item_completed(self, results, item, info):
         content = item['content_html']
         image_paths = []
-        print(results)
         for x in results:
             if x[0]:
                 path = self.pre_item(settings.IMAGES_STORE + x[1]['path'])
@@ -166,7 +165,6 @@ class JishuxMysqlPipeline(object):
             # 如果不存在插入tag_index '" + key + "'," + type_id + ",1," + crawl_time + "," + crawl_time + "," + crawl_time + "
             sql_insert_tag_index = 'INSERT INTO dede_tagindex (tag, typeid, total, weekup, monthup, addtime) VALUES ("%s",%s,%s,%s,%s,%s)' % (
                 key, type_id, 1, crawl_time, crawl_time, crawl_time)
-            # print(sql_insert_tag_index)
             # 如果存在则计数+1
             sql_update_count_add_1 = "UPDATE dede_tagindex SET total=total+1  WHERE tag='" + key + "'"
             self.cursor.execute(sql_find_tag_exist)
