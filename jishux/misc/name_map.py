@@ -386,12 +386,12 @@ common_map = {
             'http://www.ailab.cn/': 'ai',
         },
         'cn_name': '人工智能网',
-        'posts_xpath': '//ul[@class="list_jc"]',
-        'post_url_xpath': 'li/a/@href',
-        'post_title_xpath': 'li/a/@title',
+        'posts_xpath': '//ul[@class="list_jc"]/li',
+        'post_url_xpath': 'a/@href',
+        'post_title_xpath': 'a/@title',
         'next_page': {
             'type': 'CLICK_NEXT_BUTTON',
-            'xpath': '//a[text()="下一页"]',
+            'xpath': '//a[text()="下一页"]/@href',
         },
     },
 
