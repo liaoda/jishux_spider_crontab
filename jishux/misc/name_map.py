@@ -420,11 +420,7 @@ common_map = {
     'http://blog.csdn.net/': {
         'url': csdn_urls,
         'cn_name': 'csdn',
-<<<<<<< HEAD
-        'posts_xpath': '//div[@class="list_item article_item"]/div',
-=======
         'posts_xpath': '//div[@class="list_item article_item"]',
->>>>>>> a423cd9cb962fe7eeea7b24cc1eee5daadd8afa8
         'post_url_xpath': 'div[@class="article_title"]/h1/span/a/@href',
         'post_title_xpath': 'div[@class="article_title"]/h1/span/a/text()',
         'next_page': {
