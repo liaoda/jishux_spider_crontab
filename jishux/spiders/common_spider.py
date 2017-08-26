@@ -43,8 +43,8 @@ class CommonSpider(scrapy.Spider):
         first_url = response.meta['first_url'] if 'first_url' in response.meta.keys() else None
         # 上一次的最新的文章的url
         latest_url = response.meta['latest_url'] if 'latest_url' in response.meta.keys() else None
-        conf = response.meta['conf'] if 'conf' in response.meta.keys() else get_conf(url=response.url)
-        post_type = response.meta['post_type'] if 'post_type' in response.meta.keys() else conf['url'][response.url]
+        conf = response.meta['conf'] if 'conf' in response.meta.keys() else get_conf(url=response.request.url)
+        post_type = response.meta['post_type'] if 'post_type' in response.meta.keys() else conf['url'][response.request.url]
         posts = response.xpath(conf['posts_xpath'])
         for post in posts:
             post_url = post.xpath(conf['post_url_xpath']).extract_first()
@@ -61,7 +61,7 @@ class CommonSpider(scrapy.Spider):
             # 把第一条数据作为最新的数据，存储到sqlite中
             if not first_url:
                 first_url = post_url
-                latest_url = get_then_change_latest_url(md5(response.url), first_url)
+                latest_url = get_then_change_latest_url(md5(response.request.url), first_url)
             # 从sqlite中取出上一次最新的数据，与本次的数据做对比，如果相同则认为文章抓到了上次已经抓过的数据，如果不同则认为文章还没有抓完
             if post_url == latest_url:
                 print('{} - 爬到了上次爬到的地方'.format(conf['cn_name']))
