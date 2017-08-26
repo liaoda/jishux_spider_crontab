@@ -24,9 +24,9 @@ class CommonSpider(scrapy.Spider):
     # start_urls = get_all_site_start_urls()
     # 爬单个网站的所有子站
 
-    start_urls = get_one_site_start_urls('http://www.ailab.cn/')
+    # start_urls = get_one_site_start_urls('http://www.ailab.cn/')
      # 爬单个网站的单个子站
-    # start_urls = ['http://www.xitongcheng.com/jiaocheng/win7/']
+    start_urls = ['http://lib.csdn.net/android/node/188']
     custom_settings = {
         'ITEM_PIPELINES': {
             'jishux.pipelines.JishuxDataCleaningPipeline': 300,
@@ -106,4 +106,5 @@ class CommonSpider(scrapy.Spider):
         item['cn_name'] = conf['cn_name']
         item['author'] = ''  # todo 文章作者 配置文件需要适配
         item['image_urls'] = Selector(text=content_html).xpath('//img/@src').extract()
-        yield item
+        # yield item
+        print(item)

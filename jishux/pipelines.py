@@ -27,9 +27,18 @@ class JishuxPipeline(object):
         return item
 
 
-class JishuxMongoPipeline(object):
+class UrlSpiderPipeline(object):
+    def __init__(self):
+        self.all_item = {}
+
     def process_item(self, item, spider):
+        self.all_item[item['site_url']] = item['site_type']
         return item
+
+    def close_spider(self, spider):
+        all_item_str = str(self.all_item)
+        with open('name_map_params.py', 'w') as f:
+            f.write('urls_dict = ' + all_item_str)
 
 
 class JishuxDataCleaningPipeline(object):

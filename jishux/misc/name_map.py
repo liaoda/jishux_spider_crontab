@@ -416,6 +416,7 @@ common_map = {
         },
     },
 
+
     # '': {
     #     'url': {
     #         '': '',
@@ -460,6 +461,26 @@ common_map = {
     #         'key2': 'value',
     #         'key3': 'value',
     #         'key4': 'value',
+    #     },
+    # },
+
+    # # url_spider conf
+    # 'http://blog.csdn.net/': {
+    #     'url': {
+    #         'http://blog.csdn.net/peoplelist.html?channelid=1&page=1': 'mobile',
+    #         'http://blog.csdn.net/peoplelist.html?channelid=15&page=1': 'network',
+    #         'http://blog.csdn.net/peoplelist.html?channelid=2&page=1': 'bigdata',
+    #         'http://blog.csdn.net/peoplelist.html?channelid=17&page=1': 'network',
+    #         'http://blog.csdn.net/peoplelist.html?channelid=12&page=1': 'network',
+    #         'http://blog.csdn.net/peoplelist.html?channelid=6&page=1': 'db',
+    #         'http://blog.csdn.net/peoplelist.html?channelid=14&page=1': 'frontend',
+    #         'http://blog.csdn.net/peoplelist.html?channelid=3&page=1': 'other',
+    #     },
+    #     'posts_xpath': '//dl',
+    #     'post_url_xpath': 'dt/a/@href',
+    #     'next_page': {
+    #         'type': 'CLICK_NEXT_BUTTON',
+    #         'xpath': '//a[text()="下一页"]/@href',
     #     },
     # },
 
