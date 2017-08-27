@@ -30,7 +30,7 @@ class CommonSpider(scrapy.Spider):
     custom_settings = {
         'ITEM_PIPELINES': {
             'jishux.pipelines.JishuxDataCleaningPipeline': 300,
-            'jishux.pipelines.JishuxReplaceImagePipeline': 400,
+            'jishux.pipelines.JISHUXFilePipeline': 400,
             'jishux.pipelines.JishuxMysqlPipeline': 500,
         },
         'DOWNLOADER_MIDDLEWARES': {

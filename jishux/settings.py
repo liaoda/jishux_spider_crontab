@@ -62,7 +62,8 @@ DOWNLOAD_TIMEOUT = 20
 #EXTENSIONS = {
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 #}
-IMAGES_STORE = './images/'
+# IMAGES_STORE = './images/'
+FILES_STORE = './images/'
 # 允许 MediaPipeline 重定向请求
 MEDIA_ALLOW_REDIRECTS = True
 
