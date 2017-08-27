@@ -5,13 +5,13 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import random
-import time
+import hashlib
 from urllib.parse import urljoin
 import re
 import pymysql
 import scrapy
 from scrapy.pipelines.images import ImagesPipeline
-
+from scrapy.utils.python import to_bytes
 from jishux.misc.qiniu_tools import upload_file as qiniu_upload
 # from jishux.misc.aliyunoss_tools import upload_file as ali_upload
 import jishux.settings as settings
@@ -82,6 +82,7 @@ class JishuxReplaceImagePipeline(ImagesPipeline):
                 image_url = urljoin(item['post_url'], image_url)
                 yield scrapy.Request(image_url)
 
+<<<<<<< HEAD
     def _handle_statuses(self, allow_redirects):
         super()._handle_statuses(allow_redirects)
 
@@ -104,6 +105,8 @@ class JishuxReplaceImagePipeline(ImagesPipeline):
     #             headers={'Content-Type': 'image/jpeg'})
     #     return checksum
 
+=======
+>>>>>>> 853bba7a1437e63addf75c50be317f06275386a8
     def item_completed(self, results, item, info):
         content = item['content_html']
         image_paths = []
@@ -120,10 +123,16 @@ class JishuxReplaceImagePipeline(ImagesPipeline):
                     content = content.replace(relative_path, path)
                     content = content.replace('../../pic/pm.jpg', 'http://wercoder.com/dedemao/images/logo.png') # todo 非bigdata 注释掉
         item['litpic'] = image_paths[0] if len(image_paths) > 0 else ''
-        # item['image_paths'] = image_paths
-        # print(content)
         item['content_html'] = content
         return item
+
+    def file_path(self, request, response=None, info=None):
+        url = request.url
+        image_guid = hashlib.sha1(to_bytes(url)).hexdigest()
+        suffix = url.split('.')[-1]
+        if suffix not in ['jpg', 'jpeg', 'gif', 'png', 'JPG', 'JPEG', 'GIF', 'PNG']:
+            suffix = 'jpg'
+        return 'full/%s.%s' % (image_guid, suffix)
 
 
 
