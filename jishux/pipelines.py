@@ -5,21 +5,20 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import random
-import hashlib
-from urllib.parse import urljoin
 import re
+from urllib.parse import urljoin
+from urllib.parse import urlparse
+
 import pymysql
 import scrapy
-from scrapy.pipelines.images import FilesPipeline,ImagesPipeline
-from scrapy.utils.python import to_bytes
-from jishux.misc.qiniu_tools import upload_file as qiniu_upload
+from scrapy.pipelines.images import FilesPipeline
+
 # from jishux.misc.aliyunoss_tools import upload_file as ali_upload
 import jishux.settings as settings
 from jishux.items import JishuxItem
 from jishux.misc.all_secret_set import mysql_config
+from jishux.misc.qiniu_tools import upload_file as qiniu_upload
 from .misc.utils import get_post_type_id
-
-from urllib.parse import urlparse
 
 
 class JishuxPipeline(object):
@@ -72,8 +71,6 @@ class JishuxDataCleaningPipeline(object):
         return item
 
 
-
-
 class JISHUXFilePipeline(FilesPipeline):
     def item_completed(self, results, item, info):
         print(results)
@@ -100,10 +97,11 @@ class JISHUXFilePipeline(FilesPipeline):
         if item['image_urls']:
             for image_url in item['image_urls']:
                 image_url = urljoin(item['post_url'], image_url)
-                yield scrapy.Request(image_url)
+                yield scrapy.Request(image_url, headers={'Referer': item['post_url']})
 
     def pre_item(self, path):
         return qiniu_upload(path, path.split('/')[-1])
+
 
 # class JishuxReplaceImagePipeline(ImagesPipeline):
 #     def get_media_requests(self, item, info):
@@ -208,8 +206,7 @@ class JishuxMysqlPipeline(object):
                 tid = last['LAST_INSERT_ID()']
             # 插入tag到taglist
             sql_insert_tag_list = 'INSERT INTO dede_taglist (tid, aid, arcrank, typeid, tag) VALUES ("%s", "%s", "%s", "%s", "%s")' % (
-            str(
-                tid), str(aid), 0, str(type_id), key)
+            str(tid), str(aid), 0, str(type_id), key)
             print(sql_insert_tag_list)
             self.cursor.execute(sql_insert_tag_list)
 
