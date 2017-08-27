@@ -155,9 +155,9 @@ class JishuxMysqlPipeline(object):
     def process_item(self, item, spider):
 
         if isinstance(item, JishuxItem):
-            print(item)
-            pass
-            # self.insert_item(item)
+            # print(item)
+            # pass
+            self.insert_item(item)
 
     def insert_item(self, item):
         keywords = item['keywords']
