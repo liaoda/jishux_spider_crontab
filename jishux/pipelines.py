@@ -149,7 +149,9 @@ class JishuxMysqlPipeline(object):
     def insert_item(self, item):
         keywords = item['keywords']
         description = item['description'].replace("'", r"\'") if item['content_html'] else ''
+        description = description.replace('"', r'\"') if description else ''
         content = item['content_html'].replace("'", r"\'") if item['content_html'] else ''
+        content = content.replace('"', r'\"') if content else ''
         title = item['post_title'] if item['post_title'] else ''
         source = item['cn_name']
         article_type ='p' if len(item['image_urls']) >0 else ''
@@ -193,7 +195,7 @@ class JishuxMysqlPipeline(object):
                 tid = last['LAST_INSERT_ID()']
             # 插入tag到taglist
             sql_insert_tag_list = 'INSERT INTO dede_taglist (tid, aid, arcrank, typeid, tag) VALUES ("%s", "%s", "%s", "%s", "%s")' % (str(
-                tid), str(aid), str(type_id), key)
+                tid), str(aid), 0, str(type_id), key)
             print(sql_insert_tag_list)
             self.cursor.execute(sql_insert_tag_list)
 
