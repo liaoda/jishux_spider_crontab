@@ -145,8 +145,8 @@ class JishuxMysqlPipeline(object):
 
     def insert_item(self, item):
         keywords = item['keywords']
-        description = item['description']
-        content = item['content_html'].replace("'", "\\'") if item['content_html'] else ''
+        description = item['description'].replace("'", r"\'") if item['content_html'] else ''
+        content = item['content_html'].replace("'", r"\'") if item['content_html'] else ''
         title = item['post_title'] if item['post_title'] else ''
         source = item['cn_name']
         article_type ='p' if len(item['image_urls']) >0 else ''
@@ -154,7 +154,7 @@ class JishuxMysqlPipeline(object):
         litpic = item['litpic'] if item['litpic']else ''
         type_id = get_post_type_id(item['post_type'])
         crawl_time = str(item['crawl_time'])
-        sql_insert_meta = 'INSERT INTO dede_archives (typeid, sortrank, flag, ismake, channel, title, writer, source, pubdate, senddate, mid, keywords, description, dutyadmin,voteid,litpic,click) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "'"+%s+"'", "%s", "%s","%s","%s","%s")' % (
+        sql_insert_meta = 'INSERT INTO dede_archives (typeid, sortrank, flag, ismake, channel, title, writer, source, pubdate, senddate, mid, keywords, description, dutyadmin,voteid,litpic,click) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s","%s","%s","%s")' % (
             type_id, crawl_time, article_type, -1, 1, title, author, source, crawl_time, crawl_time,
             1, keywords, description, 1, 0, litpic, random.randint(5000, 10000))
         self.cursor.execute(sql_insert_meta)
@@ -162,8 +162,8 @@ class JishuxMysqlPipeline(object):
         self.cursor.execute(sql_last_id)
         a = self.cursor.fetchone()
         aid = a['LAST_INSERT_ID()']
-        sql_insert_content = 'INSERT INTO dede_addonarticle (aid, typeid, body, userip) VALUES(%s,%s,%s,%s)' % (
-            aid, type_id, "'" + content + "'", "'" + "127.0.0.1" + "'")
+        sql_insert_content = 'INSERT INTO dede_addonarticle (aid, typeid, body, userip) VALUES("%s","%s","%s","%s")' % (
+            aid, type_id, content, '127.0.0.1')
         print(sql_insert_content)
         self.cursor.execute(sql_insert_content)
         sql_insert_arctiny = 'INSERT INTO dede_arctiny (id, typeid, channel, senddate, sortrank,mid) VALUES ("%s", "%s", "%s", "%s", "%s", "%s")' % (
@@ -171,12 +171,12 @@ class JishuxMysqlPipeline(object):
         self.cursor.execute(sql_insert_arctiny)
         for key in keywords.split(','):
             # 判断tag是否在tagindex中存在
-            sql_find_tag_exist = "SELECT * FROM dede_tagindex WHERE tag='" + key + "'"
+            sql_find_tag_exist = 'SELECT * FROM dede_tagindex WHERE tag= "%s"' % key
             # 如果不存在插入tag_index '" + key + "'," + type_id + ",1," + crawl_time + "," + crawl_time + "," + crawl_time + "
-            sql_insert_tag_index = 'INSERT INTO dede_tagindex (tag, typeid, total, weekup, monthup, addtime) VALUES ("%s",%s,%s,%s,%s,%s)' % (
+            sql_insert_tag_index = 'INSERT INTO dede_tagindex (tag, typeid, total, weekup, monthup, addtime) VALUES ("%s","%s","%s","%s","%s","%s")' % (
                 key, type_id, 1, crawl_time, crawl_time, crawl_time)
             # 如果存在则计数+1
-            sql_update_count_add_1 = "UPDATE dede_tagindex SET total=total+1  WHERE tag='" + key + "'"
+            sql_update_count_add_1 = 'UPDATE dede_tagindex SET total=total+1  WHERE tag= "%s"' % key
             self.cursor.execute(sql_find_tag_exist)
             one = self.cursor.fetchone()
 
@@ -189,8 +189,8 @@ class JishuxMysqlPipeline(object):
                 last = self.cursor.fetchone()
                 tid = last['LAST_INSERT_ID()']
             # 插入tag到taglist
-            sql_insert_tag_list = "INSERT INTO dede_taglist (tid, aid, arcrank, typeid, tag) VALUES (" + str(
-                tid) + "," + str(aid) + ",0," + str(type_id) + ",'" + key + "')"
+            sql_insert_tag_list = 'INSERT INTO dede_taglist (tid, aid, arcrank, typeid, tag) VALUES ("%s", "%s", "%s", "%s", "%s")' % (str(
+                tid), str(aid), str(type_id), key)
             print(sql_insert_tag_list)
             self.cursor.execute(sql_insert_tag_list)
 
