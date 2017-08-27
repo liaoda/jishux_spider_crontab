@@ -82,6 +82,9 @@ class JishuxReplaceImagePipeline(ImagesPipeline):
                 image_url = urljoin(item['post_url'], image_url)
                 yield scrapy.Request(image_url)
 
+    def _handle_statuses(self, allow_redirects):
+        super()._handle_statuses(allow_redirects)
+
     # todo 确认是否能不转换gif成静态图
     # def convert_image(self, image, size=None):
     #     buf = BytesIO()
