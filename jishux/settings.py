@@ -20,7 +20,12 @@ NEWSPIDER_MODULE = 'jishux.spiders'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
-DOWNLOAD_TIMEOUT = 20
+DOWNLOAD_TIMEOUT = 5
+
+# retry settings for scrapy.downloadermiddlewares.retry.RetryMiddleware
+RETRY_ENABLED = True
+RETRY_TIMES = 1
+# RETRY_HTTP_CODES = [500, 502, 503, 504, 408]
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -84,7 +89,7 @@ AUTOTHROTTLE_ENABLED = True
 # The initial download delay
 AUTOTHROTTLE_START_DELAY = 5
 # The maximum download delay to be set in case of high latencies
-AUTOTHROTTLE_MAX_DELAY = 20
+AUTOTHROTTLE_MAX_DELAY = 10
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
 AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
