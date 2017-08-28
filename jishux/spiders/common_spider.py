@@ -9,24 +9,18 @@ import scrapy
 from scrapy import Selector
 
 from ..items import JishuxItem
-from ..misc.name_map import get_conf, get_all_site_start_urls, get_one_site_start_urls, get_cookies
 from ..misc.readability_tools import get_summary
 from ..misc.request_tools import next_page
 from ..misc.sqlite_tools import get_then_change_latest_url
 from ..misc.text_tools import get_description, get_keywords
 from ..misc.time_formater import generate_timestamp
-from ..misc.utils import md5
+from ..misc.utils import get_conf, get_cookies, get_start_urls, md5
 
 
 class CommonSpider(scrapy.Spider):
     name = 'common_spider'
-    # 爬所有的网站
-    # start_urls = get_all_site_start_urls()
-    # 爬单个网站的所有子站
-
-    start_urls = get_one_site_start_urls('http://blog.csdn.net/')
-     # 爬单个网站的单个子站
-    # start_urls = ['http://lib.csdn.net/android/node/188']
+    start_urls = get_start_urls()
+    print(start_urls)
     custom_settings = {
         'ITEM_PIPELINES': {
             'jishux.pipelines.JishuxDataCleaningPipeline': 300,
@@ -113,6 +107,7 @@ class CommonSpider(scrapy.Spider):
         item['crawl_time'] = crawl_time if crawl_time else int(time.time())
         item['cn_name'] = conf['cn_name']
         item['author'] = ''  # todo 文章作者 配置文件需要适配
-        item['image_urls'] = Selector(text=content_html).xpath('//img[starts-with(@src,"http")]|//img[starts-with(@src,"/")]|//img[starts-with(@src,".")]').extract()
+        item['image_urls'] = Selector(text=content_html).xpath(
+            '//img[starts-with(@src,"http")]|//img[starts-with(@src,"/")]|//img[starts-with(@src,".")]').extract()
         yield item
         # print(item)

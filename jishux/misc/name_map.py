@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 # Created by yaochao on 2017/8/1
 
-from urllib.parse import urlsplit
 
 from .name_map_params import *
 
@@ -510,38 +509,3 @@ common_map = {
     # },
 
 }
-
-
-def get_all_site_start_urls():
-    start_urls = []
-    for k in common_map.keys():
-        start_urls += common_map[k]['url'].keys()
-    return start_urls
-
-
-def get_one_site_start_urls(host=''):
-    return common_map[host]['url'].keys()
-
-
-def get_conf(url):
-    base_url = "{0.scheme}://{0.netloc}/".format(urlsplit(url))
-    conf = None
-    if url in common_map.keys():
-        conf = common_map[url]
-    elif base_url in common_map.keys():
-        conf = common_map[base_url]
-    elif base_url[0:-1] in common_map.keys():
-        conf = common_map[base_url]
-    return conf
-
-
-def get_cookies(str_cookie):
-    if str_cookie is None:
-        return None
-    cookie = {}
-    arr = str_cookie.split(';')
-    for i in arr:
-        arrs = i.split('=', 1)
-        cookie[arrs[0]] = arrs[1]
-
-    return cookie

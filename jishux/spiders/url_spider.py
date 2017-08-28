@@ -4,10 +4,8 @@
 
 import scrapy
 
-from ..misc.name_map import get_conf, get_all_site_start_urls, get_one_site_start_urls, get_cookies
 from ..misc.request_tools import next_page
-from ..misc.sqlite_tools import get_then_change_latest_url
-from ..misc.utils import md5
+from ..misc.utils import *
 
 
 class UrlSpider(scrapy.Spider):
@@ -16,9 +14,7 @@ class UrlSpider(scrapy.Spider):
     '''
     name = 'url_spider'
     # 爬单个网站的所有子站
-    start_urls = get_one_site_start_urls('http://blog.csdn.net/')
-     # 爬单个网站的单个子站
-    # start_urls = ['http://lib.csdn.net/android/node/188']
+    start_urls = get_start_urls()
     custom_settings = {
         'ITEM_PIPELINES': {
             'jishux.pipelines.UrlSpiderPipeline': 300,
