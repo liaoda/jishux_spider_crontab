@@ -13,7 +13,6 @@ import pymysql
 import scrapy
 from scrapy.pipelines.images import FilesPipeline
 
-# from jishux.misc.aliyunoss_tools import upload_file as ali_upload
 import jishux.settings as settings
 from jishux.items import JishuxItem
 from jishux.misc.all_secret_set import mysql_config
