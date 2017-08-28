@@ -5,10 +5,6 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import random
-<<<<<<< HEAD
-from urllib.parse import urljoin
-=======
->>>>>>> 1e63ef31bf023ca74d60f3194e6b2f993c0e7599
 import re
 from urllib.parse import urljoin
 from urllib.parse import urlparse
@@ -17,12 +13,6 @@ import pymysql
 import scrapy
 from scrapy.pipelines.images import FilesPipeline
 
-<<<<<<< HEAD
-# from jishux.misc.qiniu_tools import upload_file as qiniu_upload
-from jishux.misc.aliyunoss_tools import upload_file as ali_upload
-=======
-# from jishux.misc.aliyunoss_tools import upload_file as ali_upload
->>>>>>> 1e63ef31bf023ca74d60f3194e6b2f993c0e7599
 import jishux.settings as settings
 from jishux.items import JishuxItem
 from jishux.misc.all_secret_set import mysql_config

@@ -113,11 +113,6 @@ class CommonSpider(scrapy.Spider):
         item['crawl_time'] = crawl_time if crawl_time else int(time.time())
         item['cn_name'] = conf['cn_name']
         item['author'] = ''  # todo 文章作者 配置文件需要适配
-<<<<<<< HEAD
         item['image_urls'] = Selector(text=content_html).xpath('//img[starts-with(@src,"http")]|//img[starts-with(@src,"/")]|//img[starts-with(@src,".")]').extract()
-        # print(item)
-=======
-        item['image_urls'] = Selector(text=content_html).xpath('//img/@src').extract()
->>>>>>> 1e63ef31bf023ca74d60f3194e6b2f993c0e7599
         yield item
         # print(item)
