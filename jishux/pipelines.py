@@ -5,14 +5,13 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import random
-import time
 from urllib.parse import urljoin
 import re
 import pymysql
 import scrapy
 from scrapy.pipelines.images import ImagesPipeline
 
-from jishux.misc.qiniu_tools import upload_file as qiniu_upload
+# from jishux.misc.qiniu_tools import upload_file as qiniu_upload
 from jishux.misc.aliyunoss_tools import upload_file as ali_upload
 import jishux.settings as settings
 from jishux.items import JishuxItem
