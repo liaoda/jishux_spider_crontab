@@ -23,13 +23,14 @@ class CommonSpider(scrapy.Spider):
     # 爬所有的网站
     # start_urls = get_all_site_start_urls()
     # 爬单个网站的所有子站
-    start_urls = get_one_site_start_urls('http://www.thebigdata.cn/')
-    # 爬单个网站的单个子站
-    # start_urls = ['http://www.xitongcheng.com/jiaocheng/win7/']
+
+    start_urls = get_one_site_start_urls('http://blog.csdn.net/')
+     # 爬单个网站的单个子站
+    # start_urls = ['http://lib.csdn.net/android/node/188']
     custom_settings = {
         'ITEM_PIPELINES': {
             'jishux.pipelines.JishuxDataCleaningPipeline': 300,
-            'jishux.pipelines.JishuxReplaceImagePipeline': 400,
+            'jishux.pipelines.JISHUXFilePipeline': 400,
             'jishux.pipelines.JishuxMysqlPipeline': 500,
         },
         'DOWNLOADER_MIDDLEWARES': {
@@ -37,13 +38,21 @@ class CommonSpider(scrapy.Spider):
         }
     }
 
+    def start_requests(self):
+        for url in self.start_urls:
+            request = scrapy.Request(url=url, callback=self.parse, dont_filter=True)
+            request.meta['request_url'] = url
+            yield request
+
     def parse(self, response):
         # 本次最新的文章的url
         first_url = response.meta['first_url'] if 'first_url' in response.meta.keys() else None
         # 上一次的最新的文章的url
         latest_url = response.meta['latest_url'] if 'latest_url' in response.meta.keys() else None
-        conf = response.meta['conf'] if 'conf' in response.meta.keys() else get_conf(url=response.url)
-        post_type = response.meta['post_type'] if 'post_type' in response.meta.keys() else conf['url'][response.url]
+        # 本次请求的url
+        request_url = response.meta['request_url']
+        conf = response.meta['conf'] if 'conf' in response.meta.keys() else get_conf(url=request_url)
+        post_type = response.meta['post_type'] if 'post_type' in response.meta.keys() else conf['url'][request_url]
         posts = response.xpath(conf['posts_xpath'])
         for post in posts:
             post_url = post.xpath(conf['post_url_xpath']).extract_first()
@@ -60,14 +69,11 @@ class CommonSpider(scrapy.Spider):
             # 把第一条数据作为最新的数据，存储到sqlite中
             if not first_url:
                 first_url = post_url
-                latest_url = get_then_change_latest_url(md5(response.url), first_url)
+                latest_url = get_then_change_latest_url(md5(request_url), first_url)
             # 从sqlite中取出上一次最新的数据，与本次的数据做对比，如果相同则认为文章抓到了上次已经抓过的数据，如果不同则认为文章还没有抓完
             if post_url == latest_url:
                 print('{} - 爬到了上次爬到的地方'.format(conf['cn_name']))
                 return
-            print(get_cookies(
-                conf['headers']['Cookie'] if 'headers' in conf.keys() and 'Cookie' in conf[
-                    'headers'].keys() else None))
             request = scrapy.Request(url=post_url, callback=self.parse_post,
                                      headers=conf['headers'] if 'headers' in conf.keys() else None,
                                      cookies=get_cookies(
@@ -94,10 +100,8 @@ class CommonSpider(scrapy.Spider):
         post_time = re.search(
             '(20\d{2}([\.\-/|年月\s]{1,3}\d{1,2}){2}日?(\s\d{2}:\d{2}(:\d{2})?)?)|(\d{1,2}\s?(分钟|小时|天)前)',
             response.text)
-        print(post_time)
         if post_time:
             crawl_time = generate_timestamp(post_time.group())
-            # print(crawl_time)
         content_html = get_summary(response.text)
         content_text = Selector(text=content_html).xpath('string(.)').extract_first()
         content_text = content_text.strip().replace('\r', '').replace('\n', '').replace('\t', '')
@@ -109,6 +113,11 @@ class CommonSpider(scrapy.Spider):
         item['crawl_time'] = crawl_time if crawl_time else int(time.time())
         item['cn_name'] = conf['cn_name']
         item['author'] = ''  # todo 文章作者 配置文件需要适配
+<<<<<<< HEAD
         item['image_urls'] = Selector(text=content_html).xpath('//img[starts-with(@src,"http")]|//img[starts-with(@src,"/")]|//img[starts-with(@src,".")]').extract()
         # print(item)
+=======
+        item['image_urls'] = Selector(text=content_html).xpath('//img/@src').extract()
+>>>>>>> 1e63ef31bf023ca74d60f3194e6b2f993c0e7599
         yield item
+        # print(item)

@@ -26,6 +26,7 @@ def next_page(callback, response, conf, first_url, latest_url, post_type):
             request.meta['latest_url'] = latest_url
             request.meta['conf'] = conf
             request.meta['post_type'] = post_type
+            request.meta['request_url'] = next_url
             return request
 
     # fuction map

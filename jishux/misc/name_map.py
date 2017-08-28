@@ -3,6 +3,7 @@
 # Created by yaochao on 2017/8/1
 
 from urllib.parse import urlsplit
+from .name_map_params import csdn_urls
 
 common_map = {
     # ********** news list ***********
@@ -380,6 +381,53 @@ common_map = {
             "If-None-Match": "W/\"baebc4bb3d3c66947d8cbdedf66a8726\"",
         }
     },
+    'http://lib.csdn.net/': {
+        'url': {
+            'http://lib.csdn.net/android/node/188': 'mobile',
+            'http://lib.csdn.net/react/node/408': 'frontend',
+            'http://lib.csdn.net/ai/node/762': 'ai',
+            'http://lib.csdn.net/aiplanning/node/845': 'ai',
+            'http://lib.csdn.net/javaee/node/174': 'backend',
+            'http://lib.csdn.net/java/node/102': 'backend',
+            'http://lib.csdn.net/javase/node/92': 'mobile',
+            'http://lib.csdn.net/objective-c/node/744': 'mobile',
+            'http://lib.csdn.net/knowledgeengineering/node/842': 'other',
+        },
+        'cn_name': 'CSDN',
+        'posts_xpath': '//li[contains(@class,"clearfix")]',
+        'post_url_xpath': 'div[@class="scontentright"]/p/a/@href',
+        'post_title_xpath': 'div[@class="scontentright"]/p/a/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[@class="btn btn-xs btn-default btn-next"]/@href',
+        },
+    },
+
+    'http://www.ailab.cn/': {
+        'url': {
+            'http://www.ailab.cn/': 'ai',
+        },
+        'cn_name': '人工智能网',
+        'posts_xpath': '//ul[@class="list_jc"]/li',
+        'post_url_xpath': 'a/@href',
+        'post_title_xpath': 'a/@title',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[text()="下一页"]/@href',
+        },
+    },
+
+    'http://blog.csdn.net/': {
+        'url': csdn_urls,
+        'cn_name': 'csdn',
+        'posts_xpath': '//div[@class="list_item article_item"]',
+        'post_url_xpath': 'div[@class="article_title"]/h1/span/a/@href',
+        'post_title_xpath': 'div[@class="article_title"]/h1/span/a/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[text()="下一页"]/@href',
+        },
+    },
 
     # '': {
     #     'url': {
@@ -425,6 +473,26 @@ common_map = {
     #         'key2': 'value',
     #         'key3': 'value',
     #         'key4': 'value',
+    #     },
+    # },
+
+    # # url_spider conf
+    # 'http://blog.csdn.net/': {
+    #     'url': {
+    #         'http://blog.csdn.net/peoplelist.html?channelid=1&page=1': 'mobile',
+    #         'http://blog.csdn.net/peoplelist.html?channelid=15&page=1': 'network',
+    #         'http://blog.csdn.net/peoplelist.html?channelid=2&page=1': 'bigdata',
+    #         'http://blog.csdn.net/peoplelist.html?channelid=17&page=1': 'network',
+    #         'http://blog.csdn.net/peoplelist.html?channelid=12&page=1': 'network',
+    #         'http://blog.csdn.net/peoplelist.html?channelid=6&page=1': 'db',
+    #         'http://blog.csdn.net/peoplelist.html?channelid=14&page=1': 'frontend',
+    #         'http://blog.csdn.net/peoplelist.html?channelid=3&page=1': 'other',
+    #     },
+    #     'posts_xpath': '//dl',
+    #     'post_url_xpath': 'dt/a/@href',
+    #     'next_page': {
+    #         'type': 'CLICK_NEXT_BUTTON',
+    #         'xpath': '//a[text()="下一页"]/@href',
     #     },
     # },
 
