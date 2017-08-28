@@ -108,6 +108,6 @@ class CommonSpider(scrapy.Spider):
         item['cn_name'] = conf['cn_name']
         item['author'] = ''  # todo 文章作者 配置文件需要适配
         item['image_urls'] = Selector(text=content_html).xpath(
-            '//img[starts-with(@src,"http")]|//img[starts-with(@src,"/")]|//img[starts-with(@src,".")]').extract()
+            '//img[starts-with(@src,"http")]/@src|//img[starts-with(@src,"/")]/@src|//img[starts-with(@src,".")]/@src').extract()
         yield item
         # print(item)
