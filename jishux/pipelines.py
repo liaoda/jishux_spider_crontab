@@ -158,10 +158,10 @@ class JishuxMysqlPipeline(object):
 
     def insert_item(self, item):
         keywords = item['keywords']
-        description = item['description'].replace("'", r"\'") if item['content_html'] else ''
-        description = description.replace('"', r'\"') if description else ''
-        content = item['content_html'].replace("'", r"\'") if item['content_html'] else ''
-        content = content.replace('"', r'\"') if content else ''
+        # description = item['description'].replace("'", r"\'") if item['content_html'] else ''
+        description = item['description'].replace('"', r'\"') if item['description'] else ''
+        # content = item['content_html'].replace("'", r"\'") if item['content_html'] else ''
+        content = item['content_html'].replace('"', r'\"') if item['content_html'] else ''
         title = item['post_title'] if item['post_title'] else ''
         source = item['cn_name']
         article_type = 'p' if len(item['image_urls']) > 0 else ''
