@@ -430,12 +430,12 @@ common_map = {
         },
     },
 
-    'https://segmentfault.com': {
+    'https://segmentfault.com/': {
         'url': segmentfault_urls,
-        'cn_name': 'csdn',
-        'posts_xpath': '//div[@class="list_item article_item"]',
-        'post_url_xpath': 'div[@class="article_title"]/h1/span/a/@href',
-        'post_title_xpath': 'div[@class="article_title"]/h1/span/a/text()',
+        'cn_name': 'segmentfault',
+        'posts_xpath': '//div[@id="blog"]/section',
+        'post_url_xpath': 'div[@class="summary"]/h2/a/@href',
+        'post_title_xpath': 'div[@class="summary"]/h2/a/text()',
         'next_page': {
             'type': 'CLICK_NEXT_BUTTON',
             'xpath': '//a[text()="下一页"]/@href',
