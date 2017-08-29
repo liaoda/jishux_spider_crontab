@@ -130,7 +130,7 @@ class JishuxMysqlPipeline(object):
         keywords = item['keywords']
         description = item['description'].replace('"', r'\"') if item['description'] else ''
         content = item['content_html'].replace('"', r'\"') if item['content_html'] else ''
-        title = item['post_title'] if item['post_title'] else ''
+        title = item['post_title'].replace('"', r'\"') if item['post_title'] else ''
         source = item['cn_name']
         article_type = 'p' if len(item['image_urls']) > 0 else ''
         author = '技术栈' if not item['author'] else item['author']
