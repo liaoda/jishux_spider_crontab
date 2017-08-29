@@ -13,7 +13,7 @@ q = Auth(access_key,secret_key)
 def upload_file(file_path, file_name):
     # print(file_path)
     # print(file_name)
-    date = time.strftime('%Y/%m/%d', time.localtime(time.time()))
+    date = time.strftime('%Y/%m/%d/', time.localtime(time.time()))
     file_name = 'jishux/' + date + file_name
 
     token = q.upload_token(bucket_name, file_name, 3600)
@@ -33,5 +33,6 @@ def isFileExist(file_name):
     # 获取文件的状态信息
     ret, info = bucket.stat(bucket_name, file_name)
     return True if info.status_code==200 else False
+
 
 
