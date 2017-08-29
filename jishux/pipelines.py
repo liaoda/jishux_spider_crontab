@@ -5,17 +5,16 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import random
-import re
 from urllib.parse import urljoin, urlparse, urlsplit
 
 import pymysql
-import scrapy
+from scrapy import Selector, Request
 from scrapy.pipelines.images import FilesPipeline
 
 import jishux.settings as settings
-from jishux.items import JishuxItem
 from jishux.misc.all_secret_set import mysql_config
 from jishux.misc.qiniu_tools import upload_file as qiniu_upload
+from .misc.clean_tools import clean_tags
 from .misc.utils import get_post_type_id
 
 
@@ -44,32 +43,24 @@ class JishuxDataCleaningPipeline(object):
     '''
 
     def process_item(self, item, spider):
-        item['content_html'] = self.clean_tags(item['content_html'])
-        # print(item['content_html'])
-        return item
-
-    def clean_tags(self, content_html):
-        '''
-        加工标签
-        '''
-        # nofollow
-        content_html = content_html.replace('<a', '<a rel="nofollow"')
-        # 空白符的处理
-        content_html = content_html.strip().replace('\r', '').replace('\n', '').replace('\t', '')
-        p1 = re.compile('<p>(\s*|<br>|<br/>|&nbsp;)</p>')
-        content_html = re.sub(p1, '', content_html)
-        # TODO: 代码标签统一处理
-
-        return content_html
-
-    def clean_ads(self, item):
-        '''
-        清洗广告
-        '''
+        item = clean_tags(item)
         return item
 
 
 class JISHUXFilePipeline(FilesPipeline):
+    '''
+    文件下载pipeline
+    '''
+
+    def get_media_requests(self, item, info):
+        item['image_urls'] = Selector(text=item['content_html']).xpath('//img/@src').extract()
+        if item['image_urls']:
+            for image_url in item['image_urls']:
+                if image_url.startswith('data:image'):
+                    continue
+                image_url = urljoin(item['post_url'], image_url)
+                yield Request(image_url, headers={'Referer': "{0.scheme}://{0.netloc}/".format(urlsplit(image_url))})
+
     def item_completed(self, results, item, info):
         item['litpic'] = ''
         for x in results:
@@ -124,59 +115,6 @@ class JISHUXFilePipeline(FilesPipeline):
                         continue
         return item
 
-    def get_media_requests(self, item, info):
-        if item['image_urls']:
-            for image_url in item['image_urls']:
-                if image_url.startswith('data:image'):
-                    continue
-                image_url = urljoin(item['post_url'], image_url)
-                yield scrapy.Request(image_url,
-                                     headers={'Referer': "{0.scheme}://{0.netloc}/".format(urlsplit(image_url))})
-
-    def pre_item(self, path):
-        return
-
-
-# class JishuxReplaceImagePipeline(ImagesPipeline):
-#     def get_media_requests(self, item, info):
-#         if item['image_urls']:
-#             for image_url in item['image_urls']:
-#                 image_url = urljoin(item['post_url'], image_url)
-#                 yield scrapy.Request(image_url)
-#
-#
-#     def item_completed(self, results, item, info):
-#         content = item['content_html']
-#         image_paths = []
-#         for x in results:
-#             if x[0]:
-#                 path = self.pre_item(settings.IMAGES_STORE + x[1]['path'])
-#                 if path is None:
-#                     print('上传失败')
-#                 else:
-#                     image_paths.append(path)
-#                     content = content.replace(x[1]['url'], path)
-#                     relative_path = urlparse(x[1]['url']).path
-#                     content = content.replace('..' + relative_path, path)  # todo 非bigdata 注释掉
-#                     content = content.replace(relative_path, path)
-#                     content = content.replace('../../pic/pm.jpg',
-#                                               'http://wercoder.com/dedemao/images/logo.png')  # todo 非bigdata 注释掉
-#         item['litpic'] = image_paths[0] if len(image_paths) > 0 else ''
-#         item['content_html'] = content
-#         return item
-#
-#     def file_path(self, request, response=None, info=None):
-#         url = request.url
-#         image_guid = hashlib.sha1(to_bytes(url)).hexdigest()
-#         suffix = url.split('.')[-1]
-#         if suffix not in ['jpg', 'jpeg', 'gif', 'png', 'JPG', 'JPEG', 'GIF', 'PNG']:
-#             suffix = 'jpg'
-#         return 'full/%s.%s' % (image_guid, suffix)
-#
-#     # 图片下载上传到七牛,重新拼接img
-#     def pre_item(self, path):
-#         return qiniu_upload(path, path.split('/')[-1])
-
 
 class JishuxMysqlPipeline(object):
     def __init__(self):
@@ -185,17 +123,12 @@ class JishuxMysqlPipeline(object):
         self.cursor = self.connection.cursor()
 
     def process_item(self, item, spider):
-
-        if isinstance(item, JishuxItem):
-            # print(item)
-            # pass
-            self.insert_item(item)
+        self.insert_item(item)
+        return item
 
     def insert_item(self, item):
         keywords = item['keywords']
-        # description = item['description'].replace("'", r"\'") if item['content_html'] else ''
         description = item['description'].replace('"', r'\"') if item['description'] else ''
-        # content = item['content_html'].replace("'", r"\'") if item['content_html'] else ''
         content = item['content_html'].replace('"', r'\"') if item['content_html'] else ''
         title = item['post_title'] if item['post_title'] else ''
         source = item['cn_name']
@@ -247,4 +180,5 @@ class JishuxMysqlPipeline(object):
         self.connection.commit()
 
     def close_spider(self, spider):
+        self.cursor.close()
         self.connection.close()
