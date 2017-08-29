@@ -6,8 +6,7 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import random
 import re
-from urllib.parse import urljoin
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse, urlsplit
 
 import pymysql
 import scrapy
@@ -72,34 +71,70 @@ class JishuxDataCleaningPipeline(object):
 
 class JISHUXFilePipeline(FilesPipeline):
     def item_completed(self, results, item, info):
-        print(results)
-        content = item['content_html']
-        image_paths = []
+        item['litpic'] = ''
         for x in results:
             if x[0]:
-                path = self.pre_item(settings.FILES_STORE + x[1]['path'])
-                if path is None:
-                    print('上传失败')
-                else:
-                    image_paths.append(path)
-                    content = content.replace(x[1]['url'], path)
-                    relative_path = urlparse(x[1]['url']).path
-                    content = content.replace('..' + relative_path, path)  # todo 非bigdata 注释掉
-                    content = content.replace(relative_path, path)
-                    content = content.replace('../../pic/pm.jpg',
-                                              'http://wercoder.com/dedemao/images/logo.png')  # todo 非bigdata 注释掉
-        item['litpic'] = image_paths[0] if len(image_paths) > 0 else ''
-        item['content_html'] = content
-        return item
+                # 上传
+                local_path = settings.FILES_STORE + x[1]['path']
+                qiniu_url = qiniu_upload(local_path, local_path.split('/')[-1])
+                if qiniu_url:
+                    # 文章封面图 litpic
+                    if not item['litpic']:
+                        item['litpic'] = qiniu_url
 
+                    request_url = x[1]['url']
+                    relative_path = urlparse(request_url).path
+                    # 替换1：完全正常的
+                    original_url = request_url
+                    if original_url in item['content_html']:
+                        item['content_html'] = item['content_html'].replace(original_url, qiniu_url)
+                        continue
+                    # 替换2：没有主机名的并且开头是/
+                    original_url = relative_path
+                    if original_url in item['content_html']:
+                        item['content_html'] = item['content_html'].replace(original_url, qiniu_url)
+                        continue
+                    # 替换3：没有主机名并且开头没有/
+                    original_url = relative_path[1:]
+                    if original_url in item['content_html']:
+                        item['content_html'] = item['content_html'].replace(original_url, qiniu_url)
+                        continue
+                    # 替换4：没有主机名并且开头是./
+                    original_url = '.' + relative_path
+                    if original_url in item['content_html']:
+                        item['content_html'] = item['content_html'].replace(original_url, qiniu_url)
+                        continue
+                    # 替换5：没有主机名并且开头是../
+                    original_url = '../' + relative_path.split(sep='/', maxsplit=2)[-1]
+                    if original_url in item['content_html']:
+                        item['content_html'] = item['content_html'].replace(original_url, qiniu_url)
+                        continue
+                    # 替换6：没有主机名并且开头是../../
+                    original_url = '../../' + relative_path.split(sep='/', maxsplit=3)[-1]
+                    if original_url in item['content_html']:
+                        item['content_html'] = item['content_html'].replace(original_url, qiniu_url)
+                        continue
+                    # 替换7：没有http:或者https:协议的
+                    if request_url.startswith('https'):
+                        original_url = request_url[6:]
+                    else:
+                        original_url = request_url[5:]
+                    if original_url in item['content_html']:
+                        item['content_html'] = item['content_html'].replace(original_url, qiniu_url)
+                        continue
+        # return item
+        print(item)
     def get_media_requests(self, item, info):
         if item['image_urls']:
             for image_url in item['image_urls']:
+                if image_url.startswith('data:image'):
+                    continue
                 image_url = urljoin(item['post_url'], image_url)
-                yield scrapy.Request(image_url, headers={'Referer': item['post_url']})
+                yield scrapy.Request(image_url,
+                                     headers={'Referer': "{0.scheme}://{0.netloc}/".format(urlsplit(image_url))})
 
     def pre_item(self, path):
-        return qiniu_upload(path, path.split('/')[-1])
+        return
 
 
 # class JishuxReplaceImagePipeline(ImagesPipeline):
@@ -205,7 +240,7 @@ class JishuxMysqlPipeline(object):
                 tid = last['LAST_INSERT_ID()']
             # 插入tag到taglist
             sql_insert_tag_list = 'INSERT INTO dede_taglist (tid, aid, arcrank, typeid, tag) VALUES ("%s", "%s", "%s", "%s", "%s")' % (
-            str(tid), str(aid), 0, str(type_id), key)
+                str(tid), str(aid), 0, str(type_id), key)
             print(sql_insert_tag_list)
             self.cursor.execute(sql_insert_tag_list)
 
