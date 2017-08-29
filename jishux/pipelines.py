@@ -122,8 +122,8 @@ class JISHUXFilePipeline(FilesPipeline):
                     if original_url in item['content_html']:
                         item['content_html'] = item['content_html'].replace(original_url, qiniu_url)
                         continue
-        # return item
-        print(item)
+        return item
+
     def get_media_requests(self, item, info):
         if item['image_urls']:
             for image_url in item['image_urls']:
