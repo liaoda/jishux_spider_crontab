@@ -115,7 +115,6 @@ class JISHUXFilePipeline(FilesPipeline):
                         continue
         return item
 
-
 class JishuxMysqlPipeline(object):
     def __init__(self):
         # 创建连接git l
@@ -123,7 +122,8 @@ class JishuxMysqlPipeline(object):
         self.cursor = self.connection.cursor()
 
     def process_item(self, item, spider):
-        self.insert_item(item)
+        if item:
+            self.insert_item(item)
         return item
 
     def insert_item(self, item):

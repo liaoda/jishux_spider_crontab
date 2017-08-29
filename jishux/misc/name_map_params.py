@@ -414,3 +414,7 @@ cto56_urls = {
     'http://www.56cto.com/category/kandian': 'news',
     'http://www.56cto.com/category/job': 'other',
 }
+
+cnblogs_urls = {
+    'http://www.cnblogs.com/linbc/': 'os',
+}
