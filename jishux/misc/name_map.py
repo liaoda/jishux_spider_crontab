@@ -441,6 +441,18 @@ common_map = {
         },
     },
 
+    'http://www.56cto.com/': {
+        'url': cto56_urls,
+        'cn_name': '56cto',
+        'posts_xpath': '//article',
+        'post_url_xpath': 'header/h2/a/@href',
+        'post_title_xpath': 'header/h2/a/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[text()="下一页"]/@href',
+        },
+    },
+
     # '': {
     #     'url': {
     #         '': '',

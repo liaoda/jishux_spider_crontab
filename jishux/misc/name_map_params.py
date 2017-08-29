@@ -405,3 +405,12 @@ segmentfault_urls = {
     'https://segmentfault.com/t/docker/blogs': 'os',
     'https://segmentfault.com/t/mongodb/blogs': 'db',
 }
+
+cto56_urls = {
+    'http://www.56cto.com/category/yunwei': 'network',
+    'http://www.56cto.com/category/network': 'network',
+    'http://www.56cto.com/category/cloud': 'bigdata',
+    'http://www.56cto.com/category/download': 'other',
+    'http://www.56cto.com/category/kandian': 'news',
+    'http://www.56cto.com/category/job': 'other',
+}
