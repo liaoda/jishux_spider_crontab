@@ -18,12 +18,14 @@ def get_keywords(response, content_text):
         keywords = keywords.extract_first()
         if ',' in keywords:
             keywords = keywords.split(',')
+            keywords = list(set(keywords))
             if len(keywords) > 6:
                 keywords = ','.join(keywords[0:6])
             else:
                 keywords = ','.join(keywords)
         elif '，' in keywords:
             keywords = keywords.split('，')
+            keywords = list(set(keywords))
             if len(keywords) > 6:
                 keywords = ','.join(keywords[0:6])
             else:
