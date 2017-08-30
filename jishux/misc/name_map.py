@@ -465,6 +465,18 @@ common_map = {
         },
     },
 
+    'http://www.mamicode.com/': {
+        'url': mamicode_urls,
+        'cn_name': '码迷',
+        'posts_xpath': '//div[@class="width100bi divtextalignleft margintop20 divborderbottomdotted"]',
+        'post_url_xpath': 'div/a/@href',
+        'post_title_xpath': 'div/a/@title',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[text()="下一页"]/@href',
+        },
+    },
+
     # '': {
     #     'url': {
     #         '': '',
