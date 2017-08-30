@@ -427,5 +427,4 @@ mamicode_urls = {
     'http://www.mamicode.com/info-list-6-1.html': 'mobile',
     'http://www.mamicode.com/info-list-8-1.html': 'os',
     'http://www.mamicode.com/info-list-9-1.html': 'other',
-    'http://www.mamicode.com/info-list-11-1.html': 'other',
 }
