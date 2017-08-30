@@ -80,13 +80,21 @@ class JISHUXFilePipeline(FilesPipeline):
                     if original_url in item['content_html']:
                         item['content_html'] = item['content_html'].replace(original_url, qiniu_url)
                         continue
-                    # 替换2：没有主机名的并且开头是/
-                    original_url = relative_path
+                    # 替换7：没有http:或者https:协议的
+                    if request_url.startswith('https'):
+                        original_url = request_url[6:]
+                    else:
+                        original_url = request_url[5:]
                     if original_url in item['content_html']:
                         item['content_html'] = item['content_html'].replace(original_url, qiniu_url)
                         continue
-                    # 替换3：没有主机名并且开头没有/
-                    original_url = relative_path[1:]
+                    # 替换6：没有主机名并且开头是../..
+                    original_url = '../..' + relative_path
+                    if original_url in item['content_html']:
+                        item['content_html'] = item['content_html'].replace(original_url, qiniu_url)
+                        continue
+                    # 替换5：没有主机名并且开头是..
+                    original_url = '..' + relative_path
                     if original_url in item['content_html']:
                         item['content_html'] = item['content_html'].replace(original_url, qiniu_url)
                         continue
@@ -95,21 +103,13 @@ class JISHUXFilePipeline(FilesPipeline):
                     if original_url in item['content_html']:
                         item['content_html'] = item['content_html'].replace(original_url, qiniu_url)
                         continue
-                    # 替换5：没有主机名并且开头是../
-                    original_url = '../' + relative_path.split(sep='/', maxsplit=2)[-1]
+                    # 替换2：没有主机名的并且开头是/
+                    original_url = relative_path
                     if original_url in item['content_html']:
                         item['content_html'] = item['content_html'].replace(original_url, qiniu_url)
                         continue
-                    # 替换6：没有主机名并且开头是../../
-                    original_url = '../../' + relative_path.split(sep='/', maxsplit=3)[-1]
-                    if original_url in item['content_html']:
-                        item['content_html'] = item['content_html'].replace(original_url, qiniu_url)
-                        continue
-                    # 替换7：没有http:或者https:协议的
-                    if request_url.startswith('https'):
-                        original_url = request_url[6:]
-                    else:
-                        original_url = request_url[5:]
+                    # 替换3：没有主机名并且开头没有/
+                    original_url = relative_path[1:]
                     if original_url in item['content_html']:
                         item['content_html'] = item['content_html'].replace(original_url, qiniu_url)
                         continue
