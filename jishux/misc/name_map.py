@@ -465,16 +465,14 @@ common_map = {
         },
     },
 
-    'http://www.mamicode.com/': {
-        'url': mamicode_urls,
-        'cn_name': '码迷',
-        'posts_xpath': '//div[@class="width100bi divtextalignleft margintop20 divborderbottomdotted"]',
-        'post_url_xpath': 'div/a/@href',
-        'post_title_xpath': 'div/a/@title',
-        'next_page': {
-            'type': 'CLICK_NEXT_BUTTON',
-            'xpath': '//a[text()="下一页"]/@href',
+    'https://tech.meituan.com/': {
+        'url': {
+            'https://tech.meituan.com/?l=4000': 'bigdata'
         },
+        'cn_name': '美团技术团队博客',
+        'posts_xpath': '//article',
+        'post_url_xpath': 'header/a/@href',
+        'post_title_xpath': 'header/a/text()',
     },
 
     # '': {
