@@ -41,12 +41,15 @@ def get_all_site_start_urls():
     return start_urls
 
 
-def get_one_site_start_urls(host=[]):
-    first_url = host[0] if host else ''
-    if first_url in common_map.keys() or first_url[0:-1] in common_map.keys():
-        return list(common_map[first_url]['url'].keys())
-    else:
-        return host
+def get_one_site_start_urls(host):
+    start_urls = []
+    for url in host:
+        base_url = "{0.scheme}://{0.netloc}/".format(urlsplit(url))
+        if url in common_map.keys() or url[:-1] in common_map.keys() or (url + '/') in common_map.keys():
+            start_urls += (list(common_map[url]['url'].keys()))
+        elif base_url in common_map.keys() or base_url[:-1] in common_map.keys() or (base_url + '/') in common_map.keys():
+            start_urls.append(url)
+    return list(set(start_urls))
 
 
 def get_start_urls():
@@ -64,9 +67,7 @@ def get_conf(url):
     conf = None
     if url in common_map.keys():
         conf = common_map[url]
-    elif base_url in common_map.keys():
-        conf = common_map[base_url]
-    elif base_url[0:-1] in common_map.keys():
+    elif base_url in common_map.keys() or base_url[:-1] in common_map.keys() or (base_url + '/') in common_map.keys():
         conf = common_map[base_url]
     return conf
 
