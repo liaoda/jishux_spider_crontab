@@ -320,7 +320,7 @@ common_map = {
         'post_title_xpath': 'li/h2/span[@class="title"]/a/@title',
         'next_page': {
             'type': 'CLICK_NEXT_BUTTON',
-            'xpath': '//a[text()="下一页"]',
+            'xpath': '//a[text()="下一页"]/@href',
         },
     },
 
@@ -473,6 +473,26 @@ common_map = {
         'posts_xpath': '//article',
         'post_url_xpath': 'header/a/@href',
         'post_title_xpath': 'header/a/text()',
+    },
+
+    '': {
+        'url': {
+            '': '',
+        },
+        'cn_name': '',
+        'posts_xpath': '',
+        'post_url_xpath': '',
+        'post_title_xpath': '',
+        'next_page': {
+            'type': '',
+            'xpath': '',
+        },
+        'headers': {
+            'key1': 'value',
+            'key2': 'value',
+            'key3': 'value',
+            'key4': 'value',
+        },
     },
 
     # '': {
