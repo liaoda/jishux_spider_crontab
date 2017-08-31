@@ -419,12 +419,3 @@ cnblogs_urls = {
     'http://www.cnblogs.com/linbc/': 'os',
 }
 
-mamicode_urls = {
-    'http://www.mamicode.com/info-list-2-1.html': 'frontend',
-    'http://www.mamicode.com/info-list-3-1.html': 'os',
-    'http://www.mamicode.com/info-list-4-1.html': 'backend',
-    'http://www.mamicode.com/info-list-5-1.html': 'db',
-    'http://www.mamicode.com/info-list-6-1.html': 'mobile',
-    'http://www.mamicode.com/info-list-8-1.html': 'os',
-    'http://www.mamicode.com/info-list-9-1.html': 'other',
-}
