@@ -16,6 +16,10 @@ from jishux.misc.all_secret_set import mysql_config
 from jishux.misc.qiniu_tools import upload_file as qiniu_upload
 from .misc.clean_tools import clean_tags
 from .misc.utils import get_post_type_id
+import logging
+from scrapy.utils.request import referer_str
+
+logger = logging.getLogger(__name__)
 
 
 class JishuxPipeline(object):
@@ -47,10 +51,70 @@ class JishuxDataCleaningPipeline(object):
         return item
 
 
+class FileException(Exception):
+    """General media error exception"""
+
+
 class JISHUXFilePipeline(FilesPipeline):
     '''
     文件下载pipeline
     '''
+
+    def media_downloaded(self, response, request, info):
+        referer = referer_str(request)
+
+        if response.status != 200:
+            logger.warning(
+                'File (code: %(status)s): Error downloading file from '
+                '%(request)s referred in <%(referer)s>',
+                {'status': response.status,
+                 'request': request, 'referer': referer},
+                extra={'spider': info.spider}
+            )
+            raise FileException('download-error')
+
+        if not response.body:
+            logger.warning(
+                'File (empty-content): Empty file from %(request)s referred '
+                'in <%(referer)s>: no-content',
+                {'request': request, 'referer': referer},
+                extra={'spider': info.spider}
+            )
+            raise FileException('empty-content')
+
+        status = 'cached' if 'cached' in response.flags else 'downloaded'
+        logger.debug(
+            'File (%(status)s): Downloaded file from %(request)s referred in '
+            '<%(referer)s>',
+            {'status': status, 'request': request, 'referer': referer},
+            extra={'spider': info.spider}
+        )
+        self.inc_stats(info.spider, status)
+
+        try:
+            path = self.file_path(request, response=response, info=info)
+            checksum = self.file_downloaded(response, request, info)
+            print(path)
+        except FileException as exc:
+            logger.warning(
+                'File (error): Error processing file from %(request)s '
+                'referred in <%(referer)s>: %(errormsg)s',
+                {'request': request, 'referer': referer, 'errormsg': str(exc)},
+                extra={'spider': info.spider}, exc_info=True
+            )
+            raise
+        except Exception as exc:
+            logger.error(
+                'File (unknown-error): Error processing file from %(request)s '
+                'referred in <%(referer)s>',
+                {'request': request, 'referer': referer},
+                exc_info=True, extra={'spider': info.spider}
+            )
+            raise FileException(str(exc))
+        local_path = settings.FILES_STORE + path
+        print('localpath', local_path)
+        request_url = qiniu_upload(local_path, local_path.split('/')[-1])
+        return {'url': request.url, 'path': path, 'checksum': checksum, 'qiniu_url': request_url}
 
     def get_media_requests(self, item, info):
         item['image_urls'] = Selector(text=item['content_html']).xpath('//img/@src').extract()
@@ -63,11 +127,13 @@ class JISHUXFilePipeline(FilesPipeline):
 
     def item_completed(self, results, item, info):
         item['litpic'] = ''
+        print(results)
         for x in results:
             if x[0]:
                 # 上传
-                local_path = settings.FILES_STORE + x[1]['path']
-                qiniu_url = qiniu_upload(local_path, local_path.split('/')[-1])
+                # local_path = settings.FILES_STORE + x[1]['path']
+                # qiniu_url = qiniu_upload(local_path, local_path.split('/')[-1])
+                qiniu_url = x[1]['qiniu_url']
                 if qiniu_url:
                     # 文章封面图 litpic
                     if not item['litpic']:
@@ -115,6 +181,7 @@ class JISHUXFilePipeline(FilesPipeline):
                         continue
         return item
 
+
 class JishuxMysqlPipeline(object):
     def __init__(self):
         # 创建连接git l
@@ -122,7 +189,10 @@ class JishuxMysqlPipeline(object):
         self.cursor = self.connection.cursor()
 
     def process_item(self, item, spider):
+
         if item:
+            # pass
+            # print(item)
             self.insert_item(item)
         return item
 
