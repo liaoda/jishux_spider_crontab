@@ -475,23 +475,20 @@ common_map = {
         'post_title_xpath': 'header/a/text()',
     },
 
-    '': {
+    'http://www.php100.com/': {
         'url': {
-            '': '',
+            'http://www.php100.com/html/php/': 'backend',
+            'http://www.php100.com/html/dujia/': 'backend',
+            'http://www.php100.com/html/program/': 'frontend',
+            'http://www.php100.com/html/it/': 'news',
         },
-        'cn_name': '',
-        'posts_xpath': '',
-        'post_url_xpath': '',
-        'post_title_xpath': '',
+        'cn_name': 'php100',
+        'posts_xpath': '//div[@class="col-md-9 category-list"]/div[@class="media"]',
+        'post_url_xpath': 'h3/a/@href',
+        'post_title_xpath': 'h3/a/text()',
         'next_page': {
-            'type': '',
-            'xpath': '',
-        },
-        'headers': {
-            'key1': 'value',
-            'key2': 'value',
-            'key3': 'value',
-            'key4': 'value',
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[text()="下一页"]/@href',
         },
     },
 
