@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import logging
 # Define your item pipelines here
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
@@ -9,15 +10,14 @@ from urllib.parse import urljoin, urlparse, urlsplit
 
 import pymysql
 from scrapy import Selector, Request
-from scrapy.pipelines.images import FilesPipeline
+from scrapy.pipelines.images import FilesPipeline, FileException
+from scrapy.utils.request import referer_str
 
 import jishux.settings as settings
 from jishux.misc.all_secret_set import mysql_config
 from jishux.misc.qiniu_tools import upload_file as qiniu_upload
 from .misc.clean_tools import clean_tags
 from .misc.utils import get_post_type_id
-import logging
-from scrapy.utils.request import referer_str
 
 logger = logging.getLogger(__name__)
 
@@ -51,14 +51,19 @@ class JishuxDataCleaningPipeline(object):
         return item
 
 
-class FileException(Exception):
-    """General media error exception"""
-
-
 class JISHUXFilePipeline(FilesPipeline):
     '''
     文件下载pipeline
     '''
+
+    def get_media_requests(self, item, info):
+        item['image_urls'] = Selector(text=item['content_html']).xpath('//img/@src').extract()
+        if item['image_urls']:
+            for image_url in item['image_urls']:
+                if image_url.startswith('data:image'):
+                    continue
+                image_url = urljoin(item['post_url'], image_url)
+                yield Request(image_url, headers={'Referer': "{0.scheme}://{0.netloc}/".format(urlsplit(image_url))})
 
     def media_downloaded(self, response, request, info):
         referer = referer_str(request)
@@ -94,7 +99,6 @@ class JISHUXFilePipeline(FilesPipeline):
         try:
             path = self.file_path(request, response=response, info=info)
             checksum = self.file_downloaded(response, request, info)
-            print(path)
         except FileException as exc:
             logger.warning(
                 'File (error): Error processing file from %(request)s '
@@ -112,22 +116,11 @@ class JISHUXFilePipeline(FilesPipeline):
             )
             raise FileException(str(exc))
         local_path = settings.FILES_STORE + path
-        print('localpath', local_path)
         request_url = qiniu_upload(local_path, local_path.split('/')[-1])
         return {'url': request.url, 'path': path, 'checksum': checksum, 'qiniu_url': request_url}
 
-    def get_media_requests(self, item, info):
-        item['image_urls'] = Selector(text=item['content_html']).xpath('//img/@src').extract()
-        if item['image_urls']:
-            for image_url in item['image_urls']:
-                if image_url.startswith('data:image'):
-                    continue
-                image_url = urljoin(item['post_url'], image_url)
-                yield Request(image_url, headers={'Referer': "{0.scheme}://{0.netloc}/".format(urlsplit(image_url))})
-
     def item_completed(self, results, item, info):
         item['litpic'] = ''
-        print(results)
         for x in results:
             if x[0]:
                 # 上传
@@ -191,8 +184,6 @@ class JishuxMysqlPipeline(object):
     def process_item(self, item, spider):
 
         if item:
-            # pass
-            # print(item)
             self.insert_item(item)
         return item
 
