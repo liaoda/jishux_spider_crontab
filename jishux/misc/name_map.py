@@ -490,9 +490,9 @@ common_map = {
     'http://www.jb51.net/': {
         'url': jb51_urls,
         'cn_name': '脚本之家',
-        'posts_xpath': '//dl/dt',
-        'post_url_xpath': 'a/@href',
-        'post_title_xpath': 'a/text()',
+        'posts_xpath': '//dl/dt | //div[@class="newslist clearfix"]/dl',
+        'post_url_xpath': 'a/@href | span/a/@href',
+        'post_title_xpath': 'a/text() | span/a/text()',
         'next_page': {
             'type': 'CLICK_NEXT_BUTTON',
             'xpath': '//a[text()="下页"]/@href | //a[text()="下一页"]/@href',
