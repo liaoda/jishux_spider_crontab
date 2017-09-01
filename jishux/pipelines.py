@@ -121,6 +121,7 @@ class JISHUXFilePipeline(FilesPipeline):
 
     def item_completed(self, results, item, info):
         item['litpic'] = ''
+        print(results)
         for x in results:
             if x[0]:
                 # 上传
@@ -189,9 +190,9 @@ class JishuxMysqlPipeline(object):
 
     def insert_item(self, item):
         keywords = item['keywords']
-        description = item['description'].replace('"', r'\"') if item['description'] else ''
-        content = item['content_html'].replace('"', r'\"') if item['content_html'] else ''
-        title = item['post_title'].replace('"', r'\"') if item['post_title'] else ''
+        description = item['description'].replace(r'\"', r'\\"').replace('"', r'\"') if item['description'] else ''
+        content = item['content_html'].replace(r'\"', r'\\"').replace('"', r'\"') if item['content_html'] else ''
+        title = item['post_title'].replace(r'\"', r'\\"').replace('"', r'\"') if item['post_title'] else ''
         source = item['cn_name']
         article_type = 'p' if len(item['image_urls']) > 0 else ''
         author = '技术栈' if not item['author'] else item['author']
