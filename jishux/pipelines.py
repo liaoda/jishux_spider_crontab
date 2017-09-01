@@ -19,6 +19,12 @@ from jishux.misc.qiniu_tools import upload_file as qiniu_upload
 from .misc.clean_tools import clean_tags
 from .misc.utils import get_post_type_id
 
+from scrapy.utils.python import to_bytes
+
+import hashlib
+import os
+import os.path
+
 logger = logging.getLogger(__name__)
 
 
@@ -119,6 +125,34 @@ class JISHUXFilePipeline(FilesPipeline):
         request_url = qiniu_upload(local_path, local_path.split('/')[-1])
         return {'url': request.url, 'path': path, 'checksum': checksum, 'qiniu_url': request_url}
 
+
+    def file_path(self, request, response=None, info=None):
+        ## start of deprecation warning block (can be removed in the future)
+        def _warn():
+            from scrapy.exceptions import ScrapyDeprecationWarning
+            import warnings
+            warnings.warn('FilesPipeline.file_key(url) method is deprecated, please use '
+                          'file_path(request, response=None, info=None) instead',
+                          category=ScrapyDeprecationWarning, stacklevel=1)
+
+        # check if called from file_key with url as first argument
+        if not isinstance(request, Request):
+            _warn()
+            url = request
+        else:
+            url = request.url
+
+        # detect if file_key() method has been overridden
+        if not hasattr(self.file_key, '_base'):
+            _warn()
+            return self.file_key(url)
+        ## end of deprecation warning block
+
+        media_guid = hashlib.sha1(to_bytes(url)).hexdigest()  # change to request.url after deprecation
+        media_ext = os.path.splitext(url)[1].split('?')[0]  # change to request.url after deprecation
+        return 'full/%s%s' % (media_guid, media_ext)
+
+
     def item_completed(self, results, item, info):
         item['litpic'] = ''
         print(results)
@@ -128,6 +162,7 @@ class JISHUXFilePipeline(FilesPipeline):
                 # local_path = settings.FILES_STORE + x[1]['path']
                 # qiniu_url = qiniu_upload(local_path, local_path.split('/')[-1])
                 qiniu_url = x[1]['qiniu_url']
+                print(qiniu_url)
                 if qiniu_url:
                     # 文章封面图 litpic
                     if not item['litpic']:
@@ -185,7 +220,8 @@ class JishuxMysqlPipeline(object):
     def process_item(self, item, spider):
 
         if item:
-            self.insert_item(item)
+            pass
+            # self.insert_item(item)
         return item
 
     def insert_item(self, item):
