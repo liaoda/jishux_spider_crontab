@@ -155,7 +155,6 @@ class JISHUXFilePipeline(FilesPipeline):
 
     def item_completed(self, results, item, info):
         item['litpic'] = ''
-        print(results)
         for x in results:
             if x[0]:
                 # 上传
@@ -220,8 +219,7 @@ class JishuxMysqlPipeline(object):
     def process_item(self, item, spider):
 
         if item:
-            pass
-            # self.insert_item(item)
+            self.insert_item(item)
         return item
 
     def insert_item(self, item):
