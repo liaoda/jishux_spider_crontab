@@ -419,3 +419,24 @@ cnblogs_urls = {
     'http://www.cnblogs.com/linbc/': 'os',
 }
 
+cto2_urls = {
+    'https://www.2cto.com/article/web/': 'frontend',
+    'https://www.2cto.com/article/xitong/': 'network',
+    'https://www.2cto.com/article/tool/': 'network',
+    'https://www.2cto.com/os/windows/': 'os',
+    'https://www.2cto.com/os/linux/': 'os',
+    'https://www.2cto.com/os/xuniji/': 'os',
+    'https://www.2cto.com/os/liulanqi/': 'os',
+    'https://www.2cto.com/os/qita/': 'os',
+    'https://www.2cto.com/database/mssql/': 'db',
+    'https://www.2cto.com/database/mysql/news/': 'db',
+    'https://www.2cto.com/database/mysql/rmjc/': 'db',
+    'https://www.2cto.com/database/Oracle/': 'db',
+    'https://www.2cto.com/database/DB2/': 'db',
+    'https://www.2cto.com/database/Sybase/': 'db',
+    'https://www.2cto.com/database/qita/': 'db',
+    'https://www.2cto.com/kf/web/Python/news/': 'backend',
+    'https://www.2cto.com/kf/web/python/jcjc/': 'backend',
+    'https://www.2cto.com/news/it/': 'news',
+    'https://www.2cto.com/kf/yidong/Android/news/': 'mobile',
+}
