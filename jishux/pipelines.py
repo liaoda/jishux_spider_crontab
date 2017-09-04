@@ -15,7 +15,7 @@ from scrapy.utils.request import referer_str
 
 import jishux.settings as settings
 from jishux.misc.all_secret_set import mysql_config
-from jishux.misc.qiniu_tools import upload_file as qiniu_upload
+from jishux.misc.qiniu_tools import upload_file as qiniu_upload,deleteFiles
 from .misc.clean_tools import clean_tags
 from .misc.utils import get_post_type_id
 
@@ -155,14 +155,15 @@ class JISHUXFilePipeline(FilesPipeline):
 
     def item_completed(self, results, item, info):
         item['litpic'] = ''
+        qiniu_urls = []
         for x in results:
             if x[0]:
                 # 上传
                 # local_path = settings.FILES_STORE + x[1]['path']
                 # qiniu_url = qiniu_upload(local_path, local_path.split('/')[-1])
                 qiniu_url = x[1]['qiniu_url']
-                print(qiniu_url)
                 if qiniu_url:
+                    qiniu_urls.append(qiniu_url)
                     # 文章封面图 litpic
                     if not item['litpic']:
                         item['litpic'] = qiniu_url
@@ -207,6 +208,7 @@ class JISHUXFilePipeline(FilesPipeline):
                     if original_url in item['content_html']:
                         item['content_html'] = item['content_html'].replace(original_url, qiniu_url)
                         continue
+        item['qiniu_urls'] = qiniu_urls
         return item
 
 
@@ -223,57 +225,60 @@ class JishuxMysqlPipeline(object):
         return item
 
     def insert_item(self, item):
-        keywords = item['keywords']
-        description = item['description'].replace(r'\"', r'\\"').replace('"', r'\"') if item['description'] else ''
-        content = item['content_html'].replace(r'\"', r'\\"').replace('"', r'\"') if item['content_html'] else ''
-        title = item['post_title'].replace(r'\"', r'\\"').replace('"', r'\"') if item['post_title'] else ''
-        source = item['cn_name']
-        article_type = 'p' if len(item['image_urls']) > 0 else ''
-        author = '技术栈' if not item['author'] else item['author']
-        litpic = item['litpic'] if item['litpic']else ''
-        type_id = get_post_type_id(item['post_type'])
-        crawl_time = str(item['crawl_time'])
-        sql_insert_meta = 'INSERT INTO dede_archives (typeid, sortrank, flag, ismake, channel, title, writer, source, pubdate, senddate, mid, keywords, description, dutyadmin,voteid,litpic,click) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s","%s","%s","%s")' % (
-            type_id, crawl_time, article_type, -1, 1, title, author, source, crawl_time, crawl_time,
-            1, keywords, description, 1, 0, litpic, random.randint(5000, 10000))
-        self.cursor.execute(sql_insert_meta)
-        sql_last_id = 'SELECT LAST_INSERT_ID()'
-        self.cursor.execute(sql_last_id)
-        a = self.cursor.fetchone()
-        aid = a['LAST_INSERT_ID()']
-        sql_insert_content = 'INSERT INTO dede_addonarticle (aid, typeid, body, userip) VALUES("%s","%s","%s","%s")' % (
-            aid, type_id, content, '127.0.0.1')
-        # print(sql_insert_content)
-        self.cursor.execute(sql_insert_content)
-        sql_insert_arctiny = 'INSERT INTO dede_arctiny (id, typeid, channel, senddate, sortrank,mid) VALUES ("%s", "%s", "%s", "%s", "%s", "%s")' % (
-            aid, type_id, 1, crawl_time, crawl_time, 1)
-        self.cursor.execute(sql_insert_arctiny)
-        for key in keywords.split(','):
-            # 判断tag是否在tagindex中存在
-            sql_find_tag_exist = 'SELECT * FROM dede_tagindex WHERE tag= "%s"' % key
-            # 如果不存在插入tag_index '" + key + "'," + type_id + ",1," + crawl_time + "," + crawl_time + "," + crawl_time + "
-            sql_insert_tag_index = 'INSERT INTO dede_tagindex (tag, typeid, total, weekup, monthup, addtime) VALUES ("%s","%s","%s","%s","%s","%s")' % (
-                key, type_id, 1, crawl_time, crawl_time, crawl_time)
-            # 如果存在则计数+1
-            sql_update_count_add_1 = 'UPDATE dede_tagindex SET total=total+1  WHERE tag= "%s"' % key
-            self.cursor.execute(sql_find_tag_exist)
-            one = self.cursor.fetchone()
+        try:
+            keywords = item['keywords']
+            description = item['description'].replace(r'\"', r'\\"').replace('"', r'\"') if item['description'] else ''
+            content = item['content_html'].replace(r'\"', r'\\"').replace('"', r'\"') if item['content_html'] else ''
+            title = item['post_title'].replace(r'\"', r'\\"').replace('"', r'\"') if item['post_title'] else ''
+            source = item['cn_name']
+            article_type = 'p' if len(item['image_urls']) > 0 else ''
+            author = '技术栈' if not item['author'] else item['author']
+            litpic = item['litpic'] if item['litpic']else ''
+            type_id = get_post_type_id(item['post_type'])
+            crawl_time = str(item['crawl_time'])
+            sql_insert_meta = 'INSERT INTO dede_archives (typeid, sortrank, flag, ismake, channel, title, writer, source, pubdate, senddate, mid, keywords, description, dutyadmin,voteid,litpic,click) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s","%s","%s","%s")' % (
+                type_id, crawl_time, article_type, -1, 1, title, author, source, crawl_time, crawl_time,
+                1, keywords, description, 1, 0, litpic, random.randint(5000, 10000))
+            self.cursor.execute(sql_insert_meta)
+            sql_last_id = 'SELECT LAST_INSERT_ID()'
+            self.cursor.execute(sql_last_id)
+            a = self.cursor.fetchone()
+            aid = a['LAST_INSERT_ID()']
+            sql_insert_content = 'INSERT INTO dede_addonarticle (aid, typeid, body, userip) VALUES("%s","%s","%s","%s")' % (
+                aid, type_id, content, '127.0.0.1')
+            # print(sql_insert_content)
+            self.cursor.execute(sql_insert_content)
+            sql_insert_arctiny = 'INSERT INTO dede_arctiny (id, typeid, channel, senddate, sortrank,mid) VALUES ("%s", "%s", "%s", "%s", "%s", "%s")' % (
+                aid, type_id, 1, crawl_time, crawl_time, 1)
+            self.cursor.execute(sql_insert_arctiny)
+            for key in keywords.split(','):
+                # 判断tag是否在tagindex中存在
+                sql_find_tag_exist = 'SELECT * FROM dede_tagindex WHERE tag= "%s"' % key
+                # 如果不存在插入tag_index '" + key + "'," + type_id + ",1," + crawl_time + "," + crawl_time + "," + crawl_time + "
+                sql_insert_tag_index = 'INSERT INTO dede_tagindex (tag, typeid, total, weekup, monthup, addtime) VALUES ("%s","%s","%s","%s","%s","%s")' % (
+                    key, type_id, 1, crawl_time, crawl_time, crawl_time)
+                # 如果存在则计数+1
+                sql_update_count_add_1 = 'UPDATE dede_tagindex SET total=total+1  WHERE tag= "%s"' % key
+                self.cursor.execute(sql_find_tag_exist)
+                one = self.cursor.fetchone()
 
-            if one:
-                self.cursor.execute(sql_update_count_add_1)
-                tid = one['id']
-            else:
-                self.cursor.execute(sql_insert_tag_index)
-                self.cursor.execute(sql_last_id)
-                last = self.cursor.fetchone()
-                tid = last['LAST_INSERT_ID()']
-            # 插入tag到taglist
-            sql_insert_tag_list = 'INSERT INTO dede_taglist (tid, aid, arcrank, typeid, tag) VALUES ("%s", "%s", "%s", "%s", "%s")' % (
-                str(tid), str(aid), 0, str(type_id), key)
-            # print(sql_insert_tag_list)
-            self.cursor.execute(sql_insert_tag_list)
+                if one:
+                    self.cursor.execute(sql_update_count_add_1)
+                    tid = one['id']
+                else:
+                    self.cursor.execute(sql_insert_tag_index)
+                    self.cursor.execute(sql_last_id)
+                    last = self.cursor.fetchone()
+                    tid = last['LAST_INSERT_ID()']
+                # 插入tag到taglist
+                sql_insert_tag_list = 'INSERT INTO dede_taglist (tid, aid, arcrank, typeid, tag) VALUES ("%s", "%s", "%s", "%s", "%s")' % (
+                    str(tid), str(aid), 0, str(type_id), key)
+                # print(sql_insert_tag_list)
+                self.cursor.execute(sql_insert_tag_list)
+            self.connection.commit()
+        except:
+            deleteFiles(item['qiniu_urls'])
 
-        self.connection.commit()
 
     def close_spider(self, spider):
         self.cursor.close()
