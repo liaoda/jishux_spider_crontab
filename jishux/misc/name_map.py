@@ -499,6 +499,20 @@ common_map = {
         },
     },
 
+    'http://www.css88.com/': {
+        'url': {
+            'http://www.css88.com/': 'frontend',
+        },
+        'cn_name': 'WEB前端开发',
+        'posts_xpath': '//article',
+        'post_url_xpath': 'header/h1/a/@href',
+        'post_title_xpath': 'header/h1/a/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[text()="下一页 »"]/@href',
+        },
+    },
+
     # '': {
     #     'url': {
     #         '': '',
