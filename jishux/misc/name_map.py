@@ -499,7 +499,7 @@ common_map = {
         },
     },
     'http://www.open-open.com/': {
-        'url': openopenurls,
+        'url': openopen_urls,
         'cn_name': '深度开源',
         'posts_xpath': '//div[@class="col-md-8"]/ul[@class="list"]/li',
         'post_url_xpath': 'div[@class="cont"]/h3/a/@href',
