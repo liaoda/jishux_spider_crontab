@@ -243,7 +243,7 @@ class JishuxMysqlPipeline(object):
         aid = a['LAST_INSERT_ID()']
         sql_insert_content = 'INSERT INTO dede_addonarticle (aid, typeid, body, userip) VALUES("%s","%s","%s","%s")' % (
             aid, type_id, content, '127.0.0.1')
-        print(sql_insert_content)
+        # print(sql_insert_content)
         self.cursor.execute(sql_insert_content)
         sql_insert_arctiny = 'INSERT INTO dede_arctiny (id, typeid, channel, senddate, sortrank,mid) VALUES ("%s", "%s", "%s", "%s", "%s", "%s")' % (
             aid, type_id, 1, crawl_time, crawl_time, 1)
@@ -270,7 +270,7 @@ class JishuxMysqlPipeline(object):
             # 插入tag到taglist
             sql_insert_tag_list = 'INSERT INTO dede_taglist (tid, aid, arcrank, typeid, tag) VALUES ("%s", "%s", "%s", "%s", "%s")' % (
                 str(tid), str(aid), 0, str(type_id), key)
-            print(sql_insert_tag_list)
+            # print(sql_insert_tag_list)
             self.cursor.execute(sql_insert_tag_list)
 
         self.connection.commit()

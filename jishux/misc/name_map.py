@@ -498,6 +498,33 @@ common_map = {
             'xpath': '//a[text()="下页"]/@href | //a[text()="下一页"]/@href',
         },
     },
+    'http://www.open-open.com/': {
+        'url': openopen_urls,
+        'cn_name': '深度开源',
+        'posts_xpath': '//div[@class="col-md-8"]/ul[@class="list"]/li',
+        'post_url_xpath': 'div[@class="cont"]/h3/a/@href',
+        'post_title_xpath': 'div[@class="cont"]/h3/a/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[@class="next"]/@href',
+        },
+    },
+
+
+
+    'http://www.css88.com/': {
+        'url': {
+            'http://www.css88.com/': 'frontend',
+        },
+        'cn_name': 'WEB前端开发',
+        'posts_xpath': '//article',
+        'post_url_xpath': 'header/h1/a/@href',
+        'post_title_xpath': 'header/h1/a/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[text()="下一页 »"]/@href',
+        },
+    },
 
     # '': {
     #     'url': {

@@ -21,4 +21,20 @@ def generate_timestamp(post_time):
     return time_stamp
 
 
-
+# param = {
+#     'page': 1,
+#     'order_by':'added_at'
+# }
+# url = 'http://www.jianshu.com/c/V2CqjW?order_by=added_at&page={page}'
+#
+# for i in param.keys():
+#     url = url.replace('{' + i + '}', str(param[i]))
+#
+# print(url)
+#
+# for i in range(10):
+#     for key in param.keys():
+#         reg1 = '(?={0}=).*?&?'.format(key)
+#         print(reg1)
+#         s = re.search(reg1, url)
+#         print(s)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Created by yaochao on 2017/8/7
-
+import logging
 import re
 import time
 
@@ -16,11 +16,11 @@ from ..misc.text_tools import get_description, get_keywords
 from ..misc.time_formater import generate_timestamp
 from ..misc.utils import get_conf, get_cookies, get_start_urls, md5
 
-
+logger = logging.getLogger(__name__)
 class CommonSpider(scrapy.Spider):
     name = 'common_spider'
     start_urls = get_start_urls()
-    print(start_urls)
+    logger.debug(start_urls)
     custom_settings = {
         'ITEM_PIPELINES': {
             'jishux.pipelines.JishuxDataCleaningPipeline': 300,
@@ -66,7 +66,7 @@ class CommonSpider(scrapy.Spider):
                 latest_url = get_then_change_latest_url(md5(request_url), first_url)
             # 从sqlite中取出上一次最新的数据，与本次的数据做对比，如果相同则认为文章抓到了上次已经抓过的数据，如果不同则认为文章还没有抓完
             if post_url == latest_url:
-                print('{} - 爬到了上次爬到的地方'.format(conf['cn_name']))
+                logger.warning('{} - 爬到了上次爬到的地方'.format(conf['cn_name']))
                 return
             request = scrapy.Request(url=post_url, callback=self.parse_post,
                                      headers=conf['headers'] if 'headers' in conf.keys() else None,
@@ -108,4 +108,3 @@ class CommonSpider(scrapy.Spider):
         item['cn_name'] = conf['cn_name']
         item['author'] = ''  # todo 文章作者 配置文件需要适配
         yield item
-        # print(item)
