@@ -14,7 +14,8 @@ BOT_NAME = 'jishux'
 SPIDER_MODULES = ['jishux.spiders']
 NEWSPIDER_MODULE = 'jishux.spiders'
 
-
+# LOG_LEVEL
+LOG_LEVEL = 'WARNING'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'jishux (+http://www.yourdomain.com)'
 
