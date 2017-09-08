@@ -161,7 +161,7 @@ class JISHUXFilePipeline(FilesPipeline):
                 # 上传
                 # local_path = settings.FILES_STORE + x[1]['path']
                 # qiniu_url = qiniu_upload(local_path, local_path.split('/')[-1])
-                qiniu_url = x[1]['qiniu_url']
+                qiniu_url = x[1]['qiniu_url'] if  'qiniu_url' in x[1].keys() else None
                 if qiniu_url:
                     qiniu_urls.append(qiniu_url)
                     # 文章封面图 litpic
