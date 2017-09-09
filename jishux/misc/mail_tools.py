@@ -12,7 +12,7 @@ from .all_secret_set import mail_config
 # 可以查询文件对应的'Content-Type'
 import mimetypes
 
-def sendmail(subject='', message='请查收附件，谢谢。', file_path=None):
+def sendmail(subject='', message='请及时查收，谢谢。', file_path=None):
     content_type = mimetypes.guess_type(file_path)
 
     now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
@@ -28,7 +28,7 @@ def sendmail(subject='', message='请查收附件，谢谢。', file_path=None):
     msgroot['To'] = ','.join(receiver)
 
     # MIMEText有三个参数，第一个对应文本内容，第二个对应文本的格式，第三个对应文本编码
-    message = MIMEText('{}\n\t\t\t\t{}\n\t\t\t\t{}'.format(message,'http://www.jishux.com', now_time), 'plain', 'utf-8')
+    message = MIMEText('{}\n    {}\n    {}'.format(message,'本邮件由系统自动发送', now_time), 'plain', 'utf-8')
     msgroot.attach(message)
 
     if file_path:
