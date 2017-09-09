@@ -188,7 +188,7 @@ csdn_urls = {
     'http://blog.csdn.net/longxinchen_ml': 'bigdata', 'http://blog.csdn.net/fansy1990': 'bigdata',
     'http://blog.csdn.net/feiskyer': 'bigdata', 'http://blog.csdn.net/xuhuojun': 'bigdata',
     'http://blog.csdn.net/qcpm1983': 'bigdata', 'http://blog.csdn.net/dabokele': 'bigdata',
-    'http://blog.csdn.net/sky_walker85': 'bigdata', 'http://blog.csdn.net/iamonlyme': 'bigdata',
+    'http://blog.csdn.net/iamonlyme': 'bigdata',
     'http://blog.csdn.net/cnsword': 'bigdata', 'http://blog.csdn.net/tobacco5648': 'network',
     'http://blog.csdn.net/cndes': 'network', 'http://blog.csdn.net/diehuan2008': 'network',
     'http://blog.csdn.net/felomeng': 'network', 'http://blog.csdn.net/google19890102': 'network',
