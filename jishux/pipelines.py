@@ -284,4 +284,6 @@ class JishuxMysqlPipeline(object):
     def close_spider(self, spider):
         self.cursor.close()
         self.connection.close()
-	sendmail(subject='爬虫日志', file_path='/var/log/scrapy.log')
+        stats = spider.crawler.stats.get_stats()
+        stats = str(stats).replace('{', '{\n    ').replace(', \'', ', \'\n    ').replace('}', '\n}')
+        sendmail(subject='爬虫日志', message=stats, file_path='/var/log/scrapy.log')
