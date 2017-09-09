@@ -18,6 +18,7 @@ from jishux.misc.all_secret_set import mysql_config
 from jishux.misc.qiniu_tools import upload_file as qiniu_upload,deleteFiles
 from .misc.clean_tools import clean_tags
 from .misc.utils import get_post_type_id
+from .misc.mail_tools import sendmail
 
 from scrapy.utils.python import to_bytes
 
@@ -283,3 +284,4 @@ class JishuxMysqlPipeline(object):
     def close_spider(self, spider):
         self.cursor.close()
         self.connection.close()
+        sendmail(subject='爬虫日志', file_path='/var/log/scrapy.log')
