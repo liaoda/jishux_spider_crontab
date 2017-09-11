@@ -301,6 +301,43 @@ common_map = {
         'post_title_xpath': 'div[1]/a/span/text()',
     },
 
+    'http://www.uedbox.com/': {
+        'url': {
+            'http://www.uedbox.com/web-security/sourcing/': 'os',
+            'http://www.uedbox.com/entertainment/macos/': 'os',
+            'http://www.uedbox.com/web-security/vdbexp/': 'os',
+            'http://www.uedbox.com/web-security/vdbexp/page/2/': 'db',
+            'http://www.uedbox.com/design/htmlcss/': 'frontend',
+            'http://www.uedbox.com/entertainment/news/': 'news',
+        },
+        'cn_name': '体验盒子',
+        'posts_xpath': '//*[starts-with(@id,"post")]',
+        'post_url_xpath': 'a/@href',
+        'post_title_xpath': 'a/div[@class="media-body"]/h4/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[@title="Next »"]/@href',
+        },
+    },
+    'http://www.luoxiao123.cn/': {
+        'url': {
+            'http://www.luoxiao123.cn/windows10': 'os',
+            'http://www.uedbox.com/entertainment/macos/': 'os',
+            'http://www.uedbox.com/web-security/vdbexp/': 'os',
+            'http://www.uedbox.com/web-security/vdbexp/page/2/': 'db',
+            'http://www.uedbox.com/design/htmlcss/': 'frontend',
+            'http://www.uedbox.com/entertainment/news/': 'news',
+        },
+        'cn_name': '体验盒子',
+        'posts_xpath': '//*[starts-with(@id,"post")]',
+        'post_url_xpath': 'a/@href',
+        'post_title_xpath': 'a/div[@class="media-body"]/h4/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[@title="Next »"]/@href',
+        },
+    }
+
     # '': {
     #     'url': {
     #         '': '',
