@@ -13,13 +13,13 @@ from .all_secret_set import mail_config
 import mimetypes
 
 def sendmail(subject='', message='请及时查收，谢谢。', file_path=None):
-    content_type = mimetypes.guess_type(file_path)
 
     now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
     sender = mail_config['sender']
     receiver = mail_config['receiver']
-    asmtpserver = mail_config['smtpserver']
-    apassword = mail_config['password']
+    smtpserver = mail_config['smtpserver']
+    smtpport = mail_config['smtpport']
+    password = mail_config['password']
     subject = '[jishux.com] ' + subject + ' - ' + now_time
     # 下面的to\cc\from最好写上，不然只在sendmail中，可以发送成功，但看不到发件人、收件人信息
     msgroot = MIMEMultipart('related')
@@ -32,6 +32,7 @@ def sendmail(subject='', message='请及时查收，谢谢。', file_path=None):
     msgroot.attach(message)
 
     if file_path:
+        content_type = mimetypes.guess_type(file_path)
         # 读取xlsx文件作为附件，open()要带参数'rb'，使文件变成二进制格式,从而使'base64'编码产生作用，否则附件打开乱码
         att = MIMEText(open(file_path, 'rb').read(), 'base64', 'utf-8')
         att['Content-Type'] = content_type[0]
@@ -41,9 +42,9 @@ def sendmail(subject='', message='请及时查收，谢谢。', file_path=None):
         msgroot.attach(att)
 
     # 阿里云邮箱的smtp服务器
-    s = smtplib.SMTP(asmtpserver)
-    s.connect(asmtpserver)
-    s.login(sender, apassword)
+    s = smtplib.SMTP_SSL(smtpserver, smtpport)
+    s.connect(smtpserver)
+    s.login(sender, password)
 
     # # 发送给多人、同时抄送给多人，发送人和抄送人放在同一个列表中
     s.sendmail(sender, receiver, msgroot.as_string())
