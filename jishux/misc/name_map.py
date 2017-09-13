@@ -120,18 +120,7 @@ common_map = {
     },
 
     'http://www.jianshu.com/': {
-        'url': {
-            'http://www.jianshu.com/c/V2CqjW': 'bigdata',
-            'http://www.jianshu.com/c/c261fa3879d6': 'frontend',
-            'http://www.jianshu.com/c/0bab91ded569': 'other',
-            'http://www.jianshu.com/c/51425dc50685': 'os',
-            'http://www.jianshu.com/c/5aac963ca52d': 'mobile',
-            'http://www.jianshu.com/c/b641f7c33fd2': 'bigdata',
-            'http://www.jianshu.com/c/257bcc1383e2': 'ai',
-            'http://www.jianshu.com/c/1395428608b4': 'ai',
-            'http://www.jianshu.com/c/1022d2287ccc': 'ai',
-            'http://www.jianshu.com/c/f971e98846c6': 'network',
-        },
+        'url': jianshu_urls,
         'cn_name': '简书',
         'posts_xpath': '//*[contains(@id,"note")]',
         'post_url_xpath': 'div/a[@class="title"]/@href',
