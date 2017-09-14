@@ -288,4 +288,4 @@ class JishuxMysqlPipeline(object):
         item_scraped_count = stats['item_scraped_count'] if 'item_scraped_count' in stats.keys() else 0
         stats = str(stats).replace('{', '{\n    ').replace(', \'', ', \n    \'').replace('}', '\n}')
         msg = '本次爬取文章数: {}篇。\n{}'.format(str(item_scraped_count), stats)
-        sendmail(subject='爬虫日志', message=stats, file_path='/var/log/scrapy.log')
+        sendmail(subject='爬虫日志', message=msg, file_path='/var/log/scrapy.log')
