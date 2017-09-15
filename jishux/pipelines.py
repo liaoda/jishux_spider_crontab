@@ -19,7 +19,7 @@ from jishux.misc.qiniu_tools import upload_file as qiniu_upload,deleteFiles
 from .misc.clean_tools import clean_tags
 from .misc.utils import get_post_type_id
 from .misc.mail_tools import sendmail
-
+from jishux.misc.baidu_push_urls_tools import baidu_push_urls
 from scrapy.utils.python import to_bytes
 
 import hashlib
@@ -218,6 +218,7 @@ class JishuxMysqlPipeline(object):
         # 创建连接git l
         self.connection = pymysql.connect(**mysql_config)
         self.cursor = self.connection.cursor()
+        self.urls = []
 
     def process_item(self, item, spider):
 
@@ -277,6 +278,9 @@ class JishuxMysqlPipeline(object):
                 # print(sql_insert_tag_list)
                 self.cursor.execute(sql_insert_tag_list)
             self.connection.commit()
+            # 本篇文章的url
+            url = 'http://www.jishux.com/plus/view-{}-1.html'.format(aid)
+            self.urls.append(url)
         except:
             deleteFiles(item['qiniu_urls'])
 
@@ -286,6 +290,8 @@ class JishuxMysqlPipeline(object):
         self.connection.close()
         stats = spider.crawler.stats.get_stats()
         item_scraped_count = stats['item_scraped_count'] if 'item_scraped_count' in stats.keys() else 0
-        stats = str(stats).replace('{', '{\n    ').replace(', \'', ', \n    \'').replace('}', '\n}')
-        msg = '本次爬取文章数: {}篇。\n{}'.format(str(item_scraped_count), stats)
+        stats_msg = str(stats).replace('{', '{\n    ').replace(', \'', ', \n    \'').replace('}', '\n}')
+        push_msg = baidu_push_urls(urls=self.urls)
+        msg = '本次爬取文章数: {}篇。{}\n{}'.format(item_scraped_count, push_msg, stats_msg)
         sendmail(subject='爬虫日志', message=msg, file_path='/var/log/scrapy.log')
+        print(msg)
