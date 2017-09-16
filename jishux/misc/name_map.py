@@ -325,9 +325,23 @@ common_map = {
             'type': 'CLICK_NEXT_BUTTON',
             'xpath': '//a[@title="Next »"]/@href',
         },
-    }
+    },
 
-    # '': {
+    'http://zhouww.com/': {
+        'url': {
+            'http://zhouww.com/archives/': 'backend',
+        },
+        'cn_name': '技术栈',
+        'posts_xpath': '//article',
+        'post_url_xpath': 'header/h2/a/@href',
+        'post_title_xpath': 'header/h2/a/span/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[@rel="next"]/@href',
+        },
+    },
+
+# '': {
     #     'url': {
     #         '': '',
     #     },
@@ -346,7 +360,6 @@ common_map = {
     #         'key4': 'value',
     #     },
     # },
-
     # '': {
     #     # [必选] url: 起始抓取地址
     #     'url': '',
