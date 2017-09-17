@@ -341,7 +341,21 @@ common_map = {
         },
     },
 
-# '': {
+    'http://mrlongx.com/': {
+        'url': {
+            'http://mrlongx.com/': 'backend',
+        },
+        'cn_name': '技术栈',
+        'posts_xpath': '//article',
+        'post_url_xpath': 'header/h2/a/@href',
+        'post_title_xpath': 'header/h2/a/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[@class="next page-numbers"]/@href',
+        },
+    },
+
+    # '': {
     #     'url': {
     #         '': '',
     #     },
