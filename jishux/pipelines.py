@@ -289,9 +289,8 @@ class JishuxMysqlPipeline(object):
         self.cursor.close()
         self.connection.close()
         stats = spider.crawler.stats.get_stats()
-        item_scraped_count = stats['item_scraped_count'] if 'item_scraped_count' in stats.keys() else 0
         stats_msg = str(stats).replace('{', '{\n    ').replace(', \'', ', \n    \'').replace('}', '\n}')
         push_msg = baidu_push_urls(urls=self.urls)
-        msg = '本次爬取文章数: {}篇\n{}\n{}'.format(item_scraped_count, push_msg, stats_msg)
+        msg = '本次爬取文章数: {}篇\n{}\n{}'.format(len(self.urls), push_msg, stats_msg)
         sendmail(subject='爬虫日志', message=msg, file_path='/var/log/scrapy.log')
         print(msg)
