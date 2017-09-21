@@ -17,3 +17,12 @@ def baidu_push_urls(urls):
             return '本次向百度推送成功：{}条'.format(response['success'])
         else:
             return '本次向百度推送失败: {}'.format(response)
+
+
+# for i in range(1, 301):
+#     urls = []
+#     for ii in range((i-1)*2000+1, i*2000+1):
+#         url = 'http://www.jishux.com/plus/view-{}-1.html'.format(ii)
+#         urls.append(url)
+#     print(urls[0], urls[-1])
+#     print(baidu_push_urls(urls))
