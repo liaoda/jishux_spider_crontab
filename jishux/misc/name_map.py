@@ -17,6 +17,18 @@ common_map = {
         'post_title_xpath': 'div[@class="rinfo"]/a/text()',
     },
 
+    'http://blog.51cto.com/': {
+        'url': blog_51cto_urls,
+        'cn_name': '51CTO博客',
+        'posts_xpath': '//div[@china="博文"]/h4/a',
+        'post_url_xpath': '@href',
+        'post_title_xpath': 'text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[text()="next >"]/@href',
+        },
+    },
+
     'https://www.2cto.com/': {
         'url': cto2_urls,
         'cn_name': '红黑联盟',
