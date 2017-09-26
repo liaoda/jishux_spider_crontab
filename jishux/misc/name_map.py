@@ -17,6 +17,18 @@ common_map = {
         'post_title_xpath': 'div[@class="rinfo"]/a/text()',
     },
 
+    # 'http://blog.51cto.com/': {
+    #     'url': blog_51cto_urls,
+    #     'cn_name': '51CTO博客',
+    #     'posts_xpath': '//div[@china="博文"]/h4/a',
+    #     'post_url_xpath': '@href',
+    #     'post_title_xpath': 'text()',
+    #     'next_page': {
+    #         'type': 'CLICK_NEXT_BUTTON',
+    #         'xpath': '//a[text()="next >"]/@href',
+    #     },
+    # },
+
     'https://www.2cto.com/': {
         'url': cto2_urls,
         'cn_name': '红黑联盟',
@@ -325,9 +337,69 @@ common_map = {
             'type': 'CLICK_NEXT_BUTTON',
             'xpath': '//a[@title="Next »"]/@href',
         },
-    }
+    },
 
-    # '': {
+    'http://zhouww.com/': {
+        'url': {
+            'http://zhouww.com/archives/': 'backend',
+        },
+        'cn_name': '技术栈',
+        'posts_xpath': '//article',
+        'post_url_xpath': 'header/h2/a/@href',
+        'post_title_xpath': 'header/h2/a/span/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[@rel="next"]/@href',
+        },
+    },
+
+    'http://mrlongx.com/': {
+        'url': {
+            'http://mrlongx.com/': 'backend',
+        },
+        'cn_name': '技术栈',
+        'posts_xpath': '//article',
+        'post_url_xpath': 'header/h2/a/@href',
+        'post_title_xpath': 'header/h2/a/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[@class="next page-numbers"]/@href',
+        },
+    },
+
+    # 'https://www.ibm.com/': {
+    #     'url': {
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=AIX+and+Unix&search_by=&topic_by=%E6%89%80%E6%9C%89+AIX+and+Unix+%E4%B8%BB%E9%A2%98&type_by=%E6%89%80%E6%9C%89+AIX+and+Unix+%E7%A7%8D%E7%B1%BB%E5%9E%8B&ibm-search=%E6%90%9C%E7%B4%A2': 'os',
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=Big+data+and+analytics&search_by=&topic_by=%E6%89%80%E6%9C%89+Big+data+and+analytics+%E4%B8%BB%E9%A2%98&type_by=%E6%89%80%E6%9C%89+Big+data+and+analytics+%E7%A7%8D%E7%B1%BB%E5%9E%8B&ibm-search=%E6%90%9C%E7%B4%A2': 'bigdata',
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=Cloud+computing&search_by=&product_by=%E6%89%80%E6%9C%89+Cloud+computing+%E4%B8%AA%E4%BA%A7%E5%93%81&topic_by=%E6%89%80%E6%9C%89+Cloud+computing+%E4%B8%BB%E9%A2%98&type_by=%E6%89%80%E6%9C%89+Cloud+computing+%E7%A7%8D%E7%B1%BB%E5%9E%8B&ibm-search=%E6%90%9C%E7%B4%A2': 'bigdata',
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=Cognitive+computing&search_by=&product_by=-1&topic_by=-1&type_by=%E6%89%80%E6%9C%89%E7%B1%BB%E5%88%AB&ibm-search=%E6%90%9C%E7%B4%A2': 'bigdata',
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=DevOps&search_by=&topic_by=%E6%89%80%E6%9C%89+DevOps+%E4%B8%BB%E9%A2%98&type_by=%E6%89%80%E6%9C%89+DevOps+%E7%A7%8D%E7%B1%BB%E5%9E%8B&ibm-search=%E6%90%9C%E7%B4%A2': 'backend',
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=IBM+i&search_by=&topic_by=%E6%89%80%E6%9C%89+IBM+i+%E4%B8%BB%E9%A2%98&type_by=%E6%89%80%E6%9C%89+IBM+i+%E7%A7%8D%E7%B1%BB%E5%9E%8B&ibm-search=%E6%90%9C%E7%B4%A2': 'db',
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=Information+management&search_by=&product_by=%E6%89%80%E6%9C%89+Information+management+%E4%B8%AA%E4%BA%A7%E5%93%81&topic_by=%E6%89%80%E6%9C%89+Information+management+%E4%B8%BB%E9%A2%98&type_by=%E6%89%80%E6%9C%89+Information+management+%E7%A7%8D%E7%B1%BB%E5%9E%8B&ibm-search=%E6%90%9C%E7%B4%A2': 'db',
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=Internet+of+Things&search_by=&type_by=%E6%89%80%E6%9C%89+Internet+of+Things+%E7%A7%8D%E7%B1%BB%E5%9E%8B&ibm-search=%E6%90%9C%E7%B4%A2': 'other',
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=Java+technology&search_by=&type_by=%E6%89%80%E6%9C%89%E7%B1%BB%E5%88%AB&ibm-search=%E6%90%9C%E7%B4%A2': 'backend',
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=Linux&search_by=&topic_by=%E6%89%80%E6%9C%89+Linux+%E4%B8%BB%E9%A2%98&type_by=%E6%89%80%E6%9C%89+Linux+%E7%A7%8D%E7%B1%BB%E5%9E%8B&ibm-search=%E6%90%9C%E7%B4%A2': 'os',
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=Lotus&search_by=&topic_by=%E6%89%80%E6%9C%89+Lotus+%E4%B8%BB%E9%A2%98&type_by=%E6%89%80%E6%9C%89+Lotus+%E7%A7%8D%E7%B1%BB%E5%9E%8B&ibm-search=%E6%90%9C%E7%B4%A2': 'backend',
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=Middleware&search_by=&topic_by=-1&type_by=%E6%89%80%E6%9C%89%E7%B1%BB%E5%88%AB&ibm-search=%E6%90%9C%E7%B4%A2': 'network',
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=Mobile+development&search_by=&type_by=%E6%89%80%E6%9C%89%E7%B1%BB%E5%88%AB&ibm-search=%E6%90%9C%E7%B4%A2': 'mobile',
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=Open+source&search_by=&topic_by=%E6%89%80%E6%9C%89+Open+source+%E4%B8%BB%E9%A2%98&type_by=%E6%89%80%E6%9C%89+Open+source+%E7%A7%8D%E7%B1%BB%E5%9E%8B&ibm-search=%E6%90%9C%E7%B4%A2': 'backend',
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=Rational&search_by=&topic_by=-1&type_by=%E6%89%80%E6%9C%89%E7%B1%BB%E5%88%AB&ibm-search=%E6%90%9C%E7%B4%A2': 'backend',
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=SOA+and+web+services&search_by=&topic_by=%E6%89%80%E6%9C%89+SOA+and+web+services+%E4%B8%BB%E9%A2%98&type_by=%E6%89%80%E6%9C%89+SOA+and+web+services+%E7%A7%8D%E7%B1%BB%E5%9E%8B&ibm-search=%E6%90%9C%E7%B4%A2': 'frontend',
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=Web+development&search_by=&topic_by=-1&type_by=%E6%89%80%E6%9C%89%E7%B1%BB%E5%88%AB&ibm-search=%E6%90%9C%E7%B4%A2': 'frontend',
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=WebSphere&search_by=&topic_by=-1&type_by=%E6%89%80%E6%9C%89%E7%B1%BB%E5%88%AB&ibm-search=%E6%90%9C%E7%B4%A2': 'backend',
+    #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=XML&search_by=&topic_by=%E6%89%80%E6%9C%89+XML+%E4%B8%BB%E9%A2%98&type_by=%E6%89%80%E6%9C%89+XML+%E7%A7%8D%E7%B1%BB%E5%9E%8B&ibm-search=%E6%90%9C%E7%B4%A2': 'frontend',
+    #     },
+    #     'cn_name': 'IBM',
+    #     'posts_xpath': '//tbody/tr/td[1]',
+    #     'post_url_xpath': 'a/@href',
+    #     'post_title_xpath': 'a/strong/text()',
+    #     'next_page': {
+    #         'type': 'CLICK_NEXT_BUTTON',
+    #         'xpath': '//a[text()="下一页"][1]/@href',
+    #     },
+    # },
+
+    #  '': {
     #     'url': {
     #         '': '',
     #     },

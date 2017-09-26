@@ -240,7 +240,7 @@ class JishuxMysqlPipeline(object):
             crawl_time = str(item['crawl_time'])
             sql_insert_meta = 'INSERT INTO dede_archives (typeid, sortrank, flag, ismake, channel, title, writer, source, pubdate, senddate, mid, keywords, description, dutyadmin,voteid,litpic,click) VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s","%s","%s","%s")' % (
                 type_id, crawl_time, article_type, -1, 1, title, author, source, crawl_time, crawl_time,
-                1, keywords, description, 1, 0, litpic, random.randint(5000, 10000))
+                1, keywords, description, 1, 0, litpic, 0)
             self.cursor.execute(sql_insert_meta)
             sql_last_id = 'SELECT LAST_INSERT_ID()'
             self.cursor.execute(sql_last_id)

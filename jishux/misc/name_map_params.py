@@ -584,3 +584,23 @@ jianshu_urls = {
     'http://www.jianshu.com/c/a1264b2b9aa3': 'db',
     'http://www.jianshu.com/c/9566490c9d81': 'db',
 }
+
+blog_51cto_urls = {
+    'http://blog.51cto.com/original/28': 'bigdata',
+    'http://blog.51cto.com/original/29': 'bigdata',
+    'http://blog.51cto.com/original/27': 'os',
+    'http://blog.51cto.com/original/35': 'network',
+    'http://blog.51cto.com/original/40': 'network',
+    'http://blog.51cto.com/original/34': 'db',
+    'http://blog.51cto.com/original/30': 'frontend',
+    'http://blog.51cto.com/original/31': 'backend',
+    'http://blog.51cto.com/original/37': 'mobile',
+    'http://blog.51cto.com/original/36': 'ai',
+    'http://blog.51cto.com/original/32': 'other',
+    'http://blog.51cto.com/original/33': 'other',
+    'http://blog.51cto.com/original/38': 'other',
+    'http://blog.51cto.com/original/39': 'other',
+    'http://blog.51cto.com/original/41': 'other',
+    'http://blog.51cto.com/original/42': 'other',
+    'http://blog.51cto.com/original/43': 'other',
+}
