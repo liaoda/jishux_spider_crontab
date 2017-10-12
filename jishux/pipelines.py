@@ -25,6 +25,7 @@ from scrapy.utils.python import to_bytes
 import hashlib
 import os
 import os.path
+import html
 
 logger = logging.getLogger(__name__)
 
@@ -230,8 +231,10 @@ class JishuxMysqlPipeline(object):
         try:
             keywords = item['keywords']
             description = item['description'].replace(r'\"', r'\\"').replace('"', r'\"') if item['description'] else ''
+            description = html.escape(description)
             content = item['content_html'].replace(r'\"', r'\\"').replace('"', r'\"') if item['content_html'] else ''
             title = item['post_title'].replace(r'\"', r'\\"').replace('"', r'\"') if item['post_title'] else ''
+            title = html.escape(title)
             source = item['cn_name']
             article_type = 'p' if len(item['image_urls']) > 0 else ''
             author = '技术栈' if not item['author'] else item['author']
