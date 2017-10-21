@@ -367,6 +367,20 @@ common_map = {
         },
     },
 
+    'https://www.ithome.com/list/': {
+        'url': {
+            'https://www.ithome.com/list/': 'news',
+        },
+        'cn_name': 'IT之家',
+        'posts_xpath': '//div[@class="post_list"]/ul/li[not(@class="hr")]/a',
+        'post_url_xpath': '@href',
+        'post_title_xpath': 'text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//div/a[text()=">"]/@href',
+        },
+    }
+
     # 'https://www.ibm.com/': {
     #     'url': {
     #         'https://www.ibm.com/developerworks/cn/views/web/libraryview.jsp?sort_by=&show_abstract=false&show_all=&search_flag=&contentarea_by=AIX+and+Unix&search_by=&topic_by=%E6%89%80%E6%9C%89+AIX+and+Unix+%E4%B8%BB%E9%A2%98&type_by=%E6%89%80%E6%9C%89+AIX+and+Unix+%E7%A7%8D%E7%B1%BB%E5%9E%8B&ibm-search=%E6%90%9C%E7%B4%A2': 'os',
