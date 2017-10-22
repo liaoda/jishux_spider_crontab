@@ -30,7 +30,7 @@ def clean_tags(item):
     content_html = re.sub(p2, '><', content_html)
     # TODO: 代码标签统一处理
     # 把img标签里面的懒加载的data-src，换成src
-    content_html = content_html.replace('data-src=', 'src=')
+    content_html = content_html.replace(' src=', ' data-src=').replace(' data-original=', ' data-src=')
     # 赋值
     item['content_html'] = content_html
     return item
