@@ -374,7 +374,7 @@ common_map = {
         'cn_name': 'IT之家',
         'posts_xpath': '//div[@class="post_list"]/ul/li[not(@class="hr")]/a',
         'post_url_xpath': '@href',
-        'post_title_xpath': 'text()',
+        'post_title_xpath': 'text()|font/text()',
         'next_page': {
             'type': 'CLICK_NEXT_BUTTON',
             'xpath': '//div/a[text()=">"]/@href',
