@@ -3,6 +3,7 @@
 # Created by yaochao on 2017/8/29
 import re
 from urllib.parse import urlsplit
+from scrapy import Selector
 
 
 def clean_tags(item):
@@ -30,6 +31,12 @@ def clean_tags(item):
     content_html = re.sub(p2, '><', content_html)
     # TODO: 代码标签统一处理
     # 把img标签里面的懒加载的data-src，换成src
+    content_selector =  Selector(text=item['content_html'])
+    data_src = content_selector.xpath('//img[1]/@data-src').extract()
+    data_original = content_selector.xpath('//img[1]/@data-original').extract()
+    src = content_selector.xpath('//img[1]/@src').extract()
+    if (data_original and src) or (data_src and src):
+        content_html = content_html.replace(' src=', ' src2=')
     content_html = content_html.replace(' src=', ' data-src=').replace(' data-original=', ' data-src=')
     # 赋值
     item['content_html'] = content_html
