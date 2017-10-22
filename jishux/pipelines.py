@@ -65,7 +65,7 @@ class JISHUXFilePipeline(FilesPipeline):
     '''
 
     def get_media_requests(self, item, info):
-        item['image_urls'] = Selector(text=item['content_html']).xpath('//img/@src').extract()
+        item['image_urls'] = Selector(text=item['content_html']).xpath('//img/@data-src').extract()
         if item['image_urls']:
             for image_url in item['image_urls']:
                 if image_url.startswith('data:image'):
