@@ -297,5 +297,5 @@ class JishuxMysqlPipeline(object):
         stats_msg = str(stats).replace('{', '{\n    ').replace(', \'', ', \n    \'').replace('}', '\n}')
         push_msg = baidu_push_urls(urls=self.urls)
         msg = '本次爬取文章数: {}篇\n{}\n{}'.format(len(self.urls), push_msg, stats_msg)
-        sendmail(subject='爬虫日志', message=msg, file_path='/var/log/scrapy.log')
+        sendmail(subject='爬取{}篇'.format(len(self.urls)), message=msg, file_path='/var/log/scrapy.log')
         print(msg)
