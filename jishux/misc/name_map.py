@@ -367,19 +367,19 @@ common_map = {
         },
     },
 
-    'http://www.36dsj.com/': {
-        'url': {
-            'http://www.36dsj.com/': 'bigdata',
-        },
-        'cn_name': '36大数据',
-        'posts_xpath': '//article[@class="excerpt"]',
-        'post_url_xpath': 'h2/a/@href',
-        'post_title_xpath': 'h2/a/text()',
-        'next_page': {
-            'type': 'CLICK_NEXT_BUTTON',
-            'xpath': '//*[text()="下一页"]/@href',
-        },
-    },
+    # 'http://www.36dsj.com/': {
+    #     'url': {
+    #         'http://www.36dsj.com/': 'bigdata',
+    #     },
+    #     'cn_name': '36大数据',
+    #     'posts_xpath': '//article[@class="excerpt"]',
+    #     'post_url_xpath': 'h2/a/@href',
+    #     'post_title_xpath': 'h2/a/text()',
+    #     'next_page': {
+    #         'type': 'CLICK_NEXT_BUTTON',
+    #         'xpath': '//*[text()="下一页"]/@href',
+    #     },
+    # },
 
 
     # 'https://www.ibm.com/': {
