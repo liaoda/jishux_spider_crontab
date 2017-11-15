@@ -367,19 +367,71 @@ common_map = {
         },
     },
 
-    # 'http://www.36dsj.com/': {
-    #     'url': {
-    #         'http://www.36dsj.com/': 'bigdata',
-    #     },
-    #     'cn_name': '36大数据',
-    #     'posts_xpath': '//article[@class="excerpt"]',
-    #     'post_url_xpath': 'h2/a/@href',
-    #     'post_title_xpath': 'h2/a/text()',
-    #     'next_page': {
-    #         'type': 'CLICK_NEXT_BUTTON',
-    #         'xpath': '//*[text()="下一页"]/@href',
-    #     },
-    # },
+    'http://web.jobbole.com/': {
+        'url': {
+            'http://web.jobbole.com/all-posts/': 'frontend',
+        },
+        'cn_name': 'jobbole_web',
+        'posts_xpath': '//div[@class="post floated-thumb"]/div',
+        'post_url_xpath': 'a/@href',
+        'post_title_xpath': 'a/@title',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[text()="下一页 »"]/@href',
+        },
+    },
+    'http://python.jobbole.com/': {
+        'url': {
+            'http://python.jobbole.com/all-posts/': 'backend',
+        },
+        'cn_name': 'jobbole_python',
+        'posts_xpath': '//div[@class="post floated-thumb"]/div',
+        'post_url_xpath': 'a/@href',
+        'post_title_xpath': 'a/@title',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[text()="下一页 »"]/@href',
+        },
+    },
+    'http://www.importnew.com/': {
+        'url': {
+            'http://www.importnew.com/all-posts': 'backend',
+        },
+        'cn_name': 'importnew',
+        'posts_xpath': '//div[@class="post floated-thumb"]/div',
+        'post_url_xpath': 'a/@href',
+        'post_title_xpath': 'a/@title',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[text()="下一页 »"]/@href',
+        },
+    },
+    'http://android.jobbole.com/': {
+        'url': {
+            'http://android.jobbole.com/all-posts/': 'mobile',
+        },
+        'cn_name': 'jobbole_android',
+        'posts_xpath': '//div[@class="post floated-thumb"]/div',
+        'post_url_xpath': 'a/@href',
+        'post_title_xpath': 'a/@title',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[text()="下一页 »"]/@href',
+        },
+    },
+    'http://ios.jobbole.com/': {
+        'url': {
+            'http://ios.jobbole.com/all-posts/': 'mobile',
+        },
+        'cn_name': 'jobbole_ios',
+        'posts_xpath': '//div[@class="post floated-thumb"]/div',
+        'post_url_xpath': 'a/@href',
+        'post_title_xpath': 'a/@title',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[text()="下一页 »"]/@href',
+        },
+    },
 
 
     # 'https://www.ibm.com/': {
