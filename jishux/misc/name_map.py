@@ -372,7 +372,7 @@ common_map = {
             'http://web.jobbole.com/all-posts/': 'frontend',
         },
         'cn_name': 'jobbole_web',
-        'posts_xpath': '//div[@class="post floated-thumb"]/div',
+        'posts_xpath': '//div[@class="post floated-thumb"]/div[@class="post-thumb"]',
         'post_url_xpath': 'a/@href',
         'post_title_xpath': 'a/@title',
         'next_page': {
@@ -385,7 +385,7 @@ common_map = {
             'http://python.jobbole.com/all-posts/': 'backend',
         },
         'cn_name': 'jobbole_python',
-        'posts_xpath': '//div[@class="post floated-thumb"]/div',
+        'posts_xpath': '//div[@class="post floated-thumb"]/div[@class="post-thumb"]',
         'post_url_xpath': 'a/@href',
         'post_title_xpath': 'a/@title',
         'next_page': {
@@ -398,7 +398,7 @@ common_map = {
             'http://www.importnew.com/all-posts': 'backend',
         },
         'cn_name': 'importnew',
-        'posts_xpath': '//div[@class="post floated-thumb"]/div',
+        'posts_xpath': '//div[@class="post floated-thumb"]/div[@class="post-thumb"]',
         'post_url_xpath': 'a/@href',
         'post_title_xpath': 'a/@title',
         'next_page': {
@@ -411,7 +411,7 @@ common_map = {
             'http://android.jobbole.com/all-posts/': 'mobile',
         },
         'cn_name': 'jobbole_android',
-        'posts_xpath': '//div[@class="post floated-thumb"]/div',
+        'posts_xpath': '//div[@class="post floated-thumb"]/div[@class="post-thumb"]',
         'post_url_xpath': 'a/@href',
         'post_title_xpath': 'a/@title',
         'next_page': {
@@ -424,7 +424,7 @@ common_map = {
             'http://ios.jobbole.com/all-posts/': 'mobile',
         },
         'cn_name': 'jobbole_ios',
-        'posts_xpath': '//div[@class="post floated-thumb"]/div',
+        'posts_xpath': '//div[@class="post floated-thumb"]/div[@class="post-thumb"]',
         'post_url_xpath': 'a/@href',
         'post_title_xpath': 'a/@title',
         'next_page': {
