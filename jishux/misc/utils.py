@@ -4,6 +4,7 @@
 
 import hashlib
 from urllib.parse import urlsplit
+import random
 
 from .all_secret_set import start_urls_config
 from .name_map import common_map
@@ -82,3 +83,22 @@ def get_cookies(str_cookie):
         cookie[arrs[0]] = arrs[1]
 
     return cookie
+
+
+def get_updated_count(connection, cursor):
+    '''
+    获取当天更新文档数目，文档总数，评论总数
+    :return:
+    '''
+    sql = 'SELECT count(id) AS c FROM dede_archives WHERE to_days(created_at) = to_days(now())'
+    cursor.execute(sql)
+    day_updated = cursor.fetchone()
+    day_updated = day_updated['c'] if day_updated else 0
+    sql = 'SELECT count(id) AS total FROM dede_arctiny'
+    cursor.execute(sql)
+    total = cursor.fetchone()
+    total = total['total'] if total else 0
+    comments = int(day_updated / 4 + random.randrange(3))
+    sql = 'UPDATE dede_updated_count SET day_updated_count = "{}", total_count = "{}", comment_count = "{}" WHERE id = 1'.format(day_updated, total, comments)
+    cursor.execute(sql)
+    connection.commit()
