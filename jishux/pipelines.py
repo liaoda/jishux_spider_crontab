@@ -18,6 +18,7 @@ from jishux.misc.all_secret_set import mysql_config
 from jishux.misc.qiniu_tools import upload_file as qiniu_upload,deleteFiles
 from .misc.clean_tools import clean_tags
 from .misc.utils import get_post_type_id
+from .misc.utils import get_updated_count
 from .misc.mail_tools import sendmail
 from jishux.misc.baidu_push_urls_tools import baidu_push_urls
 from scrapy.utils.python import to_bytes
@@ -291,11 +292,14 @@ class JishuxMysqlPipeline(object):
 
 
     def close_spider(self, spider):
-        self.cursor.close()
-        self.connection.close()
         stats = spider.crawler.stats.get_stats()
         stats_msg = str(stats).replace('{', '{\n    ').replace(', \'', ', \n    \'').replace('}', '\n}')
         push_msg = baidu_push_urls(urls=self.urls)
         msg = '本次爬取文章数: {}篇\n{}\n{}'.format(len(self.urls), push_msg, stats_msg)
         sendmail(subject='爬取{}篇'.format(len(self.urls)), message=msg, file_path='/var/log/scrapy.log')
-        print(msg)
+        # 更新统计数据包括：当日更新文档数量，文章总数量，评论总数量
+        get_updated_count(connection=self.connection, cursor=self.cursor)
+        # 关闭数据库链接
+        self.cursor.close()
+        self.connection.close()
+
