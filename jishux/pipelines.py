@@ -72,7 +72,7 @@ class JISHUXFilePipeline(FilesPipeline):
                 if image_url.startswith('data:image'):
                     continue
                 image_url = urljoin(item['post_url'], image_url)
-                yield Request(image_url, headers={'Referer': "{0.scheme}://{0.netloc}/".format(urlsplit(image_url))})
+                yield Request(image_url, headers={'Referer': item['post_url']})
 
     def media_downloaded(self, response, request, info):
         referer = referer_str(request)
