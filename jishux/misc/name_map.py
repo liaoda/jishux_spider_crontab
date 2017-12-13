@@ -432,6 +432,19 @@ common_map = {
             'xpath': '//a[text()="下一页 »"]/@href',
         },
     },
+    'http://www.hankcs.com/': {
+        'url': {
+            'http://www.hankcs.com/': 'ai',
+        },
+        'cn_name': '码农场',
+        'posts_xpath': '//article',
+        'post_url_xpath': 'header/h2/a/@href',
+        'post_title_xpath': 'header/h2/a/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//li[@class="next-page"]/a/@href',
+        },
+    },
 
 
     # 'https://www.ibm.com/': {
