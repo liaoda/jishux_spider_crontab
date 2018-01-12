@@ -445,6 +445,19 @@ common_map = {
             'xpath': '//li[@class="next-page"]/a/@href',
         },
     },
+    'https://learnblockchain.cn/': {
+        'url': {
+            'https://learnblockchain.cn/': 'ai',
+        },
+        'cn_name': '区块链',
+        'posts_xpath': '//a[@class="post-title-link"]',
+        'post_url_xpath': '@href',
+        'post_title_xpath': 'text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//a[@class="extend next"]/@href',
+        },
+    },
 
 
     # 'https://www.ibm.com/': {
