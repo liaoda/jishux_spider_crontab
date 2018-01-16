@@ -458,6 +458,19 @@ common_map = {
             'xpath': '//a[@class="extend next"]/@href',
         },
     },
+    'https://cuiqingcai.com/': {
+        'url': {
+            'https://cuiqingcai.com/': 'ai',
+        },
+        'cn_name': '静觅',
+        'posts_xpath': '//article',
+        'post_url_xpath': 'header/h2/a/@href',
+        'post_title_xpath': 'header/h2/a/text()',
+        'next_page': {
+            'type': 'CLICK_NEXT_BUTTON',
+            'xpath': '//*[@class="next-page"]/a/@href',
+        },
+    },
 
 
     # 'https://www.ibm.com/': {
