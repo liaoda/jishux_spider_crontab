@@ -10,6 +10,8 @@ import random
 from scrapy import signals
 
 from .misc.user_agents import user_agent_list
+from jishux.misc.all_secret_set import setProxyAuth
+
 
 
 class JishuxSpiderMiddleware(object):
@@ -67,4 +69,9 @@ class JishuxDownloaderMiddleware(object):
 
     def process_request(self, request, spider):
         request.headers['User-Agent'] = random.choice(user_agent_list)
-        # print(request.headers)
+        if 'Accept' in request.headers:
+            accept = request.headers['Accept'].decode('utf-8')
+            if accept and accept.find('text/html') != -1:
+                setProxyAuth(request)
+        else:
+            print("jishux_header:", request.headers)
