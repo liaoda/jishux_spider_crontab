@@ -9,8 +9,8 @@ import random
 
 from scrapy import signals
 
-from .misc.user_agents import user_agent_list
 from jishux.misc.all_secret_set import setProxyAuth
+import user_agent
 
 
 
